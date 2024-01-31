@@ -1,5 +1,7 @@
-huggingface_hub[cli,torch]
 hf_transfer
+huggingface_hub[cli,torch]
+pandas
+pyarrow
 torch
 torchvision
 torchaudio
