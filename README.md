@@ -22,10 +22,11 @@ Codes for dataset construction and processing, and model training and tuning of 
 
 
 ```sh
-# pip install huggingface_hub
 # For PRC users, hf-mirror is recommended
 HF_ENDPOINT=https://hf-mirror.com HF_HUB_ENABLE_HF_TRANSFER=1 huggingface-cli download yuntian-deng/im2latex-100k --include "*.parquet" --repo-type dataset --local-dir ./datasets
 ```
+
+If above command failed, please download the dataset mannually.
 
 
 ## Architecture and models
@@ -43,12 +44,16 @@ See: [Implementation Roadmap  of EasyOCR](https://github.com/JaidedAI/EasyOCR/bl
 > **Data synthesis** is based on [TextRecognitionDataGenerator](https://github.com/Belval/TextRecognitionDataGenerator). (Thanks [@Belval](https://github.com/Belval))
 
 
+See also: [deep-text-recognition-benchmark](https://github.com/clovaai/deep-text-recognition-benchmark?tab=readme-ov-file#what-is-wrong-with-scene-text-recognition-model-comparisons-dataset-and-model-analysis) of [Page 6](https://arxiv.org/pdf/1904.01906.pdf)
+
+![](https://github.com/clovaai/deep-text-recognition-benchmark/raw/master/figures/trade-off.png)
+
 ### Nots from PaddleOCR
 
 See:
 - [FAQ - PaddleOCR](https://github.com/PaddlePaddle/PaddleOCR/blob/release/2.7/doc/doc_ch/FAQ.md)
+- [前沿算法与模型 - PaddleOCR](https://github.com/PaddlePaddle/PaddleOCR/blob/release/2.7/doc/doc_ch/algorithm_overview.md)
 - [Recognition - PaddleOCR](https://github.com/PaddlePaddle/PaddleOCR/blob/release/2.7/doc/doc_ch/recognition.md)
-
 - [模型库概览 - PaddleClas](https://github.com/PaddlePaddle/PaddleClas/tree/release/2.5/docs/zh_CN/models/ImageNet1k)
 
 
@@ -123,10 +128,19 @@ See:
 > 
 > #### Q:  如何根据不同的硬件平台选用不同的backbone？
 > 
-> **A**：在不同的硬件上，不同的backbone的速度优势不同，可以根据不同平台的速度-精度图来确定backbone，这里可以参考[**PaddleClas模型速度-精度图**](https://github.com/PaddlePaddle/PaddleClas/tree/release/2.5/docs/zh_CN/models/ImageNet1k)。
-> 
+> **A**：在不同的硬件上，不同的backbone的速度优势不同，可以根据不同平台的速度-精度图来确定backbone，这里可以参考[**PaddleClas模型速度-精度图**](https://github.com/PaddlePaddle/PaddleClas/tree/release/2.5/docs/zh_CN/models/ImageNet1k#Overview)。
 > 
 
+
+See also:
+
+#### Performance of the server models
+
+![](https://github.com/PaddlePaddle/PaddleClas/raw/release/2.5/docs/images/models/V100_benchmark/v100.fp32.bs1.main_fps_top1_s.png)
+
+#### Performance of the VisionTransformer models
+
+![](https://github.com/PaddlePaddle/PaddleClas/blob/release/2.5/docs/images/models/V100_benchmark/v100.fp32.bs1.visiontransformer.png)
 
 ## References
 
@@ -142,6 +156,6 @@ See:
 - PP-OCR系列模型列表（V4，2023年8月1日更新）
     - https://github.com/PaddlePaddle/PaddleOCR/blob/release/2.7/doc/doc_ch/models_list.md
 - FAQ of PaddleOCR
-    https://github.com/PaddlePaddle/PaddleOCR/blob/release/2.7/doc/doc_ch/FAQ.md
+    - https://github.com/PaddlePaddle/PaddleOCR/blob/release/2.7/doc/doc_ch/FAQ.md
 - References of EasyOCR
     - https://github.com/JaidedAI/EasyOCR?tab=readme-ov-file#acknowledgement-and-references
