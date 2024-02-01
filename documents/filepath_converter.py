@@ -1,3 +1,4 @@
+import hashlib
 import platform
 from pathlib import Path
 
@@ -77,6 +78,21 @@ class FilepathConverter:
 
         return self.filepath
 
+    def hash(self, input_string, parent=None):
+        hash_obj = hashlib.sha1(input_string.encode())
+        hash_hex = hash_obj.hexdigest()
+        filename = self.append_extension(hash_hex)
+        parent = parent or self.parent
+
+        if parent:
+            filepath = self.output_root / parent / filename
+        else:
+            filepath = self.output_root / filename
+
+        self.filename = filename
+        self.filepath = filepath
+        return self.filepath
+
 
 class LatexToFilepathConverter(FilepathConverter):
     def __init__(self, root=None, parent=None):
@@ -99,3 +115,4 @@ if __name__ == "__main__":
     latex_str = "sqrt(sin(x)+1)"
     converter = LatexImageToFilepathConverter()
     print(converter.convert(latex_str))
+    print(converter.hash(latex_str))
