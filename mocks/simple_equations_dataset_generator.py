@@ -2,8 +2,11 @@ import random
 import re
 import string
 import sympy as sp
+from tqdm import tqdm
+import pandas as pd
 
 from documents.filepath_converter import FilepathConverter
+from documents.latex_rasterizer import LatexRasterizer
 from utils.logger import logger
 
 
@@ -13,6 +16,15 @@ class SimpleEquationsDatasetGenerator:
         self.filepath_converter = FilepathConverter(
             root="datasets", parent=self.dataset_name, ext=".txt"
         )
+        self.latex_rasterizer = LatexRasterizer(
+            root="datasets", parent=self.dataset_name
+        )
+        self.ops = [sp.Add, sp.Mul, sp.Pow, sp.sqrt, sp.sin, sp.cos, sp.exp]
+        self.re_sub_patterns = [
+            [r"(?<=\w)\\", r" \\"],
+            [r"([^\s\w\\])", r" \1 "],
+            [r"\s+", " "],
+        ]
 
     def random_symbol(self, max_len=2):
         # generate a symbol of [a-zA-Z0-9]+, with length <= max_len
@@ -25,31 +37,37 @@ class SimpleEquationsDatasetGenerator:
         symbol = sp.symbols(symbol_str)
         return symbol
 
+    def random_equation(self, ops_num_range=[2, 10]):
+        # choose random number of ops and symbols, then combine all to single equation
+        ops_num = random.randint(*ops_num_range)
+        equation = self.random_symbol()
+        for _ in range(ops_num):
+            op = random.choice(self.ops)
+            symbol = self.random_symbol()
+            try:
+                equation = op(equation, symbol)
+            except:
+                equation = op(equation)
+        # convert equation to string, also add whitespaces among symbols and operators
+        logger.note(equation)
+        latex_str = sp.latex(equation, mul_symbol="times")
+        for pattern, replaced in self.re_sub_patterns:
+            latex_str = re.sub(pattern, replaced, latex_str)
+        filepath = self.filepath_converter.hash(latex_str)
+        return {
+            "hash": filepath.stem,
+            "equation": repr(equation),
+            "latex": latex_str,
+        }
+
     def generate(self):
-        ops = [sp.Add, sp.Mul, sp.Pow, sp.sqrt, sp.sin, sp.cos]
-        equations_num = 20
-        for i in range(equations_num):
+        # self.train_df = pd.DataFrame()
+        # self.train_df.columns = ["hash", "equation", "latex", "image"]
+        equations_num = 1
+        for i in tqdm(range(equations_num)):
             random.seed(i)
-            # choose random number of ops and symbols, then combine all to single equation
-            num_ops = random.randint(2, 5)
-            equation = self.random_symbol()
-            for _ in range(num_ops):
-                op = random.choice(ops)
-                symbol = self.random_symbol()
-                try:
-                    equation = op(equation, symbol)
-                except:
-                    equation = op(equation)
-            # convert equation to string, also add whitespaces among symbols and operators
-            logger.note(equation)
-            latex_str = sp.latex(equation, mul_symbol="times")
-            logger.file(latex_str)
-            latex_str = re.sub(r"(?<=\w)\\", r" \\", latex_str)
-            latex_str = re.sub(r"([^\s\w\\])", r" \1 ", latex_str)
-            latex_str = re.sub(r"\s+", " ", latex_str)
-            logger.success(latex_str)
-            filepath = self.filepath_converter.hash(latex_str)
-            print(filepath.name)
+            item = self.random_equation()
+            self.latex_rasterizer.rasterize(item["latex"])
 
 
 if __name__ == "__main__":

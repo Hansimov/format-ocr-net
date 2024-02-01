@@ -6,13 +6,14 @@ from utils.logger import logger, shell_cmd
 
 
 class LatexRasterizer:
-    def __init__(self):
-        self.dataset_name = "latex"
+    def __init__(self, root=None, parent=None):
+        parent = parent or "latex"
+        root = root or "datasets"
         self.tex_path_converter = FilepathConverter(
-            root="datasets", parent=self.dataset_name, ext=".tex"
+            root=root, parent=parent, ext=".tex"
         )
         self.image_path_converter = FilepathConverter(
-            root="datasets", parent=self.dataset_name, ext=".png"
+            root=root, parent=parent, ext=".png"
         )
 
     def str_to_tex(self, str):
@@ -56,6 +57,7 @@ class LatexRasterizer:
         shell_cmd(latex_command_str)
         shell_cmd(dvipng_command_str)
         self.remove_temp_files(tex_filepath)
+        return image_filepath
 
 
 if __name__ == "__main__":
