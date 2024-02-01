@@ -33,11 +33,12 @@ WINDOWS_INVALID_FILE_PATH_NAMES = [
 
 
 class FilepathConverter:
-    def __init__(self, root=None, parent=None, ext=None, accept_exts=[]):
-        self.output_root = root or Path(__file__).parents[1] / "datasets"
+    def __init__(self, root=None, parent=None, ext=None, allowed_exts=[]):
+        root = root or "files"
+        self.output_root = Path(__file__).parents[1] / root
         self.parent = parent
         self.ext = ext
-        self.accept_exts = accept_exts or [ext]
+        self.allowed_exts = allowed_exts or [ext]
 
     def preprocess(self, input_string):
         return input_string
@@ -57,7 +58,7 @@ class FilepathConverter:
 
     def append_extension(self, filename):
         filename_ext = "." + filename.split(".")[-1]
-        if filename_ext.lower() not in self.accept_exts:
+        if filename_ext.lower() not in self.allowed_exts:
             filename += self.ext
         return filename
 
@@ -92,18 +93,6 @@ class FilepathConverter:
         self.filename = filename
         self.filepath = filepath
         return self.filepath
-
-
-class LatexToFilepathConverter(FilepathConverter):
-    def __init__(self, root=None, parent=None):
-        super().__init__(root=root, parent=parent, ext=".tex")
-        self.output_root = self.output_root / "latex"
-
-
-class LatexImageToFilepathConverter(FilepathConverter):
-    def __init__(self, root=None, parent=None):
-        super().__init__(root=root, parent=parent, ext=".png")
-        self.output_root = self.output_root / "latex"
 
 
 def auto_makedir(filepath: Path):
