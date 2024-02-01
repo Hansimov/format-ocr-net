@@ -200,7 +200,7 @@ class OSLogger(logging.Logger):
 logger = OSLogger()
 
 
-def shell_cmd(cmd, getoutput=False, showcmd=True, env=None):
+def shell_cmd(cmd, getoutput=False, showcmd=False, env=None):
     if showcmd:
         logger.info(colored(f"\n$ [{os.getcwd()}]", "light_blue"))
         logger.info(colored(f"  $ {cmd}\n", "light_cyan"))
