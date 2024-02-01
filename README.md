@@ -12,6 +12,18 @@ Codes for dataset construction and processing, and model training and tuning of 
 </div>
 
 
+### Ubuntu dependencies
+
+```sh
+sudo apt install imagemagick texlive-latex-extra sympy dvipng
+```
+
+### Python requirements
+
+```sh
+pip install -r requirements.txt
+```
+
 ## Download dataset
 
 <div align="center">

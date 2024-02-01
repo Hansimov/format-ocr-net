@@ -2,6 +2,7 @@ hf_transfer
 huggingface_hub[cli,torch]
 pandas
 pyarrow
+sympy
 torch
 torchvision
 torchaudio
