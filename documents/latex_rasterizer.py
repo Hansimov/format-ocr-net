@@ -1,19 +1,19 @@
 import os
 import glob
 from pathlib import Path
-from sympy import sin, sqrt, symbols, preview
-from documents.filepath_converter import (
-    LatexToFilepathConverter,
-    LatexImageToFilepathConverter,
-    auto_makedir,
-)
+from documents.filepath_converter import FilepathConverter, auto_makedir
 from utils.logger import logger, shell_cmd
 
 
 class LatexRasterizer:
     def __init__(self):
-        self.image_path_converter = LatexImageToFilepathConverter()
-        self.tex_path_converter = LatexToFilepathConverter()
+        self.dataset_name = "latex"
+        self.tex_path_converter = FilepathConverter(
+            root="datasets", parent=self.dataset_name, ext=".tex"
+        )
+        self.image_path_converter = FilepathConverter(
+            root="datasets", parent=self.dataset_name, ext=".png"
+        )
 
     def str_to_tex(self, str):
         tex = (
@@ -59,7 +59,7 @@ class LatexRasterizer:
 
 
 if __name__ == "__main__":
+    from samples.equations import equations
+
     rasterizer = LatexRasterizer()
-    # latex_str = "sqrt(sin(x)+1)"
-    latex_str = r"\begin{array} { r c l } { { \epsilon } } & { { = } } & { { \displaystyle { \frac { 1 } { 2 } \left( 1 - \frac { q _ { 2 } } { p _ { 2 } } \frac { \bar { A } _ { 0 } } { A _ { 0 } } \right) } , } } \\ { { \epsilon ^ { \prime } } } & { { = } } & { { \displaystyle { \frac { 1 } { 2 \sqrt { 2 } } e ^ { i ( \delta _ { 2 } - \delta _ { 0 } ) } \left[ - \omega \left( 1 - \frac { q _ { 2 } } { p _ { 2 } } \right) + \left( \frac { p _ { 2 } A _ { 2 } - q _ { 2 } \bar { A } _ { 2 } } { p _ { 2 } A _ { 0 } } \right) \right] } . } } \end{array}"
-    rasterizer.rasterize(latex_str=latex_str)
+    rasterizer.rasterize(latex_str=equations[1])
