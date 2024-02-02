@@ -3,7 +3,9 @@
 #   - https://tug.ctan.org/info/symbols/comprehensive/symbols-a4.pdf
 # - User's Guide for the amsmath Package (Version 2.1)
 #   - https://mirror.nyist.edu.cn/CTAN/macros/latex/required/amsmath/amsldoc.pdf
-
+# - LaTeX/Mathematics - Wikibooks
+#   - https://en.wikibooks.org/wiki/LaTeX/Mathematics
+#   - https://en.wikibooks.org/wiki/LaTeX/Advanced_Mathematics
 
 # Supported packages in MathJax and KaTeX
 # - https://docs.mathjax.org/en/latest/input/tex/macros/index.html

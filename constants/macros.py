@@ -51,7 +51,7 @@ AMS_OPERATOR_NAME_MACROS = r"\operatorname \operatorname*"
 AMS_MOD_MACROS = r"\mod \bmod \pmod \pod"
 
 # AMS ch-6: The \text command
-AMS_TEXT_MACRO = r"\text"
+AMS_TEXT_MACRO = r"\text \textrm \textbf \textit"
 
 # AMS ch-7.1: Multiline subscripts and superscripts
 AMS_SUBSTACK_MACROS = r"\substack \subarray"
@@ -60,10 +60,10 @@ AMS_SUBSTACK_MACROS = r"\substack \subarray"
 AMS_SIDESET_MACROS = r"\sideset \limits \nolimits"
 
 # AMS ch-9.1: Using math fonts
-AMS_MATH_FONT_MACROS = r"\mathbf \mathrm \mathcal \mathsf \mathtt \mathit"
+AMS_MATH_FONT_MACROS = r"\mathbf \mathrm \mathcal \mathsf \mathtt \mathit \mathfrak"
 
 # Other macros
-OTHER_MACROS = ""
+OTHER_MACROS = r"\boldsymbol \displaystyle \textstyle \hdotsfor"
 
 
 MICROS_LIST = [

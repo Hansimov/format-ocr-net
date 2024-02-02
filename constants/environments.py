@@ -5,11 +5,13 @@ from constants import chars_to_list
 LATEX_ENVIRONMENTS = []
 
 # AMS ch-3: Displayed equations
-DISPLAYED_EQUATIONS_ENVS = "equation equation* align align* gather gather* alignat alignat* multiline multiline* flalign flalign* split cases"
+AMS_EQUATIONS_ENVS = "equation equation* subequations align align* gather gather* alignat alignat* multiline multiline* flalign flalign* cases array eqnarray eqnarray*"
+
+LOW_LEVEL_AMS_EQUATIONS_ENVS = "gathered aligned alignedat split"
 
 
 # AMS ch-4.1: Matrices
-MATRIX_ENVS = "pmatrix bmatrix Bmatrix vmatrix Vmatrix smallmatrix"
+AMS_MATRIX_ENVS = "matrix pmatrix pmatrix* bmatrix bmatrix* Bmatrix Bmatrix* vmatrix vmatrix* Vmatrix Vmatrix* smallmatrix"
 
 
 # Other environments
@@ -17,8 +19,9 @@ OTHER_ENVS = ""
 
 
 ENVIRONMENTS_LIST = [
-    DISPLAYED_EQUATIONS_ENVS,
-    MATRIX_ENVS,
+    AMS_EQUATIONS_ENVS,
+    LOW_LEVEL_AMS_EQUATIONS_ENVS,
+    AMS_MATRIX_ENVS,
     OTHER_ENVS,
 ]
 
