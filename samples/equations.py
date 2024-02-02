@@ -1,4 +1,12 @@
 equations = [
+    r"\overlinesegment{ABCDEFG}",
+    r"\Overrightarrow{AB}",
+    r"\cal AaBb123",
+    r"\boxed{ABCEF}",
+    r"\cancel{5}",
+    r"\Bbb{ABCEF}",
+    r"\checkmark",
+    r"\spades",
     r"sqrt(sin(x)+1)",
     r"\begin{array} { r c l } { { \epsilon } } & { { = } } & { { \displaystyle { \frac { 1 } { 2 } \left( 1 - \frac { q _ { 2 } } { p _ { 2 } } \frac { \bar { A } _ { 0 } } { A _ { 0 } } \right) } , } } \\ { { \epsilon ^ { \prime } } } & { { = } } & { { \displaystyle { \frac { 1 } { 2 \sqrt { 2 } } e ^ { i ( \delta _ { 2 } - \delta _ { 0 } ) } \left[ - \omega \left( 1 - \frac { q _ { 2 } } { p _ { 2 } } \right) + \left( \frac { p _ { 2 } A _ { 2 } - q _ { 2 } \bar { A } _ { 2 } } { p _ { 2 } A _ { 0 } } \right) \right] } . } } \end{array}",
     r"\psi ( \gamma ) = \exp { - ( { \textstyle { \frac { g ^ { 2 } } { 2 } } } ) \int _ { \gamma } d y ^ { a } \int _ { \gamma } d y ^ { a ^ { \prime } } D _ { 1 } ( y - y ^ { \prime } ) }",
