@@ -156,6 +156,8 @@ See also:
 
 ## References
 
+### Repos
+
 - Custom recognition models - EasyOCR
     - https://github.com/JaidedAI/EasyOCR/blob/master/custom_model.md
 - deep-text-recognition-benchmark - GitHub
@@ -171,3 +173,17 @@ See also:
     - https://github.com/PaddlePaddle/PaddleOCR/blob/release/2.7/doc/doc_ch/FAQ.md
 - References of EasyOCR
     - https://github.com/JaidedAI/EasyOCR?tab=readme-ov-file#acknowledgement-and-references
+
+### Papers
+- [1507.05717] An End-to-End Trainable Neural Network for Image-based Sequence Recognition and Its Application to Scene Text Recognition
+    - [abs](https://arxiv.org/abs/1507.05717) · [pdf](https://arxiv.org/pdf/1507.05717) · [html](https://ar5iv.labs.arxiv.org/html/1507.05717)
+- [2010.11929] An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale
+    - [abs](https://arxiv.org/abs/2010.11929) · [pdf](https://arxiv.org/pdf/2010.11929.pdf) · [html](https://ar5iv.labs.arxiv.org/html/2109.10282)
+- [2109.10282] TrOCR: Transformer-based Optical Character Recognition with Pre-trained Models
+    - [abs](https://arxiv.org/abs/2109.10282) · [pdf](https://arxiv.org/pdf/2109.10282.pdf) · [html](https://ar5iv.labs.arxiv.org/html/2109.10282)
+
+### Specs
+- The Comprehensive LaTeX Symbol List - The CTAN archive
+   - https://tug.ctan.org/info/symbols/comprehensive/symbols-a4.pdf
+- User's Guide for the amsmath Package (Version 2.1)
+   - https://mirror.nyist.edu.cn/CTAN/macros/latex/required/amsmath/amsldoc.pdf
