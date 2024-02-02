@@ -1,4 +1,9 @@
 equations = [
+    r"\oint \mathbf { v } \cdot d \mathbf { x } = \oint { \boldsymbol { \omega } } \times \mathbf { x } \cdot d \mathbf { x } = \oint { \boldsymbol { \omega } } \cdot \mathbf { x } \times d \mathbf { x } = 2 \oint { \boldsymbol { \omega } } \cdot d \mathbf { A } = 2 { \boldsymbol { \omega } } \cdot \mathbf { A }",
+    r"{ \cal M } = \left[ \begin{array} { c c c c c } { { 0 } } & { { m _ { D } } } & { { 0 } } & { { 0 } } & { { 0 } } \\ { { m _ { D } } } & { { 0 } } & { { 0 } } & { { 0 } } & { { 0 } } \\ { { 0 } } & { { 0 } } & { { 0 } } & { { m _ { E } } } & { { m _ { 1 } } } \\ { { 0 } } & { { 0 } } & { { m _ { E } } } & { { 0 } } & { { m _ { 2 } } } \\ { { 0 } } & { { 0 } } & { { m _ { 1 } } } & { { m _ { 2 } } } & { { 0 } } \end{array} \right] .",
+    r"\boxed{\eta \leq C(\delta(\eta) +\Lambda_M(0,\delta))}",
+    r"\begin{pmatrix} D_1t&-a_{12}t_2&\dots&-a_{1n}t_n\\ -a_{21}t_1&D_2t&\dots&-a_{2n}t_n\\ \hdotsfor[2]{4}\\ -a_{n1}t_1&-a_{n2}t_2&\dots&D_nt\end{pmatrix}",
+    r"\ [ { A } ] _ { e } = { [ A ] 0 } - [ { P } ] _ { e } = { \frac { k _ { - 1 } } { k _ { 1 } + k _ { - 1 } } } { [ A ] 0 }",
     r"\mathcal{ABC} \mathscr{ABC}",
     r"\mathcal{ABC}",
     r"\mathscr{ABC}",

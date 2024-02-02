@@ -3,6 +3,7 @@ import glob
 from pathlib import Path
 from documents.filepath_converter import FilepathConverter, auto_makedir
 from utils.logger import logger, shell_cmd
+from constants import LATEX_PACKAGES
 
 
 class LatexRasterizer:
@@ -17,12 +18,7 @@ class LatexRasterizer:
         )
 
     def str_to_tex(self, str):
-        # https://docs.mathjax.org/en/latest/input/tex/macros/index.html
-        # https://github.com/KaTeX/KaTeX/wiki/Package-Emulation
-        # Notes: Following packages used by KaTeX are not supported by tex-live-extra:
-        #   `extpfeil`, `mathabx`, `MnSymbol`, `statmath`, `stix`, `stmaryrd`, `undertilde`
-        packages = "amsmath amsfonts amssymb arydshln bm cancel color fontenc hyperref latexsym mathrsfs mathtools overrightarrow textcomp txfonts pxfonts ulem unicode-math"
-        packages_str = ", ".join(packages.split())
+        packages_str = ", ".join(LATEX_PACKAGES.split())
         tex = (
             f"\\documentclass[preview, border=5pt]{{standalone}}\n"
             f"\\usepackage{{{packages_str}}}\n"

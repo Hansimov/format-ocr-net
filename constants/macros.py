@@ -45,7 +45,7 @@ AMS_DELIMITER_MACROS = (
 )
 
 # AMS ch-5.1: Operator names
-AMS_OPERATOR_NAME_MACROS = r"\operatorname"
+AMS_OPERATOR_NAME_MACROS = r"\operatorname \operatorname*"
 
 # AMS ch-5.2: mod and relatives
 AMS_MOD_MACROS = r"\mod \bmod \pmod \pod"
