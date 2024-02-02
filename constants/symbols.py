@@ -1,21 +1,10 @@
-import string
 from utils.logger import logger
-
-
-# NOTES: Most symbols are taken form following reference:
-# The Comprehensive LaTeX Symbol List - The CTAN archive
-#   - https://tug.ctan.org/info/symbols/comprehensive/symbols-a4.pdf
-
-
-def chars_to_list(chars) -> list:
-    return chars.split()
-
+from constants import chars_to_list
 
 LATEX_SYMBOLS = []
-LATEX_MACROS = []
 
-
-# https://tex.stackexchange.com/questions/34580/escape-character-in-latex
+# Table 1: LATEX-2e Escapable "Special" Characters
+# - https://tex.stackexchange.com/questions/34580/escape-character-in-latex
 ESCAPED_SYMBOLS = r"\& \% \$ \# \_ \{ \} \~ \^ \\"
 
 LOWER_ASCII_SYMBOLS = "a b c d e f g h i j k l m n o p q r s t u v w x y z"
@@ -128,26 +117,6 @@ LARGE_VARIABLE_SIZED_DELIMITER_SYMBOLS = (
 # Table 246: [AMS] Variable-sized Delimiters
 AMS_VARIABLE_SIZED_DELIMITER_SYMBOLS = r"\lvert \lVert \rvert \rVert"
 
-
-# Table 259: Math-mode Accents
-MATH_MODE_ACCENT_MACROS = (
-    r"\acute \bar \breve \check \ddot \dot \grave \hat \mathring \tilde \vec"
-)
-
-# Table 260: [AMS] Math-mode Accents
-AMS_MATH_MODE_ACCENT_MACROS = r"\dddot \ddddot"
-
-# Table 270: Extensible Accents
-EXTENSIBLE_ACCENT_MACROS = r"\widetilde \overleftarrow \overline \overbrace \sqrt \widehat \overrightarrow \underline \underbrace"
-
-# Table 273: [AMS] Extensible Accents
-AMS_EXTENSIBLE_ACCENT_MACROS = (
-    r"\overleftrightarrow \underleftarrow \underleftrightarrow \underrightarrow"
-)
-
-# Table 288: AMS Extensible Arrows
-AMS_EXTENSIBLE_ARROW_MACROS = r"\xleftarrow \xrightarrow"
-
 # Table 306: Dots
 DOT_SYMBOLS = r"\cdotp \cdots \colon \ddots \ldotp \ldots \vdots"
 
@@ -163,15 +132,20 @@ MISC_LATEX2E_MATH_SYMBOLS = r"\aleph \emptyset \angle \backslash \Box \Diamond \
 # Table 335: Miscellaneous [AMS] Math Symbols
 MISC_AMS_MATH_SYMBOLS = r"\backprime \bigstar \blacklozenge \blacksquare \blacktriangle \blacktriangledown \diagdown \diagup \eth \lozenge \mho \square \triangledown \varnothing \vartriangle"
 
-# Table 348: Math Alphabets
-MATH_ALPHABET_MACROS = r"\mathrm \mathit \mathnormal \mathcal \mathscr \mathbb"
-
 # Table 473: LATEX-2e Musical Symbols
 LATEX2E_MUSICAL_SYMBOLS = r"\flat \natural \sharp"
 
 # Table 512: LATEX-2e Playing-Card Suits
 LATEX2E_PLAYING_CARD_SUIT_SYMBOLS = r"\clubsuit \diamondsuit \heartsuit \spadesuit"
 
+# AMS ch-4.2: Math spacing commands
+AMS_SPACING_SYMBOLS = r"\thinspace \medspace \thickspace \quad \qquad \negthinspace \negmedspace \negthickspace"
+
+# AMS ch-9.4: Italic Greek letters
+AMS_ITALIC_GREEK_SYMBOLS = r"\varGamma \varDelta \varTheta \varLambda \varXi \varPi \varSigma \varUpsilon \varPhi \varPsi \varOmega"
+
+# Other symbols
+OTHER_SYMBOLS = ""
 
 SYMBOLS_LIST = [
     ESCAPED_SYMBOLS,
@@ -216,30 +190,20 @@ SYMBOLS_LIST = [
     MISC_AMS_MATH_SYMBOLS,
     LATEX2E_MUSICAL_SYMBOLS,
     LATEX2E_PLAYING_CARD_SUIT_SYMBOLS,
-]
-
-MICROS_LIST = [
-    MATH_MODE_ACCENT_MACROS,
-    AMS_MATH_MODE_ACCENT_MACROS,
-    EXTENSIBLE_ACCENT_MACROS,
-    AMS_EXTENSIBLE_ACCENT_MACROS,
-    AMS_EXTENSIBLE_ARROW_MACROS,
-    MISC_AMS_MATH_SYMBOLS,
-    MATH_ALPHABET_MACROS,
+    AMS_SPACING_SYMBOLS,
+    AMS_ITALIC_GREEK_SYMBOLS,
+    OTHER_SYMBOLS,
 ]
 
 
-def collect_symbols_and_macros():
+def collect_symbols():
     for symbols in SYMBOLS_LIST:
         symbols_list = chars_to_list(symbols)
         LATEX_SYMBOLS.extend(symbols_list)
-    for macros in MICROS_LIST:
-        macros_list = chars_to_list(macros)
-        LATEX_MACROS.extend(macros_list)
 
 
-collect_symbols_and_macros()
+collect_symbols()
 
 if __name__ == "__main__":
-    logger.success(LATEX_SYMBOLS)
-    logger.success(LATEX_MACROS)
+    logger.note(LATEX_SYMBOLS)
+    logger.success(f"[+] {len(LATEX_SYMBOLS)} symbols.")
