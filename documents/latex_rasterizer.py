@@ -17,16 +17,15 @@ class LatexRasterizer:
         )
 
     def str_to_tex(self, str):
+        # https://docs.mathjax.org/en/latest/input/tex/macros/index.html
         # https://github.com/KaTeX/KaTeX/wiki/Package-Emulation
         # Notes: Following packages used by KaTeX are not supported by tex-live-extra:
         #   `extpfeil`, `mathabx`, `MnSymbol`, `statmath`, `stix`, `stmaryrd`, `undertilde`
+        packages = "amsmath amsfonts amssymb arydshln bm cancel color fontenc hyperref latexsym mathrsfs mathtools overrightarrow textcomp txfonts pxfonts ulem unicode-math"
+        packages_str = ", ".join(packages.split())
         tex = (
             f"\\documentclass[preview, border=5pt]{{standalone}}\n"
-            f"\\usepackage{{amsmath, amsfonts, amssymb}}\n"
-            f"\\usepackage{{arydshln, bm, cancel, color, hyperref}}\n"
-            f"\\usepackage{{mathtools, overrightarrow}}\n"
-            f"\\usepackage{{txfonts, pxfonts, ulem}}\n"
-            f"\\usepackage{{unicode-math}}\n"
+            f"\\usepackage{{{packages_str}}}\n"
             f"\\begin{{document}}\n"
             f"$\\displaystyle\n"
             f"{str}\n"
@@ -77,4 +76,4 @@ if __name__ == "__main__":
     from samples.equations import equations
 
     rasterizer = LatexRasterizer()
-    rasterizer.rasterize(latex_str=equations[0], quiet=True)
+    rasterizer.rasterize(latex_str=equations[0], quiet=False)
