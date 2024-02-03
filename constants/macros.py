@@ -3,6 +3,8 @@ from constants import chars_to_list
 
 LATEX_MACROS = []
 
+DISPLAY_STYLE_MACROS = r"\displaystyle \textstyle \scriptstyle \scriptscriptstyle"
+
 # Table 259: Math-mode Accents
 MATH_MODE_ACCENT_MACROS = (
     r"\acute \bar \breve \check \ddot \dot \grave \hat \mathring \tilde \vec"
@@ -28,7 +30,11 @@ AMS_EXTENSIBLE_ARROW_MACROS = r"\xleftarrow \xrightarrow"
 # Table 348: Math Alphabets
 MATH_ALPHABET_MACROS = r"\mathrm \mathit \mathnormal \mathcal \mathscr \mathbb"
 
+
 # === AMS MATH === #
+
+# AMS ch-4.1: Matrices
+AMS_MATRIX_DOT_MACROS = r"\hdotsfor"
 
 # AMS ch-4.7: Boxed formulas
 AMS_BOXED_MACROS = r"\boxed"
@@ -48,13 +54,15 @@ AMS_DELIMITER_MACROS = (
 AMS_OPERATOR_NAME_MACROS = r"\operatorname \operatorname*"
 
 # AMS ch-5.2: mod and relatives
+#   \mod and \pod are variants of \pmod preferred by some authors;
+#   \mod omits the parentheses, whereas \pod omits the “mod” and retains the parentheses
 AMS_MOD_MACROS = r"\mod \bmod \pmod \pod"
 
 # AMS ch-6: The \text command
 AMS_TEXT_MACRO = r"\text \textrm \textbf \textit"
 
 # AMS ch-7.1: Multiline subscripts and superscripts
-AMS_SUBSTACK_MACROS = r"\substack \subarray"
+AMS_SUBSTACK_MACROS = r"\substack"
 
 # AMS ch-7.2: The \sideset command
 AMS_SIDESET_MACROS = r"\sideset \limits \nolimits"
@@ -63,10 +71,11 @@ AMS_SIDESET_MACROS = r"\sideset \limits \nolimits"
 AMS_MATH_FONT_MACROS = r"\mathbf \mathrm \mathcal \mathsf \mathtt \mathit \mathfrak"
 
 # Other macros
-OTHER_MACROS = r"\boldsymbol \displaystyle \textstyle \hdotsfor"
+OTHER_MACROS = r""
 
 
 MACROS_SET_LIST = [
+    DISPLAY_STYLE_MACROS,
     MATH_MODE_ACCENT_MACROS,
     AMS_MATH_MODE_ACCENT_MACROS,
     EXTENSIBLE_ACCENT_MACROS,
@@ -74,6 +83,7 @@ MACROS_SET_LIST = [
     AMS_EXTENSIBLE_ACCENT_MACROS,
     AMS_EXTENSIBLE_ARROW_MACROS,
     MATH_ALPHABET_MACROS,
+    AMS_MATRIX_DOT_MACROS,
     AMS_BOXED_MACROS,
     AMS_AFFIX_MACROS,
     AMS_FRAC_MACROS,

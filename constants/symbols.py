@@ -83,7 +83,6 @@ LOG_LIKE_SYMBOLS = r" \arccos \cos \csc \exp \ker \limsup \min \sinh \arcsin \co
 # Table 204: [AMS] Log-like Symbols
 AMS_LOG_LIKE_SYMBOLS = r"\injlim \projlim \varinjlim \varliminf \varlimsup \varprojlim"
 
-
 # Table 208: Greek Letters
 GREEK_SYMBOLS = r"\alpha \beta \gamma \delta \epsilon \varepsilon \zeta \eta \theta \iota \kappa \lambda \mu \nu \xi \omicron \pi \rho \sigma \varsigma \tau \upsilon \phi \varphi \chi \psi \omega \Gamma \Delta \Theta \Lamba \Xi \Pi \Sigma \Upsilon \Phi \Psi \Omega"
 
