@@ -1,3 +1,4 @@
+from collections import OrderedDict
 from utils.logger import logger
 from constants import chars_to_list
 
@@ -10,7 +11,7 @@ ESCAPED_SYMBOLS = r"\& \% \$ \# \_ \{ \} \~ \^ \\"
 LOWER_ASCII_SYMBOLS = "a b c d e f g h i j k l m n o p q r s t u v w x y z"
 UPPER_ASCII_SYMBOLS = "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z"
 DIGIT_SYMBOLS = "0 1 2 3 4 5 6 7 8 9"
-PUNCTUATION_SYMBOLS = r". , : ; ! ? ' \" ` - \ < > + = * @"
+PUNCTUATION_SYMBOLS = ". , : ; ! ? ' \" ` - \ < > + = * @"
 
 # Table 3: [LaTeX-2e] Commands Defined to Work in Both Math and Text Mode
 LATEX2E_MATH_TEXT_SYMBOLS = r"\copyright \dag \ddag \dots \P \pounds \S"
@@ -52,7 +53,7 @@ SUBSET_SUPERSET_RELATION_SYMBOLS = (
 AMS_SUBSET_SUPERSET_RELATION_SYMBOLS = r"\nsubseteq \nsupseteq \nsupseteqq \sqsubset \seqsupset \Subset \subseteqq \subsetneq \subsetneqq \Supset \supseteqq \supsetneq \supsetneqq \varsubsetneq \varsubsetneqq \varsupsetneq \varsupsetneqq"
 
 # Table 136: Inequalities
-INEQUALITY_SYMBOLS = r"\geq \gg \leq \ll \neq"
+INEQUALITY_SYMBOLS = r"\le \ge \geq \gg \leq \ll \neq"
 
 # Table 137: [AMS] AMS Inequalities
 AMS_INEQUALITY_SYMBOLS = r"\eqslantgtr \eqslantless \geqq \geqslant \ggg \gnapprox \gneq \gneqq \gnsim \gtrapprox \gtrdot \gtreqless \gtreqqless \gtrless \gtrsim \gvertneqq \leqq \leqslant \lessapprox \lessdot \lesseqgtr \lesseqqgtr \lessgtr \lesssim \lll \lnapprox \lneq \lneqq \lnsim \lvertneqq \ngeq \ngeqq \ngeqslant \ngtr \nleq \nleqq \nleqslant \nless"
@@ -61,7 +62,7 @@ AMS_INEQUALITY_SYMBOLS = r"\eqslantgtr \eqslantless \geqq \geqslant \ggg \gnappr
 AMS_TRIANGLE_RELATION_SYMBOLS = r"\blacktriangleleft \blacktriangleright \ntriangleleft \ntrianglelefteq \ntriangleright \ntrianglerighteq \trianglelefteq \triangleq \trianglerighteq \vartriangleleft \vartriangleright"
 
 # Table 153: Arrows
-ARROW_SYMBOLS = r"\Downarrow \downarrow \hookleftarrow \hookrightarrow \leadsto \leftarrow \Leftarrow \leftrightarrow \Leftrightarrow \longleftarrow \Longleftarrow \longleftrightarrow \Longleftrightarrow \longmapsto \longrightarrow \Longrightarrow \mapsto \nearrow \nwarrow \rightarrow \Rightarrow \searrow \swarrow \uparrow \Uparrow \updownarrow \Updownarrow"
+ARROW_SYMBOLS = r"\Downarrow \downarrow \hookleftarrow \hookrightarrow \leadsto \leftarrow \Leftarrow \leftrightarrow \Leftrightarrow \longleftarrow \Longleftarrow \longleftrightarrow \Longleftrightarrow \longmapsto \longrightarrow \Longrightarrow \mapsto \nearrow \nwarrow \rightarrow \Rightarrow \searrow \swarrow \uparrow \Uparrow \updownarrow \Updownarrow \to \gets"
 
 # Table 154: Harpoons
 HARPOON_SYMBOLS = r"\leftharpoondown \leftharpoonup \rightharpoondown \rightharpoonup \rightleftharpoons"
@@ -85,7 +86,7 @@ LOG_LIKE_SYMBOLS = r"\arccos \cos \csc \exp \ker \limsup \min \sinh \arcsin \cos
 AMS_LOG_LIKE_SYMBOLS = r"\injlim \projlim \varinjlim \varliminf \varlimsup \varprojlim"
 
 # Table 208: Greek Letters
-GREEK_SYMBOLS = r"\alpha \beta \gamma \delta \epsilon \varepsilon \zeta \eta \theta \iota \kappa \lambda \mu \nu \xi \omicron \pi \rho \sigma \varsigma \tau \upsilon \phi \varphi \chi \psi \omega \Gamma \Delta \Theta \Lambda \Xi \Pi \Sigma \Upsilon \Phi \Psi \Omega"
+GREEK_SYMBOLS = r"\alpha \beta \gamma \delta \epsilon \varepsilon \zeta \eta \theta \vartheta \iota \kappa \lambda \mu \nu \xi \omicron \pi \varpi \rho \varrho \sigma \varsigma \tau \upsilon \phi \varphi \chi \psi \omega \Gamma \Delta \Theta \Lambda \Xi \Pi \Sigma \Upsilon \Phi \Psi \Omega"
 
 # Table 209: [AMS] Greek Letters
 AMS_GREEK_SYMBOLS = r"\digamma \varkappa"
@@ -107,7 +108,7 @@ AMS_LETTER_LIKE_SYMBOLS = (
 AMS_DELIMITER_SYMBOLS = r"\ulcorner \llcorner \urcorner \lrcorner"
 
 # Table 244: Variable-sized Delimiters
-VARIABLE_SIZED_DELIMITER_SYMBOLS = r"\downarrow \Downarrow \langle \rangle \lceil \rceil \lfloor \rfloor \uparrow \Uparrow \updownarrow \Updownarrow ( ) [ ] \{ \} | \| / \backslash"
+VARIABLE_SIZED_DELIMITER_SYMBOLS = r"\downarrow \Downarrow \langle \rangle \lceil \rceil \lfloor \rfloor \uparrow \Uparrow \updownarrow \Updownarrow \lbrace \rbrace \vert \Vert \slash \backslash ( ) [ ] \{ \} | \| /"
 
 # Table 245: Large, Variable-sized Delimiters
 LARGE_VARIABLE_SIZED_DELIMITER_SYMBOLS = (
@@ -116,6 +117,9 @@ LARGE_VARIABLE_SIZED_DELIMITER_SYMBOLS = (
 
 # Table 246: [AMS] Variable-sized Delimiters
 AMS_VARIABLE_SIZED_DELIMITER_SYMBOLS = r"\lvert \lVert \rvert \rVert"
+
+# https://www.overleaf.com/learn/latex/Brackets_and_Parentheses
+NULL_DELIMITER_SYMBOLS = r"\left. \right."
 
 # Table 306: Dots
 DOT_SYMBOLS = r"\cdotp \cdots \colon \ddots \ldotp \ldots \vdots"
@@ -139,7 +143,10 @@ LATEX2E_MUSICAL_SYMBOLS = r"\flat \natural \sharp"
 LATEX2E_PLAYING_CARD_SUIT_SYMBOLS = r"\clubsuit \diamondsuit \heartsuit \spadesuit"
 
 # AMS ch-4.2: Math spacing commands
-AMS_SPACING_SYMBOLS = r"\thinspace \medspace \thickspace \quad \qquad \negthinspace \negmedspace \negthickspace"
+AMS_SPACING_SYMBOLS = r"\thinspace \medspace \thickspace \quad \qquad \negthinspace \negmedspace \negthickspace \: \, \; \! ~"
+
+# https://latexref.xyz/_005cbigskip-_0026-_005cmedskip-_0026-_005csmallskip.html
+SKIP_SYMBOLS = r"\bigskip \medskip \smallskip"
 
 # AMS ch-9.4: Italic Greek letters
 AMS_ITALIC_GREEK_SYMBOLS = r"\varGamma \varDelta \varTheta \varLambda \varXi \varPi \varSigma \varUpsilon \varPhi \varPsi \varOmega"
@@ -183,6 +190,7 @@ SYMBOLS_SET_LIST = [
     VARIABLE_SIZED_DELIMITER_SYMBOLS,
     LARGE_VARIABLE_SIZED_DELIMITER_SYMBOLS,
     AMS_VARIABLE_SIZED_DELIMITER_SYMBOLS,
+    NULL_DELIMITER_SYMBOLS,
     DOT_SYMBOLS,
     AMS_DOT_SYMBOLS,
     AMS_ANGLE_SYMBOLS,
@@ -191,6 +199,7 @@ SYMBOLS_SET_LIST = [
     LATEX2E_MUSICAL_SYMBOLS,
     LATEX2E_PLAYING_CARD_SUIT_SYMBOLS,
     AMS_SPACING_SYMBOLS,
+    SKIP_SYMBOLS,
     AMS_ITALIC_GREEK_SYMBOLS,
     OTHER_SYMBOLS,
 ]
@@ -201,7 +210,7 @@ def collect_symbols():
     for symbols in SYMBOLS_SET_LIST:
         symbols_list = chars_to_list(symbols)
         LATEX_SYMBOLS.extend(symbols_list)
-    LATEX_SYMBOLS = list(set(LATEX_SYMBOLS))
+    LATEX_SYMBOLS = list(OrderedDict.fromkeys(LATEX_SYMBOLS))
 
 
 collect_symbols()

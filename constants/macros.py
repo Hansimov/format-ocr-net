@@ -1,3 +1,4 @@
+from collections import OrderedDict
 from utils.logger import logger
 from constants import chars_to_list
 
@@ -5,7 +6,7 @@ LATEX_MACROS = []
 
 DISPLAY_STYLE_MACROS = r"\displaystyle \textstyle \scriptstyle \scriptscriptstyle"
 
-SUB_SUP_MACROS = r"_ ^"
+SUB_SUP_MACROS = r"_ ^ \sp"
 
 # Table 259: Math-mode Accents
 MATH_MODE_ACCENT_MACROS = (
@@ -32,6 +33,12 @@ AMS_EXTENSIBLE_ARROW_MACROS = r"\xleftarrow \xrightarrow"
 # Table 348: Math Alphabets
 MATH_ALPHABET_MACROS = r"\mathrm \mathit \mathnormal \mathcal \mathscr \mathbb"
 
+# Table 689: Sample resized delimiters
+VERTICAL_RESIZE_MACROS = r"\big \Big \bigg \Bigg"
+
+# Table 693: Producing bold mathematical symbols
+BOLD_MATH_FONT_MACROS = r"\mathbf \boldmath \pmb \boldsymbol"
+
 
 # === AMS MATH === #
 
@@ -53,7 +60,7 @@ AMS_DELIMITER_MACROS = (
 )
 
 # AMS ch-5.1: Operator names
-AMS_OPERATOR_NAME_MACROS = r"\operatorname \operatorname*"
+AMS_OPERATOR_NAME_MACROS = r"\operatorname \operatorname* \mathop"
 
 # AMS ch-5.2: mod and relatives
 #   \mod and \pod are variants of \pmod preferred by some authors;
@@ -72,12 +79,29 @@ AMS_SIDESET_MACROS = r"\sideset \limits \nolimits"
 # AMS ch-9.1: Using math fonts
 AMS_MATH_FONT_MACROS = r"\mathbf \mathrm \mathcal \mathsf \mathtt \mathit \mathfrak"
 
+# https://katex.org/docs/supported#style-color-size-and-font
+SHORT_AMS_MATH_FONT_MACROS = r"\bf \rm \cal \sf \tt \it \bm \it \frak \mit"
+
+# https://www.overleaf.com/learn/latex/Questions/How_do_I_adjust_the_font_size%3F
+FONT_SIZE_MACROS = r"\tiny \scriptsize \footnotesize \small \normalsize \large \Large \LARGE \huge \Huge"
+
+NO_NUMBER_MACROS = r"\nonumber"
+
+# https://tex.stackexchange.com/questions/381417/what-does-mean-in-latex
+# & is special. It is neither a macro or an environment.
+# It is a command to be used inside an environment.
+ALIGN_MACROS = "&"
+
+# https://docs.moodle.org/403/en/Chemistry_notation_using_mhchem
+CHEMISTRY_NOTATION_MACROS = "\ce"
+
 # Other macros
 OTHER_MACROS = r""
 
 
 MACROS_SET_LIST = [
     DISPLAY_STYLE_MACROS,
+    SUB_SUP_MACROS,
     MATH_MODE_ACCENT_MACROS,
     AMS_MATH_MODE_ACCENT_MACROS,
     EXTENSIBLE_ACCENT_MACROS,
@@ -85,6 +109,8 @@ MACROS_SET_LIST = [
     AMS_EXTENSIBLE_ACCENT_MACROS,
     AMS_EXTENSIBLE_ARROW_MACROS,
     MATH_ALPHABET_MACROS,
+    VERTICAL_RESIZE_MACROS,
+    BOLD_MATH_FONT_MACROS,
     AMS_MATRIX_DOT_MACROS,
     AMS_BOXED_MACROS,
     AMS_AFFIX_MACROS,
@@ -96,6 +122,11 @@ MACROS_SET_LIST = [
     AMS_SUBSTACK_MACROS,
     AMS_SIDESET_MACROS,
     AMS_MATH_FONT_MACROS,
+    SHORT_AMS_MATH_FONT_MACROS,
+    FONT_SIZE_MACROS,
+    NO_NUMBER_MACROS,
+    ALIGN_MACROS,
+    CHEMISTRY_NOTATION_MACROS,
     OTHER_MACROS,
 ]
 
@@ -105,7 +136,7 @@ def collect_macros():
     for macros in MACROS_SET_LIST:
         macros_list = chars_to_list(macros)
         LATEX_MACROS.extend(macros_list)
-    LATEX_MACROS = list(set(LATEX_MACROS))
+    LATEX_MACROS = list(OrderedDict.fromkeys(LATEX_MACROS))
 
 
 collect_macros()

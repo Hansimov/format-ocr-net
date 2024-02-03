@@ -1,3 +1,4 @@
+from collections import OrderedDict
 from utils.logger import logger
 from constants import chars_to_list
 
@@ -9,9 +10,9 @@ AMS_EQUATIONS_ENVS = "equation equation* subequations align align* gather gather
 
 LOW_LEVEL_AMS_EQUATIONS_ENVS = "gathered aligned alignedat split"
 
-
 # AMS ch-4.1: Matrices
 AMS_MATRIX_ENVS = "matrix pmatrix pmatrix* bmatrix bmatrix* Bmatrix Bmatrix* vmatrix vmatrix* Vmatrix Vmatrix* smallmatrix"
+
 
 # Other environments
 OTHER_ENVS = ""
@@ -30,7 +31,7 @@ def collect_environments():
     for environments in ENVIRONMENTS_SET_LIST:
         environments_list = chars_to_list(environments)
         LATEX_ENVIRONMENTS.extend(environments_list)
-    LATEX_ENVIRONMENTS = list(set(LATEX_ENVIRONMENTS))
+    LATEX_ENVIRONMENTS = list(OrderedDict.fromkeys(LATEX_ENVIRONMENTS))
 
 
 collect_environments()

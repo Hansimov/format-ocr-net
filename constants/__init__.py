@@ -6,6 +6,8 @@
 # - LaTeX/Mathematics - Wikibooks
 #   - https://en.wikibooks.org/wiki/LaTeX/Mathematics
 #   - https://en.wikibooks.org/wiki/LaTeX/Advanced_Mathematics
+# Symbols:LaTeX Commands - ProofWiki
+#   - https://proofwiki.org/wiki/Symbols:LaTeX_Commands
 
 # Supported packages in MathJax and KaTeX
 # - https://docs.mathjax.org/en/latest/input/tex/macros/index.html
