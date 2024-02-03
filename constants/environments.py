@@ -18,7 +18,7 @@ AMS_MATRIX_ENVS = "matrix pmatrix pmatrix* bmatrix bmatrix* Bmatrix Bmatrix* vma
 OTHER_ENVS = ""
 
 
-ENVIRONMENTS_LIST = [
+ENVIRONMENTS_SET_LIST = [
     AMS_EQUATIONS_ENVS,
     LOW_LEVEL_AMS_EQUATIONS_ENVS,
     AMS_MATRIX_ENVS,
@@ -27,7 +27,7 @@ ENVIRONMENTS_LIST = [
 
 
 def collect_environments():
-    for environments in ENVIRONMENTS_LIST:
+    for environments in ENVIRONMENTS_SET_LIST:
         environments_list = chars_to_list(environments)
         LATEX_ENVIRONMENTS.extend(environments_list)
 
@@ -35,5 +35,7 @@ def collect_environments():
 collect_environments()
 
 if __name__ == "__main__":
-    logger.note(LATEX_ENVIRONMENTS)
-    logger.success(f"[+] {len(LATEX_ENVIRONMENTS)} environments.")
+    logger.back(LATEX_ENVIRONMENTS)
+    logger.success(
+        f"[+] {len(LATEX_ENVIRONMENTS)} environments in {len(ENVIRONMENTS_SET_LIST)} sets."
+    )

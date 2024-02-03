@@ -147,7 +147,7 @@ AMS_ITALIC_GREEK_SYMBOLS = r"\varGamma \varDelta \varTheta \varLambda \varXi \va
 # Other symbols
 OTHER_SYMBOLS = ""
 
-SYMBOLS_LIST = [
+SYMBOLS_SET_LIST = [
     ESCAPED_SYMBOLS,
     LOWER_ASCII_SYMBOLS,
     UPPER_ASCII_SYMBOLS,
@@ -197,7 +197,7 @@ SYMBOLS_LIST = [
 
 
 def collect_symbols():
-    for symbols in SYMBOLS_LIST:
+    for symbols in SYMBOLS_SET_LIST:
         symbols_list = chars_to_list(symbols)
         LATEX_SYMBOLS.extend(symbols_list)
 
@@ -205,5 +205,5 @@ def collect_symbols():
 collect_symbols()
 
 if __name__ == "__main__":
-    logger.note(LATEX_SYMBOLS)
-    logger.success(f"[+] {len(LATEX_SYMBOLS)} symbols.")
+    logger.back(LATEX_SYMBOLS)
+    logger.success(f"[+] {len(LATEX_SYMBOLS)} symbols in {len(SYMBOLS_SET_LIST)} sets.")

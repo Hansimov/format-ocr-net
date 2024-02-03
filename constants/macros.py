@@ -66,7 +66,7 @@ AMS_MATH_FONT_MACROS = r"\mathbf \mathrm \mathcal \mathsf \mathtt \mathit \mathf
 OTHER_MACROS = r"\boldsymbol \displaystyle \textstyle \hdotsfor"
 
 
-MICROS_LIST = [
+MACROS_SET_LIST = [
     MATH_MODE_ACCENT_MACROS,
     AMS_MATH_MODE_ACCENT_MACROS,
     EXTENSIBLE_ACCENT_MACROS,
@@ -89,7 +89,7 @@ MICROS_LIST = [
 
 
 def collect_macros():
-    for macros in MICROS_LIST:
+    for macros in MACROS_SET_LIST:
         macros_list = chars_to_list(macros)
         LATEX_MACROS.extend(macros_list)
 
@@ -97,5 +97,5 @@ def collect_macros():
 collect_macros()
 
 if __name__ == "__main__":
-    logger.note(LATEX_MACROS)
-    logger.success(f"[+] {len(LATEX_MACROS)} macros.")
+    logger.back(LATEX_MACROS)
+    logger.success(f"[+] {len(LATEX_MACROS)} macros in {len(MACROS_SET_LIST)} sets.")
