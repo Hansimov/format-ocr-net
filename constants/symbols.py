@@ -8,7 +8,7 @@ LATEX_SYMBOLS = []
 ESCAPED_SYMBOLS = r"\& \% \$ \# \_ \{ \} \~ \^ \\"
 
 LOWER_ASCII_SYMBOLS = "a b c d e f g h i j k l m n o p q r s t u v w x y z"
-UPPER_ASCII_SYMBOLS = " ".join([char.upper() for char in LOWER_ASCII_SYMBOLS])
+UPPER_ASCII_SYMBOLS = "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z"
 DIGIT_SYMBOLS = "0 1 2 3 4 5 6 7 8 9"
 
 # Table 3: [LaTeX-2e] Commands Defined to Work in Both Math and Text Mode
@@ -66,7 +66,7 @@ ARROW_SYMBOLS = r"\Downarrow \downarrow \hookleftarrow \hookrightarrow \leftsto 
 HARPOON_SYMBOLS = r"\leftharpoondown \leftharpoonup \rightharpoondown \rightharpoonup \rightleftharpoons"
 
 # Table 156: [AMS] Arrows
-AMS_ARROW_SYMBOLS = r"\circlearrowleft ⟲ \circlearrowleft \circlearrowright \curvearrowleft \curvearrowright \dashleftarrow \dashrightarrow \downdownarrows \leftarrowtail \leftleftarrows \leftrightarrows \leftrightsquigarrow \Lleftarrow \looparrowleft \looparrowright \Lsh \rightarrowtail \rightleftarrows \rightrightarrows \rightsquigarrow \Rsh \twoheadleftarrow \twoheadrightarrow \upuparrows"
+AMS_ARROW_SYMBOLS = r"\circlearrowleft \circlearrowleft \circlearrowright \curvearrowleft \curvearrowright \dashleftarrow \dashrightarrow \downdownarrows \leftarrowtail \leftleftarrows \leftrightarrows \leftrightsquigarrow \Lleftarrow \looparrowleft \looparrowright \Lsh \rightarrowtail \rightleftarrows \rightrightarrows \rightsquigarrow \Rsh \twoheadleftarrow \twoheadrightarrow \upuparrows"
 
 # Table 157: [AMS] Negated Arrows
 AMS_NEGATED_ARROW_SYMBOLS = r"\nleftarrow \nLeftarrow \nleftrightarrow \nLeftrightarrow \nrightarrow \nRightarrow"
@@ -197,9 +197,11 @@ SYMBOLS_SET_LIST = [
 
 
 def collect_symbols():
+    global LATEX_SYMBOLS
     for symbols in SYMBOLS_SET_LIST:
         symbols_list = chars_to_list(symbols)
         LATEX_SYMBOLS.extend(symbols_list)
+    LATEX_SYMBOLS = list(set(LATEX_SYMBOLS))
 
 
 collect_symbols()

@@ -89,9 +89,11 @@ MACROS_SET_LIST = [
 
 
 def collect_macros():
+    global LATEX_MACROS
     for macros in MACROS_SET_LIST:
         macros_list = chars_to_list(macros)
         LATEX_MACROS.extend(macros_list)
+    LATEX_MACROS = list(set(LATEX_MACROS))
 
 
 collect_macros()

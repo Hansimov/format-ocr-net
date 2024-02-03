@@ -27,9 +27,11 @@ ENVIRONMENTS_SET_LIST = [
 
 
 def collect_environments():
+    global LATEX_ENVIRONMENTS
     for environments in ENVIRONMENTS_SET_LIST:
         environments_list = chars_to_list(environments)
         LATEX_ENVIRONMENTS.extend(environments_list)
+    LATEX_ENVIRONMENTS = list(set(LATEX_ENVIRONMENTS))
 
 
 collect_environments()
