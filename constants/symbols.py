@@ -10,6 +10,7 @@ ESCAPED_SYMBOLS = r"\& \% \$ \# \_ \{ \} \~ \^ \\"
 LOWER_ASCII_SYMBOLS = "a b c d e f g h i j k l m n o p q r s t u v w x y z"
 UPPER_ASCII_SYMBOLS = "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z"
 DIGIT_SYMBOLS = "0 1 2 3 4 5 6 7 8 9"
+PUNCTUATION_SYMBOLS = r". , : ; ! ? ' \" ` - \ < > + = * @"
 
 # Table 3: [LaTeX-2e] Commands Defined to Work in Both Math and Text Mode
 LATEX2E_MATH_TEXT_SYMBOLS = r"\copyright \dag \ddag \dots \P \pounds \S"
@@ -54,19 +55,19 @@ AMS_SUBSET_SUPERSET_RELATION_SYMBOLS = r"\nsubseteq \nsupseteq \nsupseteqq \sqsu
 INEQUALITY_SYMBOLS = r"\geq \gg \leq \ll \neq"
 
 # Table 137: [AMS] AMS Inequalities
-AMS_INEQUALITY_SYMBOLS = r"\eqslantgtr \eqslantless \geqq \geqslant \ggg \gnapprox \gneq \gneqq \gnsim \gtrapprox \gtrdot \gtreqless \gtreqqless \gtrless \gtrsim \gvertneqq \leqq \leqslant \lessapprox \lessdot \lesseqgtr \lesseqqgtr \lessgtr \lesssim \lll \lnapprox \lneq \lneqq \lnsim \vertneqq \ngeq \ngeqq \ngeqslant \ngtr \nleq \nleqq \nleqslant \nless"
+AMS_INEQUALITY_SYMBOLS = r"\eqslantgtr \eqslantless \geqq \geqslant \ggg \gnapprox \gneq \gneqq \gnsim \gtrapprox \gtrdot \gtreqless \gtreqqless \gtrless \gtrsim \gvertneqq \leqq \leqslant \lessapprox \lessdot \lesseqgtr \lesseqqgtr \lessgtr \lesssim \lll \lnapprox \lneq \lneqq \lnsim \lvertneqq \ngeq \ngeqq \ngeqslant \ngtr \nleq \nleqq \nleqslant \nless"
 
 # Table 146: [AMS] Triangle Relations
 AMS_TRIANGLE_RELATION_SYMBOLS = r"\blacktriangleleft \blacktriangleright \ntriangleleft \ntrianglelefteq \ntriangleright \ntrianglerighteq \trianglelefteq \triangleq \trianglerighteq \vartriangleleft \vartriangleright"
 
 # Table 153: Arrows
-ARROW_SYMBOLS = r"\Downarrow \downarrow \hookleftarrow \hookrightarrow \leftsto \leftarrow \Leftarrow \leftrightarrow \Leftrightarrow \longleftarrow \Longleftarrow \longleftrightarrow \Longleftrightarrow \longmapsto \longrightarrow \Longrightarrow \mapsto \nearrow \nwarrow \rightarrow \Rightarrow \searrow \swarrow \uparrow \Uparrow \updownarrow \Updownarrow"
+ARROW_SYMBOLS = r"\Downarrow \downarrow \hookleftarrow \hookrightarrow \leadsto \leftarrow \Leftarrow \leftrightarrow \Leftrightarrow \longleftarrow \Longleftarrow \longleftrightarrow \Longleftrightarrow \longmapsto \longrightarrow \Longrightarrow \mapsto \nearrow \nwarrow \rightarrow \Rightarrow \searrow \swarrow \uparrow \Uparrow \updownarrow \Updownarrow"
 
 # Table 154: Harpoons
 HARPOON_SYMBOLS = r"\leftharpoondown \leftharpoonup \rightharpoondown \rightharpoonup \rightleftharpoons"
 
 # Table 156: [AMS] Arrows
-AMS_ARROW_SYMBOLS = r"\circlearrowleft \circlearrowleft \circlearrowright \curvearrowleft \curvearrowright \dashleftarrow \dashrightarrow \downdownarrows \leftarrowtail \leftleftarrows \leftrightarrows \leftrightsquigarrow \Lleftarrow \looparrowleft \looparrowright \Lsh \rightarrowtail \rightleftarrows \rightrightarrows \rightsquigarrow \Rsh \twoheadleftarrow \twoheadrightarrow \upuparrows"
+AMS_ARROW_SYMBOLS = r"\circlearrowleft \circlearrowright \curvearrowleft \curvearrowright \dashleftarrow \dashrightarrow \downdownarrows \leftarrowtail \leftleftarrows \leftrightarrows \leftrightsquigarrow \Lleftarrow \looparrowleft \looparrowright \Lsh \rightarrowtail \rightleftarrows \rightrightarrows \rightsquigarrow \Rsh \twoheadleftarrow \twoheadrightarrow \upuparrows"
 
 # Table 157: [AMS] Negated Arrows
 AMS_NEGATED_ARROW_SYMBOLS = r"\nleftarrow \nLeftarrow \nleftrightarrow \nLeftrightarrow \nrightarrow \nRightarrow"
@@ -74,17 +75,17 @@ AMS_NEGATED_ARROW_SYMBOLS = r"\nleftarrow \nLeftarrow \nleftrightarrow \nLeftrig
 # Table 158: [AMS] Harpoons
 AMS_HARPOON_SYMBOLS = r"\downharpoonleft \downharpoonright \leftrightharpoons \rightleftharpoons \upharpoonleft \upharpoonright"
 
-# Table 198: Extension Characters
-EXTENSION_SYMBOLS = r"\relbar \Relbar"
+# # Table 198: Extension Characters
+# EXTENSION_SYMBOLS = r"\relbar \Relbar"
 
 # Table 203: Log-like Symbols
-LOG_LIKE_SYMBOLS = r" \arccos \cos \csc \exp \ker \limsup \min \sinh \arcsin \cosh \deg \gcd \lg \ln \Pr \sup \arctan \cot \det \hom \lim \log \sec \tan \arg \coth \dim \inf \liminf \max \sin \tanh"
+LOG_LIKE_SYMBOLS = r"\arccos \cos \csc \exp \ker \limsup \min \sinh \arcsin \cosh \deg \gcd \lg \ln \Pr \sup \arctan \cot \det \hom \lim \log \sec \tan \arg \coth \dim \inf \liminf \max \sin \tanh"
 
 # Table 204: [AMS] Log-like Symbols
 AMS_LOG_LIKE_SYMBOLS = r"\injlim \projlim \varinjlim \varliminf \varlimsup \varprojlim"
 
 # Table 208: Greek Letters
-GREEK_SYMBOLS = r"\alpha \beta \gamma \delta \epsilon \varepsilon \zeta \eta \theta \iota \kappa \lambda \mu \nu \xi \omicron \pi \rho \sigma \varsigma \tau \upsilon \phi \varphi \chi \psi \omega \Gamma \Delta \Theta \Lamba \Xi \Pi \Sigma \Upsilon \Phi \Psi \Omega"
+GREEK_SYMBOLS = r"\alpha \beta \gamma \delta \epsilon \varepsilon \zeta \eta \theta \iota \kappa \lambda \mu \nu \xi \omicron \pi \rho \sigma \varsigma \tau \upsilon \phi \varphi \chi \psi \omega \Gamma \Delta \Theta \Lambda \Xi \Pi \Sigma \Upsilon \Phi \Psi \Omega"
 
 # Table 209: [AMS] Greek Letters
 AMS_GREEK_SYMBOLS = r"\digamma \varkappa"
@@ -106,11 +107,11 @@ AMS_LETTER_LIKE_SYMBOLS = (
 AMS_DELIMITER_SYMBOLS = r"\ulcorner \llcorner \urcorner \lrcorner"
 
 # Table 244: Variable-sized Delimiters
-VARIABLE_SIZED_DELIMITER_SYMBOLS = r"\downarrow \langle \lceil \lfloor ( / \Downarrow \rangle \rceil \rfloor ) \backslash [ | \uparrow \updownarrow \{ ] \| \Uparrow \Updownarrow \}"
+VARIABLE_SIZED_DELIMITER_SYMBOLS = r"\downarrow \Downarrow \langle \rangle \lceil \rceil \lfloor \rfloor \uparrow \Uparrow \updownarrow \Updownarrow ( ) [ ] \{ \} | \| / \backslash"
 
 # Table 245: Large, Variable-sized Delimiters
 LARGE_VARIABLE_SIZED_DELIMITER_SYMBOLS = (
-    r"\lmoustache \arrowvert \rmoustache \Arrowvert \lgroup \bracevert \rgroup"
+    r"\lmoustache \rmoustache \arrowvert \Arrowvert \lgroup \rgroup \bracevert"
 )
 
 # Table 246: [AMS] Variable-sized Delimiters
@@ -151,6 +152,7 @@ SYMBOLS_SET_LIST = [
     LOWER_ASCII_SYMBOLS,
     UPPER_ASCII_SYMBOLS,
     DIGIT_SYMBOLS,
+    PUNCTUATION_SYMBOLS,
     LATEX2E_MATH_TEXT_SYMBOLS,
     AMS_MATH_TEXT_SYMBOLS,
     BINARY_OPERATOR_SYMBOLS,
@@ -170,7 +172,6 @@ SYMBOLS_SET_LIST = [
     AMS_ARROW_SYMBOLS,
     AMS_NEGATED_ARROW_SYMBOLS,
     AMS_HARPOON_SYMBOLS,
-    EXTENSION_SYMBOLS,
     LOG_LIKE_SYMBOLS,
     AMS_LOG_LIKE_SYMBOLS,
     GREEK_SYMBOLS,

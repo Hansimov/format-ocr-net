@@ -5,6 +5,8 @@ LATEX_MACROS = []
 
 DISPLAY_STYLE_MACROS = r"\displaystyle \textstyle \scriptstyle \scriptscriptstyle"
 
+SUB_SUP_MACROS = r"_ ^"
+
 # Table 259: Math-mode Accents
 MATH_MODE_ACCENT_MACROS = (
     r"\acute \bar \breve \check \ddot \dot \grave \hat \mathring \tilde \vec"
