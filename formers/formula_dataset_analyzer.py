@@ -11,6 +11,9 @@ class FormulaDatasetAnalyzer:
 
     def __init__(self):
         self.dataset_path = Path(__file__).parents[1] / "datasets" / "math.txt"
+        self.symbols = []
+        self.macros = []
+        self.environments = []
 
     def load(self):
         with open(self.dataset_path, "r", encoding="utf-8") as rf:
@@ -20,9 +23,6 @@ class FormulaDatasetAnalyzer:
 
     def analyze_formula(self, formula):
         elements = formula.split()
-        symbols = []
-        macros = []
-        environments = []
         for element in elements:
             for delimiter in AMS_DELIMITER_MACROS.split():
                 if element.startswith(delimiter):
@@ -35,27 +35,47 @@ class FormulaDatasetAnalyzer:
                     delimited_element = element
 
             if element in LATEX_SYMBOLS or delimited_element in LATEX_SYMBOLS:
-                symbols.append(element)
+                self.symbols.append(element)
             elif element in LATEX_MACROS or delimited_element in LATEX_MACROS:
-                macros.append(element)
+                self.macros.append(element)
             elif element.startswith(r"\begin") or element.startswith(r"\end"):
-                environments.append(element)
+                self.environments.append(element)
             elif element in self.IGNORE_ELEMENTS:
                 continue
             elif all(char in LATEX_SYMBOLS for char in element):
                 # if all chars in element are symbols
-                symbols.append(element)
+                self.symbols.append(element)
             else:
                 raise TypeError(f"Unknown type: {element}")
 
     def analyze(self):
         offset = 0
-        for idx, formula in enumerate(tqdm(self.formulas[offset:])):
-            try:
-                self.analyze_formula(formula)
-            except Exception as e:
-                logger.warn(f"Line: {idx+offset+1}")
-                raise e
+        with tqdm(total=len(self.formulas)) as pbar:
+            for idx, formula in enumerate(self.formulas[offset:]):
+                try:
+                    self.analyze_formula(formula)
+                    symbols_count = len(self.symbols)
+                    macros_count = len(self.macros)
+                    symbols_ratio = round(
+                        symbols_count / (symbols_count + macros_count) * 100, 1
+                    )
+                    macros_ratio = round(
+                        macros_count / (symbols_count + macros_count) * 100, 1
+                    )
+                    envs_count = len(self.environments)
+                    envs_ratio = round(envs_count / (idx + 1) * 100, 1)
+
+                    pbar.set_postfix(
+                        {
+                            "sym": f"{symbols_count:>6} ({symbols_ratio}%)",
+                            "mac": f"{macros_count:>6} ({macros_ratio}%)",
+                            "env": f"{envs_count:>6} ({envs_ratio}%)",
+                        }
+                    )
+                    pbar.update()
+                except Exception as e:
+                    logger.warn(f"Line: {idx+offset+1}")
+                    raise e
 
 
 if __name__ == "__main__":
