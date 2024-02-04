@@ -1,0 +1,17 @@
+// This file defines grammar for valid expressions in latex
+// author: @Hansimov
+full_expr: expr_without_env | expr_with_env
+    expr_with_env: begin_env expr_without_env end_env
+    expr_without_env: [display_mode] (expr_without_command | expr_with_command)
+        display_mode: "\displaystyle"
+        expr_with_command: expr_with_scoped_command | expr_with_no_scoped_command
+            expr_with_scoped_command: "{" scoped_command expr "}"
+                scoped_command: font_size_command | font_style_command | color_command
+                    font_size_command: "\tiny" | "\scriptsize" | "\footnotesize" | "\small" | "\normalsize" | "\large" | "\Large" | "\LARGE" | "\huge" | "\Huge"
+                    font_style_command: "\mathbf" | "\mathrm" | "\mathcal" | "\mathsf" | "\mathtt" | "\mathit" | "\mathfrak"
+                    color_command: "\color" "{" color "}"
+                        color: "black" | "white" | "red" | "green" | "blue" | "cyan" | "magenta" | "yellow" | "gray" | "grey" | "darkgray" | "lightgray" | "darkgrey" | "lightgrey" | "brown" | "lime" | "olive" | "orange" | "pink" | "purple" | "teal" | "violet"
+                no_scoped_command: accent_command | ...
+            expr_with_no_scoped_command: no_scoped_command "{" expr_without_env "}"
+        expr_without_command: (operator | symbol)+
+        
