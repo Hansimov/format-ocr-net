@@ -108,6 +108,7 @@ AMS_LETTER_LIKE_SYMBOLS = (
 AMS_DELIMITER_SYMBOLS = r"\ulcorner \llcorner \urcorner \lrcorner"
 
 # Table 244: Variable-sized Delimiters
+# ANCHOR[id=variable-sized-delimiter-symbols]
 VARIABLE_SIZED_DELIMITER_SYMBOLS = r"\downarrow \Downarrow \langle \rangle \lceil \rceil \lfloor \rfloor \uparrow \Uparrow \updownarrow \Updownarrow \lbrace \rbrace \vert \Vert \slash \backslash ( ) [ ] \{ \} | \| /"
 
 # Table 245: Large, Variable-sized Delimiters

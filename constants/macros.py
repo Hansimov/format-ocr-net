@@ -4,40 +4,51 @@ from constants import chars_to_list
 
 LATEX_MACROS = []
 
-DISPLAY_STYLE_MACROS = r"\displaystyle \textstyle \scriptstyle \scriptscriptstyle"
+# ANCHOR[id=display-style-macros]
+DISPLAY_STYLE_MACROS = r"\displaystyle"
 
-SUB_SUP_MACROS = r"_ ^ \sp"
+# ANCHOR[id=sub-sup-macros]
+SUB_SUP_MACROS = r"_ ^"
 
 # Table 259: Math-mode Accents
+# ANCHOR[id=math-mode-accent-macros]
 MATH_MODE_ACCENT_MACROS = (
     r"\acute \bar \breve \check \ddot \dot \grave \hat \mathring \tilde \vec"
 )
 
 # Table 260: [AMS] Math-mode Accents
+# ANCHOR[id=ams-math-mode-accent-macros]
 AMS_MATH_MODE_ACCENT_MACROS = r"\dddot \ddddot"
 
 # Table 270: Extensible Accents
-EXTENSIBLE_ACCENT_MACROS = r"\widetilde \overleftarrow \overline \overbrace \sqrt \widehat \overrightarrow \underline \underbrace"
+# ANCHOR[id=extensible-accent-macros]
+EXTENSIBLE_ACCENT_MACROS = r"\overbrace \overline \overleftarrow \overrightarrow \sqrt \underbrace \underline \widehat \widetilde"
 
 # Table 271: [overrightarrow] Extensible Accents
+# ANCHOR[id=overrightarrow-extensible-accent-macros]
 OVERRIGHTARROW_EXTENSIBLE_ACCENT_MACROS = r"\Overrightarrow"
 
 # Table 273: [AMS] Extensible Accents
+# ANCHOR[id=ams-extensible-accent-macros]
 AMS_EXTENSIBLE_ACCENT_MACROS = (
     r"\overleftrightarrow \underleftarrow \underleftrightarrow \underrightarrow"
 )
 
 # Table 288: AMS Extensible Arrows
+# ANCHOR[id=ams-extensible-arrow-macros]
 AMS_EXTENSIBLE_ARROW_MACROS = r"\xleftarrow \xrightarrow"
 
 # Table 348: Math Alphabets
+# ANCHOR[id=math-alphabet-macros]
 MATH_ALPHABET_MACROS = r"\mathrm \mathit \mathnormal \mathcal \mathscr \mathbb"
 
 # Table 689: Sample resized delimiters
+# ANCHOR[id=vertical-resize-macros]
 VERTICAL_RESIZE_MACROS = r"\big \Big \bigg \Bigg"
 
 # Table 693: Producing bold mathematical symbols
-BOLD_MATH_FONT_MACROS = r"\mathbf \boldmath \pmb \boldsymbol"
+# ANCHOR[id=bold-math-font-macros]
+BOLD_MATH_FONT_MACROS = r"\mathbf \pmb \boldsymbol"
 
 
 # === AMS MATH === #
@@ -55,35 +66,53 @@ AMS_AFFIX_MACROS = r"\stackrel \overset \underset"
 AMS_FRAC_MACROS = r"\frac \dfrac \tfrac \binom \dbinom \tbinom \cfrac"
 
 # AMS ch-4.14: Delimiters
+# ANCHOR[id=ams-delimiter-macros]
 AMS_DELIMITER_MACROS = (
     r"\left \right \bigl \bigr \Bigl \Bigr \biggl \biggr \Biggl \Biggr"
 )
 
 # AMS ch-5.1: Operator names
+# ANCHOR[id=ams-operator-name-macros]
 AMS_OPERATOR_NAME_MACROS = r"\operatorname \operatorname* \mathop"
 
 # AMS ch-5.2: mod and relatives
 #   \mod and \pod are variants of \pmod preferred by some authors;
 #   \mod omits the parentheses, whereas \pod omits the “mod” and retains the parentheses
+# ANCHOR[id=ams-mod-macros]
 AMS_MOD_MACROS = r"\mod \bmod \pmod \pod"
 
 # AMS ch-6: The \text command
-AMS_TEXT_MACRO = r"\text \textrm \textbf \textit"
+# ANCHOR[id=ams-text-font-macros]
+AMS_TEXT_FONT_MACROS = (
+    r"\text \textrm \textbf \textit \texttt \textsf \textup \textnormal"
+)
 
 # AMS ch-7.1: Multiline subscripts and superscripts
 AMS_SUBSTACK_MACROS = r"\substack"
 
 # AMS ch-7.2: The \sideset command
+# `\sideset` is used for putting symbols at the four 'corners' of a large operator.
+#   - syntax: { \sideset{_#1^#2}{_#3^#4} <large_operator> }
+#   - https://www.tutorialspoint.com/tex_commands/sideset.htm
+# `\limits` is used to set limits above/below any token of class OP.
+#   - syntax: { \int\limits_a^b f(x)dx }
+#   - https://www.tutorialspoint.com/tex_commands/limits.htm
+# \nolimits is used to change the default placement of limits; only allowed on items of class OP.
+#   - syntax: { \sum\nolimits_{k=1}^n a_k }
+#   - https://www.tutorialspoint.com/tex_commands/nolimits.htm
+# ANCHOR[id=ams-sideset-macros]
 AMS_SIDESET_MACROS = r"\sideset \limits \nolimits"
 
 # AMS ch-9.1: Using math fonts
+# ANCHOR[id=ams-math-font-macros]
 AMS_MATH_FONT_MACROS = r"\mathbf \mathrm \mathcal \mathsf \mathtt \mathit \mathfrak"
 
 # https://katex.org/docs/supported#style-color-size-and-font
 SHORT_AMS_MATH_FONT_MACROS = r"\bf \rm \cal \sf \tt \it \bm \it \frak \mit"
 
 # https://www.overleaf.com/learn/latex/Questions/How_do_I_adjust_the_font_size%3F
-FONT_SIZE_MACROS = r"\tiny \scriptsize \footnotesize \small \normalsize \large \Large \LARGE \huge \Huge"
+# ANCHOR[id=font-size-macros]
+FONT_SIZE_MACROS = r"\tiny \scriptsize \footnotesize \small \normalsize \large \Large \LARGE \huge \Huge \scriptstyle \scriptscriptstyle"
 
 NO_NUMBER_MACROS = r"\nonumber"
 
@@ -118,7 +147,7 @@ MACROS_SET_LIST = [
     AMS_DELIMITER_MACROS,
     AMS_OPERATOR_NAME_MACROS,
     AMS_MOD_MACROS,
-    AMS_TEXT_MACRO,
+    AMS_TEXT_FONT_MACROS,
     AMS_SUBSTACK_MACROS,
     AMS_SIDESET_MACROS,
     AMS_MATH_FONT_MACROS,
