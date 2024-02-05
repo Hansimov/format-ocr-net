@@ -1,17 +1,75 @@
-// This file defines grammar for valid expressions in latex
+// This file defines grammar for valid expressions of equations in latex
 // author: @Hansimov
-full_expr: expr_without_env | expr_with_env
-    expr_with_env: begin_env expr_without_env end_env
-    expr_without_env: [display_mode] (expr_without_command | expr_with_command)
-        display_mode: "\displaystyle"
-        expr_with_command: expr_with_scoped_command | expr_with_no_scoped_command
-            expr_with_scoped_command: "{" scoped_command expr "}"
-                scoped_command: font_size_command | font_style_command | color_command
-                    font_size_command: "\tiny" | "\scriptsize" | "\footnotesize" | "\small" | "\normalsize" | "\large" | "\Large" | "\LARGE" | "\huge" | "\Huge"
-                    font_style_command: "\mathbf" | "\mathrm" | "\mathcal" | "\mathsf" | "\mathtt" | "\mathit" | "\mathfrak"
-                    color_command: "\color" "{" color "}"
-                        color: "black" | "white" | "red" | "green" | "blue" | "cyan" | "magenta" | "yellow" | "gray" | "grey" | "darkgray" | "lightgray" | "darkgrey" | "lightgrey" | "brown" | "lime" | "olive" | "orange" | "pink" | "purple" | "teal" | "violet"
-                no_scoped_command: accent_command | ...
-            expr_with_no_scoped_command: no_scoped_command "{" expr_without_env "}"
-        expr_without_command: (operator | symbol)+
+full_eqn: [DISPLAY_STYLE] (eqn_with_env | eqn)
+    eqn_with_env: begin_env eqn end_env
+    eqn: eqn_with_cmd | eqn_without_cmd
+        eqn_with_cmd: eqn_with_scoped_cmd | eqn_with_delimiter_cmd | eqn_with_non_scoped_cmd
+            eqn_with_scoped_cmd: "{" scoped_cmd eqn "}"
+                scoped_cmd: FONT_SIZE_CMD | color_cmd                    
+                    color_cmd: "\color" "{" COLOR "}"
+            eqn_with_delimiter_cmd: eqn_with_paired_delimiter | eqn_with_non_paired_delimiter
+                eqn_with_paired_delimiter: left_delimiter eqn right_delimiter
+                    left_delimiter: LEFT_DELIMITER_CMD (LEFT_DELIMITER_SYMBOL | NON_PAIRED_DELIMITER_SYMBOL)
+                    right_delimiter: RIGHT_DELIMITER_CMD (RIGHT_DELIMITER_SYMBOL | NON_PAIRED_DELIMITER_SYMBOL)
+                eqn_with_non_paired_delimiter: (non_paired_delimiter eqn [non_paired_delimiter]) | (eqn non_paired_delimiter)
+                    non_paired_delimiter: NON_PAIRED_DELIMITER_CMD (LEFT_DELIMITER_SYMBOL | RIGHT_DELIMITER_SYMBOL | NON_PAIRED_DELIMITER_SYMBOL)
+            eqn_with_non_scoped_cmd: (one_arg_cmd "{" eqn "}") | (two_arg_cmd "{" eqn "}" "{" eqn "}")
+                non_scoped_cmd: one_arg_cmd | two_arg_cmd
+                    one_arg_cmd: 
+        eqn_without_cmd: (operator | symbol)+
         
+
+// ========= scoped cmds ========= //
+
+// LINK: constants/macros.py#display-style-macros
+DISPLAY_STYLE: "\displaystyle"
+
+// LINK: constants/macros.py#font-size-macros
+FONT_SIZE_CMD: "\tiny" | "\scriptsize" | "\footnotesize" | "\small" | "\normalsize" | "\large" | "\Large" | "\LARGE" | "\huge" | "\Huge" | "\scriptstyle" | "\scriptscriptstyle"
+
+COLOR: "black" | "white" | "red" | "green" | "blue" | "cyan" | "magenta" | "yellow" | "gray" | "grey" | "darkgray" | "lightgray" | "darkgrey" | "lightgrey" | "brown" | "lime" | "olive" | "orange" | "pink" | "purple" | "teal" | "violet"
+
+
+// ========= delimiter cmds and symbols ========= //
+
+// LINK: constants/macros.py#ams-delimiter-macros
+LEFT_DELIMITER_CMD: "\left" | "\bigl" | "\Bigl" | "\biggl" | "\Biggl"
+RIGHT_DELIMITER_CMD: "\right" | "\bigr" | "\Bigr" | "\biggr" | "\Biggr"
+// LINK: constants/macros.py#vertical-resize-macros
+NON_PAIRED_DELIMITER_CMD: "\big" | "\Big" | "\bigg" | "\Bigg"
+
+// LINK: constants/macros.py#variable-sized-delimiter-symbols
+LEFT_DELIMITER_SYMBOL: "(" | "[" | "\{" |  "\lbrace" | "\lvert" | "\lVert" | "\langle" | "\lgroup" | "\lmoustache" | "\lceil" | "\lfloor"
+RIGHT_DELIMITER_SYMBOL: ")" | "]" | "\}" |  "\rbrace" | "\rvert" | "\rVert" | "\rangle" | "\rgroup" | "\rmoustache" | "\rceil" | "\rfloor"
+NON_PAIRED_DELIMITER_SYMBOL:  "|" | "\vert" | "|" | "\Vert"| "\|" |"\downarrow" | "\Downarrow" | "\uparrow" | "\Uparrow" | "\updownarrow" | "\Updownarrow" | "\backslash" | "\slash"
+
+// ========= non scoped cmds ========= //
+
+// LINK: constants/macros.py#ams-math-font-macros
+// LINK: constants/macros.py#math-alphabet-macros
+// LINK: constants/macros.py#bold-math-font-macros
+MATH_FONT_STYLE_CMD: "\mathbf" | "\mathrm" | "\mathcal" | "\mathsf" | "\mathtt" | "\mathit" | "\mathfrak" | "\mathbb" | "\mathscr" | "\mathnormal" | "\boldsymbol" | "\pmb"
+// LINK: constants/macros.py#ams-text-font-macros
+TEXT_FONT_STYLE_CMD: "\text" | "\textrm" | "\textbf" | "\textit" | "\texttt" | "\textsf" | "\textup" | "\textnormal"
+
+// LINK: constants/macros.py#sub-sup-macros
+SUB_SUP_CMD: "^" | "_"
+
+// LINK: constants/macros.py#math-mode-accent-macros
+// LINK: constants/macros.py#ams-math-mode-accent-macros
+ACCENT_CMD: "\acute" | "\bar" | "\breve" | "\check" | "\dot" | "\ddot" | "\grave" | "\hat" | "\mathring" | "\tilde" | "\vec" | "\dddot" | "\dddot"
+
+// LINK: constants/macros.py#extensible-accent-macros
+// LINK: constants/macros.py#overrightarrow-extensible-accent-macros
+// LINK: constants/macros.py#ams-extensible-accent-macros
+// LINK: constants/macros.py#ams-extensible-arrow-macros
+EXTENSIBLE_ACCENT_CMD: "\overbrace" | "\overline" | "\overleftarrow" | "\overrightarrow" | "\sqrt" | "\underbrace" | "\underline" | "\widehat" | "\widetilde" | "\Overrightarrow" | "\overleftrightarrow" | "\underleftarrow" | "\underleftrightarrow" | "\underrightarrow" | "\xleftarrow" | "\xrightarrow"
+
+// LINK: constants/macros.py#ams-operator-name-macros
+OPERATOR_NAME_CMD: "\operatorname" | "\operatorname*" | "\mathop"
+
+// LINK: constants/macros.py#ams-mod-macros
+MOD_CMD: "\mod" | "\bmod" | "\pmod" | "\pod"
+
+
+// ========= operators and symbols ========= //
