@@ -1,5 +1,6 @@
 hf_transfer
 huggingface_hub[cli,torch]
+lark
 pandas
 pyarrow
 sympy
