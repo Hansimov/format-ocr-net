@@ -12,7 +12,7 @@ class FormulaGrammarChecker:
             # escape the backslash (\) in .lark file
             grammar = rf.read().replace("\\", "\\\\")
 
-        self.parser = Lark(grammar, start="full_eqn", debug=True)
+        self.parser = Lark(grammar, start="full_eqn")
 
     def parse(self, expr):
         try:
@@ -25,6 +25,9 @@ class FormulaGrammarChecker:
 
 
 if __name__ == "__main__":
-    expr = r"\frac{ab}{cd} + \frac{ef}{gh} = \bar{x} + \bar{b}"
+    # expr = r"\frac{ab}{cd} + \frac{ef}{gh} = \bar{x} + \bar{b}"
+    # expr = r"{ a b }"
+    # expr = r"G ( 0, 1 )"
+    expr = r"G ( 0 , t ^ { \prime \prime } ; 0 , t ^ { \prime \prime } ) = i \int \int \frac { d \omega ^ { \prime \prime } } { 2 \pi } \frac { d k ^ { \prime \prime } } { 2 \pi } P _ { 0 } ( \omega ^ { \prime \prime } , k ^ { \prime \prime } )"
     checker = FormulaGrammarChecker()
     checker.parse(expr)

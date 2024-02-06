@@ -21,8 +21,8 @@ full_eqn: ([DISPLAY_STYLE] (eqn_with_env | eqn))*
         begin_env_expr: BEGIN ls env rs
         end_env_expr: END ls env rs
             env: AMS_EQUATION_ENV | LOW_LEVEL_AMS_EQUATION_ENV | AMS_MATRIX_ENV
-    eqn: WB* (eqn_with_scope | eqn_with_cmd | eqn_without_cmd) WB*
-        eqn_with_scope: ls eqn rs
+    eqn: WB* (eqn_with_scope | eqn_with_cmd | eqn_without_cmd)* WB*
+        eqn_with_scope: ls eqn* rs
         eqn_with_cmd: eqn_with_scoped_cmd | eqn_with_delim_cmd | eqn_with_non_scoped_cmd
             eqn_with_scoped_cmd: ls scoped_cmd eqn rs
                 scoped_cmd: FONT_SIZE_CMD | color_expr
@@ -43,7 +43,7 @@ full_eqn: ([DISPLAY_STYLE] (eqn_with_env | eqn))*
                 normal_char: LOWER_ASCII_CHAR | UPPER_ASCII_CHAR | DIGIT_CHAR
                 lang_char: GREEK_CHAR | AMS_GREEK_CHAR | AMS_ITALIC_GREEK_CHAR | AMS_HEBREW_CHAR
             operator: BINARY_OP | AMS_BINARY_OP | VARIABLE_SIZE_OP | AMS_VARIABLE_SIZE_OP | BINARY_RELATION_OP | AMS_BINARY_RELATION_OP | AMS_NEG_BINARY_RELATION_OP | SET_RELATION_OP | AMS_SET_RELATION_OP | INEQUALITY_OP | AMS_INEQUALITY_OP | AMS_TRIAG_RELATION_OP | ARROW_OP | AMS_ARROW_OP | AMS_NEG_ARROW_OP | HARPOON_OP | AMS_HARPOON_OP | LOG_LIKE_OP | AMS_LOG_LIKE_OP | LETTER_LIKE_OP | AMS_LETTER_LIKE_OP | AMS_ANGLE_OP
-            symbol: ESCAPED_SYM | PUNCT_SYM | MATH_TEXT_SYM | AMS_DELIM_SYM | DOT_SYM | AMS_DOT_SYM | MISC_MATH_SYM | MUSIC_SYM | CARD_SYM | SPACING_SYM | SKIP_SYM
+            symbol: LEFT_DELIM_SYM | RIGHT_DELIM_SYM | NON_PAIRED_DELIM_SYM | ESCAPED_SYM | PUNCT_SYM | MATH_TEXT_SYM | AMS_DELIM_SYM | DOT_SYM | AMS_DOT_SYM | MISC_MATH_SYM | MUSIC_SYM | CARD_SYM | SPACING_SYM | SKIP_SYM
 
 // ============ Commands ============ //
 
