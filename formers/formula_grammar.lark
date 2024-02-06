@@ -11,34 +11,54 @@
 //  - op: operator
 //  - lb: left brace (\beingroup)
 //  - rb: right brace (\endgroup)
+//  - ls: left scope (LB with optional WB)
+//  - rs: right scope (RB with optional WB)
 
-full_eqn: [DISPLAY_STYLE] (eqn_with_env | eqn)
-    eqn_with_env: begin_env eqn end_env
-    eqn: eqn_with_scope | eqn_with_cmd | eqn_without_cmd
-        eqn_with_scope: LB eqn RB
+full_eqn: ([DISPLAY_STYLE] (eqn_with_env | eqn))*
+    ls: WB* LB WB*
+    rs: WB* RB WB*
+    eqn_with_env: begin_env_expr eqn end_env_expr
+        begin_env_expr: BEGIN ls env rs
+        end_env_expr: END ls env rs
+            env: AMS_EQUATION_ENV | LOW_LEVEL_AMS_EQUATION_ENV | AMS_MATRIX_ENV
+    eqn: WB* (eqn_with_scope | eqn_with_cmd | eqn_without_cmd) WB*
+        eqn_with_scope: ls eqn rs
         eqn_with_cmd: eqn_with_scoped_cmd | eqn_with_delim_cmd | eqn_with_non_scoped_cmd
-            eqn_with_scoped_cmd: LB scoped_cmd eqn RB
+            eqn_with_scoped_cmd: ls scoped_cmd eqn rs
                 scoped_cmd: FONT_SIZE_CMD | color_expr
-                    color_expr: COLOR_CMD LB COLOR RB
+                    color_expr: COLOR_CMD ls COLOR rs
             eqn_with_delim_cmd: eqn_with_paired_delim | eqn_with_non_paired_delim
                 eqn_with_paired_delim: left_delim_expr eqn right_delim_expr
                     left_delim_expr: LEFT_DELIM_CMD (LEFT_DELIM_SYM | NON_PAIRED_DELIM_SYM)
                     right_delim_expr: RIGHT_DELIM_CMD (RIGHT_DELIM_SYM | NON_PAIRED_DELIM_SYM)
-                eqn_with_non_paired_delim: (non_paired_delim eqn [non_paired_delim]) | (eqn non_paired_delim)
-                    non_paired_delim: NON_PAIRED_DELIM_CMD (LEFT_DELIM_SYM | RIGHT_DELIM_SYM | NON_PAIRED_DELIM_SYM)
-            eqn_with_non_scoped_cmd: (one_arg_cmd LB eqn RB) | (two_arg_cmd LB eqn RB LB eqn RB)
-                non_scoped_cmd: one_arg_cmd | two_arg_cmd
-                    one_arg_cmd: 
-        eqn_without_cmd: (operator | symbol)+
-        
+                eqn_with_non_paired_delim: (non_paired_delim_expr eqn [non_paired_delim_expr]) | (eqn non_paired_delim_expr)
+                    non_paired_delim_expr: NON_PAIRED_DELIM_CMD (LEFT_DELIM_SYM | RIGHT_DELIM_SYM | NON_PAIRED_DELIM_SYM)
+            eqn_with_non_scoped_cmd: one_arg_expr | two_arg_expr
+                one_arg_expr: one_arg_cmd eqn_with_scope
+                    one_arg_cmd: MATH_FONT_STYLE_CMD | SHORT_MATH_FONT_STYLE_CMD | TEXT_FONT_STYLE_CMD | SUB_SUP_CMD | ACCENT_CMD | EXTENSIBLE_ACCENT_CMD | OPERATOR_NAME_CMD | MOD_CMD | AFFIX_CMD | BOXED_CMD
+                two_arg_expr: two_arg_cmd eqn_with_scope eqn_with_scope
+                    two_arg_cmd: FRAC_CMD
+        eqn_without_cmd: (operator | symbol | char)+
+            char: normal_char | lang_char
+                normal_char: LOWER_ASCII_CHAR | UPPER_ASCII_CHAR | DIGIT_CHAR
+                lang_char: GREEK_CHAR | AMS_GREEK_CHAR | AMS_ITALIC_GREEK_CHAR | AMS_HEBREW_CHAR
+            operator: BINARY_OP | AMS_BINARY_OP | VARIABLE_SIZE_OP | AMS_VARIABLE_SIZE_OP | BINARY_RELATION_OP | AMS_BINARY_RELATION_OP | AMS_NEG_BINARY_RELATION_OP | SET_RELATION_OP | AMS_SET_RELATION_OP | INEQUALITY_OP | AMS_INEQUALITY_OP | AMS_TRIAG_RELATION_OP | ARROW_OP | AMS_ARROW_OP | AMS_NEG_ARROW_OP | HARPOON_OP | AMS_HARPOON_OP | LOG_LIKE_OP | AMS_LOG_LIKE_OP | LETTER_LIKE_OP | AMS_LETTER_LIKE_OP | AMS_ANGLE_OP
+            symbol: ESCAPED_SYM | PUNCT_SYM | MATH_TEXT_SYM | AMS_DELIM_SYM | DOT_SYM | AMS_DOT_SYM | MISC_MATH_SYM | MUSIC_SYM | CARD_SYM | SPACING_SYM | SKIP_SYM
 
-// ========= scoped cmds ========= //
+// ============ Commands ============ //
+
+// -------- scoped cmds -------- //
 
 // LINK: constants/macros.py#display-style-macros
 DISPLAY_STYLE: "\displaystyle"
 
 LB: "{"
 RB: "}"
+// TODO: add support for whitespace
+WB: " "
+
+BEGIN: "\begin"
+END: "\end"
 
 // LINK: constants/macros.py#font-size-macros
 FONT_SIZE_CMD: "\tiny" | "\scriptsize" | "\footnotesize" | "\small" | "\normalsize" | "\large" | "\Large" | "\LARGE" | "\huge" | "\Huge" | "\scriptstyle" | "\scriptscriptstyle"
@@ -46,8 +66,18 @@ FONT_SIZE_CMD: "\tiny" | "\scriptsize" | "\footnotesize" | "\small" | "\normalsi
 COLOR_CMD: "\color"
 COLOR: "black" | "white" | "red" | "green" | "blue" | "cyan" | "magenta" | "yellow" | "gray" | "grey" | "darkgray" | "lightgray" | "darkgrey" | "lightgrey" | "brown" | "lime" | "olive" | "orange" | "pink" | "purple" | "teal" | "violet"
 
+// -------- environments -------- //
 
-// ========= delimiter cmds and symbols ========= //
+// LINK: constants/environments.py#ams-equation-envs
+AMS_EQUATION_ENV: "equation equation* subequations align align* gather gather* alignat alignat* multiline multiline* flalign flalign* cases array eqnarray eqnarray* subarray"
+
+// LINK: constants/environments.py#low-level-ams-equation-envs
+LOW_LEVEL_AMS_EQUATION_ENV: "gathered aligned alignedat split"
+
+// LINK: constants/environments.py#ams-matrix-envs
+AMS_MATRIX_ENV: "matrix pmatrix pmatrix* bmatrix bmatrix* Bmatrix Bmatrix* vmatrix vmatrix* Vmatrix Vmatrix* smallmatrix"
+
+// -------- delimiter cmds and symbols -------- //
 
 // LINK: constants/macros.py#ams-delimiter-macros
 LEFT_DELIM_CMD: "\left" | "\bigl" | "\Bigl" | "\biggl" | "\Biggl"
@@ -63,8 +93,7 @@ LEFT_DELIM_SYM: "(" | "[" | "\{" |  "\lbrace" | "\lvert" | "\lVert" | "\langle" 
 RIGHT_DELIM_SYM: ")" | "]" | "\}" |  "\rbrace" | "\rvert" | "\rVert" | "\rangle" | "\rgroup" | "\rmoustache" | "\rceil" | "\rfloor"
 NON_PAIRED_DELIM_SYM:  "|" | "\vert" | "|" | "\Vert"| "\|" | "\downarrow" | "\Downarrow" | "\uparrow" | "\Uparrow" | "\updownarrow" | "\Updownarrow" | "\arrowvert" | "\Arrowvert" | "\backslash" | "\slash" | "."
 
-
-// ========= non scoped cmds ========= //
+// -------- non scoped cmds -------- //
 
 // LINK: constants/macros.py#ams-math-font-macros
 // LINK: constants/macros.py#math-alphabet-macros
@@ -99,8 +128,14 @@ MOD_CMD: "\mod" | "\bmod" | "\pmod" | "\pod"
 // LINK: constants/macros.py#ams-affix-macros
 AFFIX_CMD: "\stackrel" | "\overset" | "underset" | "\sideset" | "\limits" | "\nolimits"
 
+// LINK: constants/macros.py#ams-boxed-macros
+BOXED_CMD: "\boxed"
+
 // LINK: constants/macros.py#ams-frac-macros
+// require two args
 FRAC_CMD: "\frac" | "\dfrac" | "\tfrac" | "\cfrac" | "\binom" | "\dbinom" | "\tbinom"
+
+// -------- special commands -------- //
 
 // LINK: constants/macros.py#align-macros
 ALIGN_CMD: "&"
@@ -114,11 +149,10 @@ SUBSTACK_CMD: "\substack"
 // LINK: constants/macros.py#ams-matrix-dot-macros
 MATRIX_DOT_CMD: "\hdotsfor"
 
-// LINK: constants/macros.py#ams-boxed-macros
-BOXED_CMD: "\boxed"
 
+// ========= Characters, Operators, Symbols ========= //
 
-// ========= characters, operators, symbols ========= //
+// -------- characters -------- //
 
 // LINK: constants/symbols.py#ascii-symbols
 LOWER_ASCII_CHAR: "a".."z"
@@ -134,14 +168,7 @@ AMS_ITALIC_GREEK_CHAR: "\varGamma" | "\varDelta" | "\varTheta" | "\varLambda" | 
 // LINK: constants/symbols.py#ams-hebrew-symbols
 AMS_HEBREW_CHAR: "\beth" | "\gimel" | "\daleth"
 
-// LINK: constants/symbols.py#escaped-symbols
-ESCAPED_SYM: "\&" | "\%" | "\$" | "\#" | "\_" | "\{" | "\}" | "\~" | "\^" | "\\"
-// LINK: constants/symbols.py#punctuation-symbols
-PUNCT_SYM: "." | "," | ":" | ";" | "!" | "?" | "'" | "\"" | "`"| "-" | "\\" | "<" | ">" | "+" | "=" | "*" | "@"
-
-// LINK: constants/symbols.py#latex2e-math-text-symbols
-// LINK: constants/symbols.py#ams-math-text-symbols
-MATH_TEXT_SYM: "\copyright" | "\dag" | "\ddag" | "\dots" | "\P" | "\pounds" | "\S" | "\checkmark" | "\circledR" | "\maltese"
+// -------- operators -------- //
 
 // LINK: constants/symbols.py#binary-operator-symbols
 BINARY_OP: "\amalg" | "\ast" | "\bigcirc" | "\bigtriangledown" | "\bigtriangleup" | "\bullet" | "\cap" | "\cdot" | "\circ" | "\cup" | "\dagger" | "\ddagger" | "\diamond" | "\div" | "\lhd" | "\mp" | "\odot" | "\ominus" | "\oplus" | "\oslash" | "\otimes" | "\pm" | "\rhd" | "\setminus" | "\sqcap" | "\sqcup" | "\star" | "\times" | "\triangleleft" | "\triangleright" | "\unlhd" | "\unrhd" | "\uplus" | "\vee" | "\wedge" | "\wr"
@@ -195,6 +222,21 @@ LETTER_LIKE_OP: "\bot" | "\ell" | "\exists" | "\forall" | "\hbar" | "\Im" | "\im
 // LINK: constants/symbols.py#ams-like-symbols
 AMS_LETTER_LIKE_OP: "\Bbbk" | "\circledR" | "\circledS" | "\complement" | "\Finv" | "\Game" | "\hbar" | "\hslash" | "\nexists"
 
+// LINK: constants/symbols.py#ams-angle-symbols
+AMS_ANGLE_OP: "\angle" | "\measuredangle" | "\sphericalangle"
+
+// -------- symbols -------- //
+
+// LINK: constants/symbols.py#escaped-symbols
+ESCAPED_SYM: "\&" | "\%" | "\$" | "\#" | "\_" | "\{" | "\}" | "\~" | "\^" | "\\"
+// LINK: constants/symbols.py#punctuation-symbols
+// TODO: correctly parse double quote (\")
+PUNCT_SYM: "." | "," | ":" | ";" | "!" | "?" | "'" | "`"| "-" | "\\" | "<" | ">" | "+" | "=" | "*" | "@"
+
+// LINK: constants/symbols.py#latex2e-math-text-symbols
+// LINK: constants/symbols.py#ams-math-text-symbols
+MATH_TEXT_SYM: "\copyright" | "\dag" | "\ddag" | "\dots" | "\P" | "\pounds" | "\S" | "\checkmark" | "\circledR" | "\maltese"
+
 // LINK: constants/symbols.py#ams-delimiter-symbols
 AMS_DELIM_SYM: "\ulcorner" | "\llcorner" | "\urcorner" | "\lrcorner"
 
@@ -202,9 +244,6 @@ AMS_DELIM_SYM: "\ulcorner" | "\llcorner" | "\urcorner" | "\lrcorner"
 DOT_SYM: "\cdotp" | "\cdots" | "\colon" | "\ddots" | "\ldotp" | "\ldots" | "\vdots"
 // LINK: constants/symbols.py#ams-dot-symbols
 AMS_DOT_SYM: "\because" | "\dotsb" | "\dotsc" | "\dotsi" | "\dotsm" | "\dotso" | "\therefore"
-
-// LINK: constants/symbols.py#ams-angle-symbols
-AMS_ANGLE_OP: "\angle" | "\measuredangle" | "\sphericalangle"
 
 // LINK: constants/symbols.py#latex2e-misc-math-symbols
 // LINK: constants/symbols.py#ams-misc-math-symbols
