@@ -49,6 +49,10 @@ NON_PAIRED_DELIMITER_SYMBOL:  "|" | "\vert" | "|" | "\Vert"| "\|" |"\downarrow" 
 // LINK: constants/macros.py#math-alphabet-macros
 // LINK: constants/macros.py#bold-math-font-macros
 MATH_FONT_STYLE_CMD: "\mathbf" | "\mathrm" | "\mathcal" | "\mathsf" | "\mathtt" | "\mathit" | "\mathfrak" | "\mathbb" | "\mathscr" | "\mathnormal" | "\boldsymbol" | "\pmb"
+
+// LINK: constants/macros.py#short-ams-math-font-macros
+SHORT_MATH_FONT_STYLE_CMD: "\bf" | "\rm" | "\cal" | "\sf" | "\tt" | "\it" | "\bm" | "\it" | "\frak" | "\mit"
+
 // LINK: constants/macros.py#ams-text-font-macros
 TEXT_FONT_STYLE_CMD: "\text" | "\textrm" | "\textbf" | "\textit" | "\texttt" | "\textsf" | "\textup" | "\textnormal"
 
@@ -71,5 +75,25 @@ OPERATOR_NAME_CMD: "\operatorname" | "\operatorname*" | "\mathop"
 // LINK: constants/macros.py#ams-mod-macros
 MOD_CMD: "\mod" | "\bmod" | "\pmod" | "\pod"
 
+// LINK: constants/macros.py#ams-affix-macros
+AFFIX_CMD: "\stackrel" | "\overset" | "underset" | "\sideset" | "\limits" | "\nolimits"
+
+// LINK: constants/macros.py#ams-frac-macros
+FRAC_CMD: "\frac" | "\dfrac" | "\tfrac" | "\cfrac" | "\binom" | "\dbinom" | "\tbinom"
+
+// LINK: constants/macros.py#align-macros
+ALIGN_CMD: "&"
+
+// LINK: constants/macros.py#no-tag-macros
+NO_TAG_CMD: "\notag" | "\nonumber"
+
+// LINK: constants/macros.py#ams-substack-macros
+SUBSTACK_CMD: "\substack"
+
+// LINK: constants/macros.py#ams-matrix-dot-macros
+MATRIX_DOT_CMD: "\hdotsfor"
+
+// LINK: constants/macros.py#ams-boxed-macros
+BOXED_CMD: "\boxed"
 
 // ========= operators and symbols ========= //

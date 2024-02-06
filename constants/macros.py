@@ -54,16 +54,23 @@ BOLD_MATH_FONT_MACROS = r"\mathbf \pmb \boldsymbol"
 # === AMS MATH === #
 
 # AMS ch-4.1: Matrices
+# ANCHOR[id=ams-matrix-dot-macros]
 AMS_MATRIX_DOT_MACROS = r"\hdotsfor"
 
 # AMS ch-4.7: Boxed formulas
+# ANCHOR[id=ams-boxed-macros]
 AMS_BOXED_MACROS = r"\boxed"
 
 # AMS ch-4.10: Affixing symbols to other symbols
+# `\stackrel` is used to create stacked relationship, #1 is stacked on top of #2.
+#   - syntax: { \stackrel {#1} {#2} }
+#   - https://www.tutorialspoint.com/tex_commands/stackrel.htm
+# ANCHOR[id=ams-affix-macros]
 AMS_AFFIX_MACROS = r"\stackrel \overset \underset"
 
 # AMS ch-4.11: Fractions and related constructions
-AMS_FRAC_MACROS = r"\frac \dfrac \tfrac \binom \dbinom \tbinom \cfrac"
+# ANCHOR[id=ams-frac-macros]
+AMS_FRAC_MACROS = r"\frac \dfrac \tfrac \cfrac \binom \dbinom \tbinom"
 
 # AMS ch-4.14: Delimiters
 # ANCHOR[id=ams-delimiter-macros]
@@ -88,6 +95,9 @@ AMS_TEXT_FONT_MACROS = (
 )
 
 # AMS ch-7.1: Multiline subscripts and superscripts
+# `\substack` draws multi-line subscripts or superscripts.
+#   - syntax: { \sum_{\substack{0<i<m\\0<j<n}} P(i,j) }
+# ANCHOR[id=ams-substack-macros]
 AMS_SUBSTACK_MACROS = r"\substack"
 
 # AMS ch-7.2: The \sideset command
@@ -108,17 +118,21 @@ AMS_SIDESET_MACROS = r"\sideset \limits \nolimits"
 AMS_MATH_FONT_MACROS = r"\mathbf \mathrm \mathcal \mathsf \mathtt \mathit \mathfrak"
 
 # https://katex.org/docs/supported#style-color-size-and-font
+# ANCHOR[id=short-ams-math-font-macros]
 SHORT_AMS_MATH_FONT_MACROS = r"\bf \rm \cal \sf \tt \it \bm \it \frak \mit"
 
 # https://www.overleaf.com/learn/latex/Questions/How_do_I_adjust_the_font_size%3F
 # ANCHOR[id=font-size-macros]
 FONT_SIZE_MACROS = r"\tiny \scriptsize \footnotesize \small \normalsize \large \Large \LARGE \huge \Huge \scriptstyle \scriptscriptstyle"
 
-NO_NUMBER_MACROS = r"\nonumber"
+# remove the tag or number from the equation
+# ANCHOR[id=no-tag-macros]
+NO_TAG_MACROS = r"\nonumber \notag"
 
 # https://tex.stackexchange.com/questions/381417/what-does-mean-in-latex
 # & is special. It is neither a macro or an environment.
 # It is a command to be used inside an environment.
+# ANCHOR[id=align-macros]
 ALIGN_MACROS = "&"
 
 # https://docs.moodle.org/403/en/Chemistry_notation_using_mhchem
@@ -153,7 +167,7 @@ MACROS_SET_LIST = [
     AMS_MATH_FONT_MACROS,
     SHORT_AMS_MATH_FONT_MACROS,
     FONT_SIZE_MACROS,
-    NO_NUMBER_MACROS,
+    NO_TAG_MACROS,
     ALIGN_MACROS,
     CHEMISTRY_NOTATION_MACROS,
     OTHER_MACROS,
