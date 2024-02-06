@@ -1,19 +1,32 @@
 // This file defines grammar for valid expressions of equations in latex
 // author: @Hansimov
+
+// Terms:
+//  - expr: cmd + arg
+//  - cmd: command
+//  - sym: symbol
+//  - eqn: equation
+//  - env: environment
+//  - delim: delimiter
+//  - op: operator
+//  - lb: left brace (\beingroup)
+//  - rb: right brace (\endgroup)
+
 full_eqn: [DISPLAY_STYLE] (eqn_with_env | eqn)
     eqn_with_env: begin_env eqn end_env
-    eqn: eqn_with_cmd | eqn_without_cmd
-        eqn_with_cmd: eqn_with_scoped_cmd | eqn_with_delimiter_cmd | eqn_with_non_scoped_cmd
-            eqn_with_scoped_cmd: "{" scoped_cmd eqn "}"
-                scoped_cmd: FONT_SIZE_CMD | color_cmd                    
-                    color_cmd: "\color" "{" COLOR "}"
-            eqn_with_delimiter_cmd: eqn_with_paired_delimiter | eqn_with_non_paired_delimiter
-                eqn_with_paired_delimiter: left_delimiter eqn right_delimiter
-                    left_delimiter: LEFT_DELIMITER_CMD (LEFT_DELIMITER_SYMBOL | NON_PAIRED_DELIMITER_SYMBOL)
-                    right_delimiter: RIGHT_DELIMITER_CMD (RIGHT_DELIMITER_SYMBOL | NON_PAIRED_DELIMITER_SYMBOL)
-                eqn_with_non_paired_delimiter: (non_paired_delimiter eqn [non_paired_delimiter]) | (eqn non_paired_delimiter)
-                    non_paired_delimiter: NON_PAIRED_DELIMITER_CMD (LEFT_DELIMITER_SYMBOL | RIGHT_DELIMITER_SYMBOL | NON_PAIRED_DELIMITER_SYMBOL)
-            eqn_with_non_scoped_cmd: (one_arg_cmd "{" eqn "}") | (two_arg_cmd "{" eqn "}" "{" eqn "}")
+    eqn: eqn_with_scope | eqn_with_cmd | eqn_without_cmd
+        eqn_with_scope: LB eqn RB
+        eqn_with_cmd: eqn_with_scoped_cmd | eqn_with_delim_cmd | eqn_with_non_scoped_cmd
+            eqn_with_scoped_cmd: LB scoped_cmd eqn RB
+                scoped_cmd: FONT_SIZE_CMD | color_expr
+                    color_expr: COLOR_CMD LB COLOR RB
+            eqn_with_delim_cmd: eqn_with_paired_delim | eqn_with_non_paired_delim
+                eqn_with_paired_delim: left_delim_expr eqn right_delim_expr
+                    left_delim_expr: LEFT_DELIM_CMD (LEFT_DELIM_SYM | NON_PAIRED_DELIM_SYM)
+                    right_delim_expr: RIGHT_DELIM_CMD (RIGHT_DELIM_SYM | NON_PAIRED_DELIM_SYM)
+                eqn_with_non_paired_delim: (non_paired_delim eqn [non_paired_delim]) | (eqn non_paired_delim)
+                    non_paired_delim: NON_PAIRED_DELIM_CMD (LEFT_DELIM_SYM | RIGHT_DELIM_SYM | NON_PAIRED_DELIM_SYM)
+            eqn_with_non_scoped_cmd: (one_arg_cmd LB eqn RB) | (two_arg_cmd LB eqn RB LB eqn RB)
                 non_scoped_cmd: one_arg_cmd | two_arg_cmd
                     one_arg_cmd: 
         eqn_without_cmd: (operator | symbol)+
@@ -24,19 +37,23 @@ full_eqn: [DISPLAY_STYLE] (eqn_with_env | eqn)
 // LINK: constants/macros.py#display-style-macros
 DISPLAY_STYLE: "\displaystyle"
 
+LB: "{"
+RB: "}"
+
 // LINK: constants/macros.py#font-size-macros
 FONT_SIZE_CMD: "\tiny" | "\scriptsize" | "\footnotesize" | "\small" | "\normalsize" | "\large" | "\Large" | "\LARGE" | "\huge" | "\Huge" | "\scriptstyle" | "\scriptscriptstyle"
 
+COLOR_CMD: "\color"
 COLOR: "black" | "white" | "red" | "green" | "blue" | "cyan" | "magenta" | "yellow" | "gray" | "grey" | "darkgray" | "lightgray" | "darkgrey" | "lightgrey" | "brown" | "lime" | "olive" | "orange" | "pink" | "purple" | "teal" | "violet"
 
 
 // ========= delimiter cmds and symbols ========= //
 
 // LINK: constants/macros.py#ams-delimiter-macros
-LEFT_DELIMITER_CMD: "\left" | "\bigl" | "\Bigl" | "\biggl" | "\Biggl"
-RIGHT_DELIMITER_CMD: "\right" | "\bigr" | "\Bigr" | "\biggr" | "\Biggr"
+LEFT_DELIM_CMD: "\left" | "\bigl" | "\Bigl" | "\biggl" | "\Biggl"
+RIGHT_DELIM_CMD: "\right" | "\bigr" | "\Bigr" | "\biggr" | "\Biggr"
 // LINK: constants/macros.py#vertical-resize-macros
-NON_PAIRED_DELIMITER_CMD: "\big" | "\Big" | "\bigg" | "\Bigg"
+NON_PAIRED_DELIM_CMD: "\big" | "\Big" | "\bigg" | "\Bigg"
 
 // LINK: constants/macros.py#variable-sized-delimiter-symbols
 LEFT_DELIMITER_SYMBOL: "(" | "[" | "\{" |  "\lbrace" | "\lvert" | "\lVert" | "\langle" | "\lgroup" | "\lmoustache" | "\lceil" | "\lfloor"
