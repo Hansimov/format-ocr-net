@@ -56,9 +56,13 @@ RIGHT_DELIM_CMD: "\right" | "\bigr" | "\Bigr" | "\biggr" | "\Biggr"
 NON_PAIRED_DELIM_CMD: "\big" | "\Big" | "\bigg" | "\Bigg"
 
 // LINK: constants/macros.py#variable-sized-delimiter-symbols
-LEFT_DELIMITER_SYMBOL: "(" | "[" | "\{" |  "\lbrace" | "\lvert" | "\lVert" | "\langle" | "\lgroup" | "\lmoustache" | "\lceil" | "\lfloor"
-RIGHT_DELIMITER_SYMBOL: ")" | "]" | "\}" |  "\rbrace" | "\rvert" | "\rVert" | "\rangle" | "\rgroup" | "\rmoustache" | "\rceil" | "\rfloor"
-NON_PAIRED_DELIMITER_SYMBOL:  "|" | "\vert" | "|" | "\Vert"| "\|" |"\downarrow" | "\Downarrow" | "\uparrow" | "\Uparrow" | "\updownarrow" | "\Updownarrow" | "\backslash" | "\slash"
+// LINK: constants/macros.py#ams-variable-sized-delimiter-symbols
+// LINK: constants/macros.py#large-variable-sized-delimiter-symbols
+// LINK: constants/macros.py#null-delimiter-symbols
+LEFT_DELIM_SYM: "(" | "[" | "\{" |  "\lbrace" | "\lvert" | "\lVert" | "\langle" | "\lgroup" | "\lmoustache" | "\lceil" | "\lfloor"
+RIGHT_DELIM_SYM: ")" | "]" | "\}" |  "\rbrace" | "\rvert" | "\rVert" | "\rangle" | "\rgroup" | "\rmoustache" | "\rceil" | "\rfloor"
+NON_PAIRED_DELIM_SYM:  "|" | "\vert" | "|" | "\Vert"| "\|" | "\downarrow" | "\Downarrow" | "\uparrow" | "\Uparrow" | "\updownarrow" | "\Updownarrow" | "\arrowvert" | "\Arrowvert" | "\backslash" | "\slash" | "."
+
 
 // ========= non scoped cmds ========= //
 
@@ -113,4 +117,106 @@ MATRIX_DOT_CMD: "\hdotsfor"
 // LINK: constants/macros.py#ams-boxed-macros
 BOXED_CMD: "\boxed"
 
-// ========= operators and symbols ========= //
+
+// ========= characters, operators, symbols ========= //
+
+// LINK: constants/symbols.py#ascii-symbols
+LOWER_ASCII_CHAR: "a".."z"
+UPPER_ASCII_CHAR: "A".."Z"
+DIGIT_CHAR: "0".."9"
+
+// LINK: constants/symbols.py#greek-symbols
+GREEK_CHAR: "\alpha" | "\beta" | "\gamma" | "\delta" | "\epsilon" | "\varepsilon" | "\zeta" | "\eta" | "\theta" | "\vartheta" | "\iota" | "\kappa" | "\lambda" | "\mu" | "\nu" | "\xi" | "\omicron" | "\pi" | "\varpi" | "\rho" | "\varrho" | "\sigma" | "\varsigma" | "\tau" | "\upsilon" | "\phi" | "\varphi" | "\chi" | "\psi" | "\omega" | "\Gamma" | "\Delta" | "\Theta" | "\Lambda" | "\Xi" | "\Pi" | "\Sigma" | "\Upsilon" | "\Phi" | "\Psi" | "\Omega"
+// LINK: constants/symbols.py#ams-greek-symbols
+AMS_GREEK_CHAR: "\digamma" | "\varkappa"
+// LINK: constants/symbols.py#ams-italic-greek-symbols
+AMS_ITALIC_GREEK_CHAR: "\varGamma" | "\varDelta" | "\varTheta" | "\varLambda" | "\varXi" | "\varPi" | "\varSigma" | "\varUpsilon" | "\varPhi" | "\varPsi" | "\varOmega"
+// LINK: constants/symbols.py#ams-hebrew-symbols
+AMS_HEBREW_CHAR: "\beth" | "\gimel" | "\daleth"
+
+// LINK: constants/symbols.py#escaped-symbols
+ESCAPED_SYM: "\&" | "\%" | "\$" | "\#" | "\_" | "\{" | "\}" | "\~" | "\^" | "\\"
+// LINK: constants/symbols.py#punctuation-symbols
+PUNCT_SYM: "." | "," | ":" | ";" | "!" | "?" | "'" | "\"" | "`"| "-" | "\\" | "<" | ">" | "+" | "=" | "*" | "@"
+
+// LINK: constants/symbols.py#latex2e-math-text-symbols
+// LINK: constants/symbols.py#ams-math-text-symbols
+MATH_TEXT_SYM: "\copyright" | "\dag" | "\ddag" | "\dots" | "\P" | "\pounds" | "\S" | "\checkmark" | "\circledR" | "\maltese"
+
+// LINK: constants/symbols.py#binary-operator-symbols
+BINARY_OP: "\amalg" | "\ast" | "\bigcirc" | "\bigtriangledown" | "\bigtriangleup" | "\bullet" | "\cap" | "\cdot" | "\circ" | "\cup" | "\dagger" | "\ddagger" | "\diamond" | "\div" | "\lhd" | "\mp" | "\odot" | "\ominus" | "\oplus" | "\oslash" | "\otimes" | "\pm" | "\rhd" | "\setminus" | "\sqcap" | "\sqcup" | "\star" | "\times" | "\triangleleft" | "\triangleright" | "\unlhd" | "\unrhd" | "\uplus" | "\vee" | "\wedge" | "\wr"
+// LINK: constants/symbols.py#ams-binary-operator-symbols
+AMS_BINARY_OP: "\barwedge" | "\boxdot" | "\boxminus" | "\boxplus" | "\boxtimes" | "\Cap" | "\centerdot" | "\circledast" | "\circledcirc" | "\circleddash" | "\Cup" | "\curlyvee" | "\curlywedge" | "\divideontimes" | "\dotplus" | "\doublebarwedge" | "\intercal" | "\leftthreetimes" | "\ltimes" | "\rightthreetimes" | "\rtimes" | "\smallsetminus" | "\veebar"
+
+// LINK: constants/symbols.py#variable-sized-math-operator-symbols
+VARIABLE_SIZE_OP: "\bigcap" | "\bigcup" | "\bigodot" | "\bigoplus" | "\bigotimes" | "\bigsqcup" | "\biguplus" | "\bigvee" | "\bigwedge" | "\coprod" | "\int" | "\oint" | "\prod" | "\sum"
+// LINK: constants/symbols.py#ams-variable-sized-math-operator-symbols
+AMS_VARIABLE_SIZE_OP: "\iint" | "\iiint" | "\iiiint" | "\idotsint"
+
+// LINK: constants/symbols.py#binary-relation-symbols
+BINARY_RELATION_OP: "\approx" | "\asymp" | "\bowtie" | "\cong" | "\dashv" | "\doteq" | "\equiv" | "\frown" | "\Join" | "\mid" | "\models" | "\parallel" | "\perp" | "\prec" | "\preceq" | "\propto" | "\sim" | "\simeq" | "\smile" | "\succ" | "\succeq" | "\vdash"
+// LINK: constants/symbols.py#ams-binary-relation-symbols
+AMS_BINARY_RELATION_OP: "\approxeq" | "\backepsilon" | "\backsim" | "\backsimeq" | "\because" | "\between" | "\Bumpeq" | "\bumpeq" | "\circeq" | "\curlyeqprec" | "\curlyeqsucc" | "\doteqdot" | "\eqcirc" | "\fallingdotseq" | "\multimap" | "\pitchfork" | "\precapprox" | "\preccurlyeq" | "\precsim" | "\risingdotseq" | "\shortmid" | "\shortparallel" | "\smallfrown" | "\smallsmile" | "\succapprox" | "\succcurlyeq" | "\succsim" | "\therefore" | "\thickapprox" | "\thicksim" | "\varpropto" | "\Vdash" | "\vDash" | "\Vvdash"
+// LINK: constants/symbols.py#ams-negated-binary-relation-symbols
+AMS_NEG_BINARY_RELATION_OP: "\ncong" | "\nmid" | "\nparallel" | "\nprec" | "\npreceq" | "\shortmid" | "\shortparallel" | "\nsim" | "\nsucc" | "\nsucceq" | "\nvDash" | "\nvdash" | "\nVDash" | "\precnapprox" | "\precnsim" | "\succnapprox" | "\succnsim"
+
+// LINK: constants/symbols.py#subset-superset-relation-symbols
+SET_RELATION_OP: "\subset" | "\subseteq" | "\supset" | "\supseteq" | "\sqsubset" | "\sqsubseteq" | "\sqsupset" | "\sqsupseteq"
+// LINK: constants/symbols.py#ams-subset-superset-relation-symbols
+AMS_SET_RELATION_OP: "\nsubseteq" | "\nsupseteq" | "\nsupseteqq" | "\sqsubset" | "\sqsupset" | "\Subset" | "\subseteqq" | "\subsetneq" | "\subsetneqq" | "\Supset" | "\supseteqq" | "\supsetneq" | "\supsetneqq" | "\varsubsetneq" | "\varsubsetneqq" | "\varsupsetneq" | "\varsupsetneqq"
+
+// LINK: constants/symbols.py#inequality-symbols
+INEQUALITY_OP: "\le" | "\ge" | "\geq" | "\gg" | "\leq" | "\ll" | "\neq"
+// LINK: constants/symbols.py#ams-inequality-symbols
+AMS_INEQUALITY_OP: "\eqslantgtr" | "\eqslantless" | "\geqq" | "\geqslant" | "\ggg" | "\gnapprox" | "\gneq" | "\gneqq" | "\gnsim" | "\gtrapprox" | "\gtrdot" | "\gtreqless" | "\gtreqqless" | "\gtrless" | "\gtrsim" | "\gvertneqq" | "\leqq" | "\leqslant" | "\lessapprox" | "\lessdot" | "\lesseqgtr" | "\lesseqqgtr" | "\lessgtr" | "\lesssim" | "\lll" | "\lnapprox" | "\lneq" | "\lneqq" | "\lnsim" | "\lvertneqq" | "\ngeq" | "\ngeqq" | "\ngeqslant" | "\ngtr" | "\nleq" | "\nleqq" | "\nleqslant" | "\nless"
+
+// LINK: constants/symbols.py#ams-triangle-relation-symbols
+AMS_TRIAG_RELATION_OP: "\blacktriangleleft" | "\blacktriangleright" | "\ntriangleleft" | "\ntrianglelefteq" | "\ntriangleright" | "\ntrianglerighteq" | "\trianglelefteq" | "\triangleq" | "\trianglerighteq" | "\vartriangleleft" | "\vartriangleright"
+
+// LINK: constants/symbols.py#arrow-symbols
+ARROW_OP: "\Downarrow" | "\downarrow" | "\hookleftarrow" | "\hookrightarrow" | "\leadsto" | "\leftarrow" | "\Leftarrow" | "\leftrightarrow" | "\Leftrightarrow" | "\longleftarrow" | "\Longleftarrow" | "\longleftrightarrow" | "\Longleftrightarrow" | "\longmapsto" | "\longrightarrow" | "\Longrightarrow" | "\mapsto" | "\nearrow" | "\nwarrow" | "\rightarrow" | "\Rightarrow" | "\searrow" | "\swarrow" | "\uparrow" | "\Uparrow" | "\updownarrow" | "\Updownarrow" | "\to" | "\gets"
+// LINK: constants/symbols.py#ams-arrow-symbols
+AMS_ARROW_OP: "\circlearrowleft" | "\circlearrowright" | "\curvearrowleft" | "\curvearrowright" | "\dashleftarrow" | "\dashrightarrow" | "\downdownarrows" | "\leftarrowtail" | "\leftleftarrows" | "\leftrightarrows" | "\leftrightsquigarrow" | "\Lleftarrow" | "\looparrowleft" | "\looparrowright" | "\Lsh" | "\rightarrowtail" | "\rightleftarrows" | "\rightrightarrows" | "\rightsquigarrow" | "\Rsh" | "\twoheadleftarrow" | "\twoheadrightarrow" | "\upuparrows"
+// LINK: constants/symbols.py#ams-negated-arrow-symbols
+AMS_NEG_ARROW_OP: "\nleftarrow" | "\nLeftarrow" | "\nleftrightarrow" | "\nLeftrightarrow" | "\nrightarrow" | "\nRightarrow"
+
+// LINK: constants/symbols.py#harpoon-symbols
+HARPOON_OP: "\leftharpoondown" | "\leftharpoonup" | "\rightharpoondown" | "\rightharpoonup" | "\rightleftharpoons"
+// LINK: constants/symbols.py#ams-harpoon-symbols
+AMS_HARPOON_OP: "\downharpoonleft" | "\downharpoonright" | "\leftrightharpoons" | "\rightleftharpoons" | "\upharpoonleft" | "\upharpoonright"
+
+// LINK: constants/symbols.py#log-like-symbols
+LOG_LIKE_OP: "\arccos" | "\cos" | "\csc" | "\exp" | "\ker" | "\limsup" | "\min" | "\sinh" | "\arcsin" | "\cosh" | "\deg" | "\gcd" | "\lg" | "\ln" | "\Pr" | "\sup" | "\arctan" | "\cot" | "\det" | "\hom" | "\lim" | "\log" | "\sec" | "\tan" | "\arg" | "\coth" | "\dim" | "\inf" | "\liminf" | "\max" | "\sin" | "\tanh"
+// LINK: constants/symbols.py#ams-log-like-symbols
+AMS_LOG_LIKE_OP: "\injlim" | "\projlim" | "\varinjlim" | "\varliminf" | "\varlimsup" | "\varprojlim"
+
+// LINK: constants/symbols.py#letter-like-symbols
+LETTER_LIKE_OP: "\bot" | "\ell" | "\exists" | "\forall" | "\hbar" | "\Im" | "\imath" | "\in" | "\jmath" | "\ni" | "\partial" | "\Re" | "\top" | "\wp"
+// LINK: constants/symbols.py#ams-like-symbols
+AMS_LETTER_LIKE_OP: "\Bbbk" | "\circledR" | "\circledS" | "\complement" | "\Finv" | "\Game" | "\hbar" | "\hslash" | "\nexists"
+
+// LINK: constants/symbols.py#ams-delimiter-symbols
+AMS_DELIM_SYM: "\ulcorner" | "\llcorner" | "\urcorner" | "\lrcorner"
+
+// LINK: constants/symbols.py#dot-symbols
+DOT_SYM: "\cdotp" | "\cdots" | "\colon" | "\ddots" | "\ldotp" | "\ldots" | "\vdots"
+// LINK: constants/symbols.py#ams-dot-symbols
+AMS_DOT_SYM: "\because" | "\dotsb" | "\dotsc" | "\dotsi" | "\dotsm" | "\dotso" | "\therefore"
+
+// LINK: constants/symbols.py#ams-angle-symbols
+AMS_ANGLE_OP: "\angle" | "\measuredangle" | "\sphericalangle"
+
+// LINK: constants/symbols.py#latex2e-misc-math-symbols
+// LINK: constants/symbols.py#ams-misc-math-symbols
+MISC_MATH_SYM: "\aleph" | "\emptyset" | "\angle" | "\backslash" | "\Box" | "\Diamond" | "\infty" | "\mho" | "\nabla" | "\neg" | "\prime" | "\surd" | "\triangle" | "\backprime" | "\bigstar" | "\blacklozenge" | "\blacksquare" | "\blacktriangle" | "\blacktriangledown" | "\diagdown" | "\diagup" | "\eth" | "\lozenge" | "\mho" | "\square" | "\triangledown" | "\varnothing" | "\vartriangle"
+
+// LINK: constants/symbols.py#latex2e-musical-symbols
+MUSIC_SYM: "\flat" | "\natural" | "\sharp"
+// LINK: constants/symbols.py#latex2e-playing-card-suit-symbols
+CARD_SYM: "\clubsuit" | "\diamondsuit" | "\heartsuit" | "\spadesuit"
+
+// LINK: constants/symbols.py#ams-spacing-symbols
+SPACING_SYM: "\thinspace" | "\medspace" | "\thickspace" | "\quad" | "\qquad" | "\negthinspace" | "\negmedspace" | "\negthickspace" | "\:" | "\," | "\;" | "\! ~"
+
+// LINK: constants/symbols.py#skip-symbols
+SKIP_SYM: "\bigskip" | "\medskip" | "\smallskip"
