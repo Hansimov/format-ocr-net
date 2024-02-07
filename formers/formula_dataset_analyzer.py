@@ -4,22 +4,27 @@ from constants.symbols import LATEX_SYMBOLS
 from constants.macros import LATEX_MACROS, AMS_DELIMITER_MACROS
 from constants.environments import LATEX_ENVIRONMENTS
 from utils.logger import logger
+from formers.formula_grammar_checker import FormulaGrammarChecker
 
 
 class FormulaDatasetAnalyzer:
-    IGNORE_ELEMENTS = ["{", "}", "&", "\c", "\d", "#"]
+    IGNORE_ELEMENTS = ["{", "}", "&", "\c", "\d", "#", "\sp"]
 
     def __init__(self):
         self.dataset_path = Path(__file__).parents[1] / "datasets" / "math.txt"
         self.symbols = []
         self.macros = []
         self.environments = []
+        self.checker = FormulaGrammarChecker()
 
     def load(self):
         with open(self.dataset_path, "r", encoding="utf-8") as rf:
-            self.formulas = rf.readlines()
+            self.formulas = [formula.rstrip("\n") for formula in rf.readlines()]
 
         logger.success(f"{len(self.formulas)} formulas in {self.dataset_path.name}")
+
+    def check_formula(self, formula):
+        self.checker.check(formula)
 
     def analyze_formula(self, formula):
         elements = formula.split()
@@ -49,10 +54,11 @@ class FormulaDatasetAnalyzer:
                 raise TypeError(f"Unknown type: {element}")
 
     def analyze(self):
-        offset = 0
+        offset = 38730
         with tqdm(total=len(self.formulas)) as pbar:
             for idx, formula in enumerate(self.formulas[offset:]):
                 try:
+                    self.check_formula(formula)
                     self.analyze_formula(formula)
                     symbols_count = len(self.symbols)
                     macros_count = len(self.macros)
