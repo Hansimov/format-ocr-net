@@ -13,7 +13,7 @@ class FormulaGrammarChecker:
             # escape the backslash (\) in .lark file
             grammar = rf.read().replace("\\", "\\\\")
 
-        self.parser = Lark(grammar, start="full_eqn", parser="lalr")
+        self.parser = Lark(grammar, start="latex_eqn", parser="lalr")
 
     def check(self, expr, verbose=False):
         try:

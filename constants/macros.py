@@ -47,8 +47,13 @@ MATH_ALPHABET_MACROS = r"\mathrm \mathit \mathnormal \mathcal \mathscr \mathbb"
 VERTICAL_RESIZE_MACROS = r"\big \Big \bigg \Bigg"
 
 # Table 693: Producing bold mathematical symbols
+# `\boldmath` is used to switch to a bold math italic font.`
+# `\unboldmath` does the opposite.
+#   - https://texblog.net/help/latex/boldmath.html
+#   - Should not be used in math mode. Just place here for compatibility.
+#   - (KaTeX and MathJax does not support this command.)
 # ANCHOR[id=bold-math-font-macros]
-BOLD_MATH_FONT_MACROS = r"\mathbf \pmb \boldsymbol"
+BOLD_MATH_FONT_MACROS = r"\mathbf \pmb \boldsymbol \boldmath \unboldmath"
 
 
 # === AMS MATH === #

@@ -14,7 +14,9 @@ exprs = [
     # r"G ( 0 , t ^ { \prime \prime } ; 0 , t ^ { \prime \prime } ) = i \int \int \frac { d \omega ^ { \prime \prime } } { 2 \pi } \frac { d k ^ { \prime \prime } } { 2 \pi } P _ { 0 } ( \omega ^ { \prime \prime } , k ^ { \prime \prime } )",
     # r"{ \frac { \phi ^ { \prime \prime } } { A } } + { \frac { 1 } { A } } \left( - { \frac { 1 } { 2 } } { \frac { A ^ { \prime } } { A } } + 2 { \frac { B ^ { \prime } } { B } } + { \frac { 2 } { r } } \right) \phi ^ { \prime } - { \frac { 2 } { r ^ { 2 } } } \phi - \lambda \phi ( \phi ^ { 2 } - \eta ^ { 2 } ) = 0 \, .",
     # r"E _ { A D M } = \frac { 1 } { 1 6 \pi G _ { 1 0 } } \oint _ { \infty } d \Sigma ^ { m } \lbrace { } ^ { \circ } D _ { n } g _ { m p } - { } ^ { \circ } D _ { m } g _ { n p } \rbrace { } ^ { \circ } g ^ { n p }",
-    r"\begin{array}{ccc} a & b & c \\ d & e & f \end{array}"
-    r"\begin{array}{ccc} a & b & c \\ d & e & f \\ \\ \end{array}"
+    # r"\begin{array}{ccc} a & b & c \\ d & e & f \end{array}"
+    r"\begin{array}{ccc} a & b & c \\ d &  & f \\ \\ \end{array}"
     # r"\begin{array} { l l } { { \sigma ^ { 0 } = - { \bf 1 } _ { 2 \times 2 } = { \bar { \sigma } } ^ { 0 } , } } & { { \sigma ^ { 1 } = \tau _ { z } = - { \bar { \sigma } } ^ { 1 } , } } \\ { { \sigma ^ { 2 } = \tau _ { x } = - { \bar { \sigma } } ^ { 2 } , } } & { { \sigma ^ { 3 } = \tau _ { y } = - { \bar { \sigma } } ^ { 3 } , \quad ( \mathrm { o r } \quad \sigma ^ { y } = \tau _ { y } = - { \bar { \sigma } } ^ { y } ) , } } \end{array}",
+    # r"g _ { J _ { 1 } \, J _ { 2 } } ^ { J } \bigl ( J _ { 1 } , M _ { 1 } ; J _ { 2 } , M _ { 2 } \vert J _ { 1 } , J _ { 2 } ; J , M _ { 1 } + M _ { 2 } \bigr ) \, \Bigl ( \xi _ { M _ { 1 } + M _ { 2 } } ^ { ( J ) } ( \sigma _ { 1 } ) + \mathrm { d e s c e n d a n t s } \Bigr ) \Bigr \} ,"
+    r"\left. \begin{array} { c c c } { { S _ { \sigma \sigma ^ { \prime } } \nonumber } } \\ { { S _ { \Delta } \nonumber } } \\ { { \tilde { S } _ { \Delta } } } \end{array} \right\} \varpi = ( \varpi + 2 ) \left\{ \begin{array} { c c c } { { S _ { \sigma \sigma ^ { \prime } } \nonumber } } \\ { { S _ { \Delta } \nonumber } } \\ { { \tilde { S } _ { \Delta } } } \end{array} \right. ."
 ]

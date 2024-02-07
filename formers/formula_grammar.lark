@@ -13,19 +13,19 @@
 //  - lb: left brace (\beingroup)
 //  - rb: right brace (\endgroup)
 
-full_eqn: ([DISPLAY_STYLE] (eqn_with_env | eqn))+
-    eqn_with_env: begin_env_expr multiline_eqn end_env_expr
-        begin_env_expr: BEGIN LB env RB col_align_expr
-            col_align_expr: LB COL_ALIGN_SYM* RB
-        multiline_eqn: eqn_in_env* (LINE_BREAK eqn_in_env)*
-            eqn_in_env: eqn | ALIGN_SYM
-        end_env_expr: END LB env RB
+latex_eqn: ([DISPLAY_STYLE] eqn)+
+    eqn: eqn_with_env | eqn_with_scope | eqn_with_cmd | eqn_without_cmd
+        eqn_with_env: begin_env_expr multiline_eqn end_env_expr
+            begin_env_expr: BEGIN LB env RB col_align_expr
+                col_align_expr: LB COL_ALIGN_SYM* RB
+            end_env_expr: END LB env RB
             env: AMS_EQUATION_ENV | LOW_LEVEL_AMS_EQUATION_ENV | AMS_MATRIX_ENV
-    eqn: eqn_with_scope | eqn_with_cmd | eqn_without_cmd
+            multiline_eqn: eqn_in_env* (LINE_BREAK eqn_in_env)*
+                eqn_in_env: eqn | ALIGN_SYM
         eqn_with_scope: LB eqn* RB
         eqn_with_cmd: eqn_with_scoped_cmd | eqn_with_delim_cmd | eqn_with_non_scoped_cmd
             eqn_with_scoped_cmd: LB scoped_cmd eqn* RB
-                scoped_cmd: FONT_SIZE_CMD | color_expr
+                scoped_cmd: FONT_SIZE_CMD | BOLD_MATH_FONT_CMD | color_expr
                     color_expr: COLOR_CMD LB COLOR RB
             eqn_with_delim_cmd: (left_delim_expr eqn* right_delim_expr) | non_paired_delim_expr
                     left_delim_expr: LEFT_DELIM_CMD (LEFT_DELIM_SYM | NON_PAIRED_DELIM_SYM)
@@ -36,12 +36,13 @@ full_eqn: ([DISPLAY_STYLE] (eqn_with_env | eqn))+
                     one_arg_cmd: MATH_FONT_STYLE_CMD | SHORT_MATH_FONT_STYLE_CMD | TEXT_FONT_STYLE_CMD | SUB_SUP_CMD | ACCENT_CMD | EXTENSIBLE_ACCENT_CMD | OPERATOR_NAME_CMD | MOD_CMD | AFFIX_CMD | BOXED_CMD
                 two_arg_expr: two_arg_cmd eqn eqn
                     two_arg_cmd: FRAC_CMD
-        eqn_without_cmd: operator | symbol | char
+        eqn_without_cmd: operator | symbol | char | control
             char: normal_char | lang_char
                 normal_char: LOWER_ASCII_CHAR | UPPER_ASCII_CHAR | DIGIT_CHAR
                 lang_char: GREEK_CHAR | AMS_GREEK_CHAR | AMS_ITALIC_GREEK_CHAR | AMS_HEBREW_CHAR
             operator: BINARY_OP | AMS_BINARY_OP | VARIABLE_SIZE_OP | AMS_VARIABLE_SIZE_OP | BINARY_RELATION_OP | AMS_BINARY_RELATION_OP | AMS_NEG_BINARY_RELATION_OP | SET_RELATION_OP | AMS_SET_RELATION_OP | INEQUALITY_OP | AMS_INEQUALITY_OP | AMS_TRIAG_RELATION_OP | ARROW_OP | AMS_ARROW_OP | AMS_NEG_ARROW_OP | HARPOON_OP | AMS_HARPOON_OP | LOG_LIKE_OP | AMS_LOG_LIKE_OP | LETTER_LIKE_OP | AMS_LETTER_LIKE_OP | AMS_ANGLE_OP
             symbol: LEFT_DELIM_SYM | RIGHT_DELIM_SYM | NON_PAIRED_DELIM_SYM | ESCAPED_SYM | PUNCT_SYM | MATH_TEXT_SYM | AMS_DELIM_SYM | DOT_SYM | AMS_DOT_SYM | MISC_MATH_SYM | MUSIC_SYM | CARD_SYM | SPACING_SYM | SKIP_SYM
+            control: NO_TAG_CMD | LINE_BREAK
 
 %import common.WS
 %ignore WS
@@ -66,6 +67,9 @@ FONT_SIZE_CMD: "\tiny" | "\scriptsize" | "\footnotesize" | "\small" | "\normalsi
 COLOR_CMD: "\color"
 COLOR: "black" | "white" | "red" | "green" | "blue" | "cyan" | "magenta" | "yellow" | "gray" | "grey" | "darkgray" | "lightgray" | "darkgrey" | "lightgrey" | "brown" | "lime" | "olive" | "orange" | "pink" | "purple" | "teal" | "violet"
 
+// LINK: constants/macros.py#bold-math-font-macros
+BOLD_MATH_FONT_CMD: "\boldmath"
+
 // -------- environments -------- //
 
 // LINK: constants/environments.py#ams-equation-envs
@@ -80,10 +84,10 @@ AMS_MATRIX_ENV: "matrix" | "pmatrix" | "pmatrix*" | "bmatrix" | "bmatrix*" | "Bm
 // -------- delimiter cmds and symbols -------- //
 
 // LINK: constants/macros.py#ams-delimiter-macros
-LEFT_DELIM_CMD: "\left" | "\bigl" | "\Bigl" | "\biggl" | "\Biggl"
-RIGHT_DELIM_CMD: "\right" | "\bigr" | "\Bigr" | "\biggr" | "\Biggr"
+LEFT_DELIM_CMD: "\left"
+RIGHT_DELIM_CMD: "\right"
 // LINK: constants/macros.py#vertical-resize-macros
-NON_PAIRED_DELIM_CMD: "\big" | "\Big" | "\bigg" | "\Bigg"
+NON_PAIRED_DELIM_CMD: "\big" | "\Big" | "\bigg" | "\Bigg" | "\bigl" | "\Bigl" | "\biggl" | "\Biggl" | "\bigr" | "\Bigr" | "\biggr" | "\Biggr"
 
 // LINK: constants/macros.py#variable-sized-delimiter-symbols
 // LINK: constants/macros.py#ams-variable-sized-delimiter-symbols
@@ -91,7 +95,7 @@ NON_PAIRED_DELIM_CMD: "\big" | "\Big" | "\bigg" | "\Bigg"
 // LINK: constants/macros.py#null-delimiter-symbols
 LEFT_DELIM_SYM: "(" | "[" | "\{" |  "\lbrace" | "\lvert" | "\lVert" | "\langle" | "\lgroup" | "\lmoustache" | "\lceil" | "\lfloor"
 RIGHT_DELIM_SYM: ")" | "]" | "\}" |  "\rbrace" | "\rvert" | "\rVert" | "\rangle" | "\rgroup" | "\rmoustache" | "\rceil" | "\rfloor"
-NON_PAIRED_DELIM_SYM:  "|" | "\vert" | "|" | "\Vert"| "\|" | "\downarrow" | "\Downarrow" | "\uparrow" | "\Uparrow" | "\updownarrow" | "\Updownarrow" | "\arrowvert" | "\Arrowvert" | "\backslash" | "\slash" | "."
+NON_PAIRED_DELIM_SYM:  "|" | "\vert" | "|" | "\Vert"| "\|" | "\downarrow" | "\Downarrow" | "\uparrow" | "\Uparrow" | "\updownarrow" | "\Updownarrow" | "\arrowvert" | "\Arrowvert" | "\backslash" | "\slash" | "/" | "." 
 
 // -------- non scoped cmds -------- //
 
