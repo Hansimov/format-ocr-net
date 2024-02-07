@@ -242,8 +242,7 @@ AMS_ANGLE_OP: "\angle" | "\measuredangle" | "\sphericalangle"
 // LINK: constants/symbols.py#escaped-symbols
 ESCAPED_SYM: "\&" | "\%" | "\$" | "\#" | "\_" | "\{" | "\}" | "\~" | "\^" | "\\"
 // LINK: constants/symbols.py#punctuation-symbols
-// TODO: correctly parse double quote (\")
-PUNCT_SYM: "." | "," | ":" | ";" | "!" | "?" | "'" | "`"| "-" | "\\" | "<" | ">" | "+" | "=" | "*" | "@"
+PUNCT_SYM: "." | "," | ":" | ";" | "!" | "?" | "'" | "`"| "-" | "\\" | "<" | ">" | "+" | "=" | "*" | "@" | "\""
 LINE_BREAK: "\\\\"
 
 // LINK: constants/symbols.py#align-symbols
