@@ -26,13 +26,14 @@ class FormulaGrammarChecker:
         try:
             res = self.parser.parse(expr)
             if verbose:
-                print(res.pretty())
+                # print(res.pretty())
                 logger.success(f"Valid: {expr}")
+            return True, res
         except Exception as e:
             if verbose:
                 print(e)
                 logger.warn(f"Invalid: {expr}")
-            raise e
+            return False, e
 
 
 if __name__ == "__main__":

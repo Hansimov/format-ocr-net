@@ -75,7 +75,7 @@ BOLD_MATH_FONT_MACROS = r"\mathbf \pmb \boldsymbol \boldmath \unboldmath"
 
 # AMS ch-4.1: Matrices
 # ANCHOR[id=ams-matrix-dot-macros]
-AMS_MATRIX_DOT_MACROS = r"\hdotsfor \hline"
+AMS_MATRIX_DOT_MACROS = r"\hdotsfor \hline \vline"
 
 # AMS ch-4.7: Boxed formulas
 # https://latexref.xyz/_005cmbox-_0026-_005cmakebox.html
@@ -112,10 +112,12 @@ BRACK_MACROS = r"\brack \choose \brace"
 RULE_MACROS = r"\rule"
 
 # AMS ch-4.13: Smash options
-# Typeset subformula as if its height and depth were zero.
+# `\smash` typesets subformula as if its height and depth were zero.
 #   - syntax: \smash{subformula}
-# ANCHOR[id=ams-smash-macros]
-AMS_SMASH_MACROS = r"\smash"
+# https://www.tug.org/TUGboat/tb22-4/tb72perlS.pdf
+#   - syntax: { \rlap #1 }
+# ANCHOR[id=ams-lap-macros]
+AMS_LAP_MACROS = r"\smash \rlap \llap \clap \mathllap \mathrlap \mathclap"
 
 # AMS ch-4.14: Delimiters
 # ANCHOR[id=ams-delimiter-macros]
@@ -194,6 +196,12 @@ STRUT_MACROS = r"\strut"
 # ANCHOR[id=protect-macros]
 PROTECT_MACROS = r"\protect"
 
+# https://tex.stackexchange.com/questions/96501/what-does-relax-do
+# https://en.wikibooks.org/wiki/TeX/relax
+# `\relax` does nothing by itself, but to stop expansion of another command.
+# ANCHOR[id=relax-macros]
+RELAX_MACROS = r"\relax"
+
 # https://docs.moodle.org/403/en/Chemistry_notation_using_mhchem
 CHEMISTRY_NOTATION_MACROS = "\ce"
 
@@ -222,7 +230,7 @@ MACROS_SET_LIST = [
     AMS_FRAC_MACROS,
     AMS_GENERALIZED_FRAC_MACROS,
     BRACK_MACROS,
-    AMS_SMASH_MACROS,
+    AMS_LAP_MACROS,
     AMS_DELIMITER_MACROS,
     AMS_OPERATOR_NAME_MACROS,
     AMS_MOD_MACROS,
@@ -237,6 +245,7 @@ MACROS_SET_LIST = [
     PHANTOM_MACROS,
     STRUT_MACROS,
     PROTECT_MACROS,
+    RELAX_MACROS,
     CHEMISTRY_NOTATION_MACROS,
     OTHER_MACROS,
 ]

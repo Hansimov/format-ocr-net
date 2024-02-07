@@ -29,7 +29,8 @@ LATEX2E_MATH_TEXT_SYMBOLS = r"\copyright \dag \ddag \dots \P \pounds \S"
 AMS_MATH_TEXT_SYMBOLS = r"\checkmark \circledR \maltese"
 
 # # Table 5: Non-ASCII Letters (Excluding Accented Letters)
-# NON_ASCII_SYMBOLS = r"\aa \AA \ae \AE \dh \DH \dj \DJ \ij \IJ \l \L \ng \NG  \o \O \oe \OE \ss \SS \th \TH"
+# ANCHOR[id=non-ascii-symbols]
+NON_ASCII_SYMBOLS = r"\aa \AA \ae \AE \dh \DH \dj \DJ \ij \IJ \l \L \ng \NG  \o \O \oe \OE \ss \SS \th \TH"
 
 # Table 53: Binary Operators
 # ANCHOR[id=binary-operator-symbols]
@@ -211,6 +212,7 @@ SYMBOLS_SET_LIST = [
     PUNCTUATION_SYMBOLS,
     LATEX2E_MATH_TEXT_SYMBOLS,
     AMS_MATH_TEXT_SYMBOLS,
+    NON_ASCII_SYMBOLS,
     BINARY_OPERATOR_SYMBOLS,
     AMS_BINARY_OPERATOR_SYMBOLS,
     VARIABLE_SIZED_MATH_OPERATOR_SYMBOLS,

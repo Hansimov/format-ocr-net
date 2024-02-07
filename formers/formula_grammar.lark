@@ -10,8 +10,8 @@
 //  - char: character
 //  - sym: symbol
 //  - op: operator
-//  - lb: left brace (\beingroup)
-//  - rb: right brace (\endgroup)
+//  - lb/rb: left/right brace (\beingroup)/(\endgroup)
+//  - lt/rt: left/right bracket
 
 latex_eqn: eqn+
     eqn: eqn_with_env | eqn_with_scope | eqn_with_cmd | eqn_without_cmd
@@ -33,16 +33,16 @@ latex_eqn: eqn+
                     non_paired_delim_expr: NON_PAIRED_DELIM_CMD delim_sym
             eqn_with_non_scoped_cmd: one_arg_expr | two_arg_expr
                 one_arg_expr: one_arg_cmd eqn
-                    one_arg_cmd: MATH_FONT_STYLE_CMD | SHORT_MATH_FONT_STYLE_CMD | TEXT_FONT_STYLE_CMD | SUB_SUP_CMD | ACCENT_CMD | EXTENSIBLE_ACCENT_CMD | OPERATOR_NAME_CMD | MOD_CMD | AFFIX_CMD | BOX_CMD | LEFTEQN_CMD | PHANTOM_CMD | GEN_FRAC_CMD | BRACK_CMD | SMASH_CMD | MATH_MODE_SPACING_CMD
+                    one_arg_cmd: MATH_FONT_STYLE_CMD | SHORT_MATH_FONT_STYLE_CMD | TEXT_FONT_STYLE_CMD | SUB_SUP_CMD | ACCENT_CMD | EXTENSIBLE_ACCENT_CMD | OPERATOR_NAME_CMD | MOD_CMD | AFFIX_CMD | BOX_CMD | LEFTEQN_CMD | PHANTOM_CMD | GEN_FRAC_CMD | BRACK_CMD | LAP_CMD | MATH_MODE_SPACING_CMD
                 two_arg_expr: two_arg_cmd eqn eqn
                     two_arg_cmd: FRAC_CMD | RULE_CMD
         eqn_without_cmd: operator | symbol | char | control
             char: normal_char | lang_char
-                normal_char: LOWER_ASCII_CHAR | UPPER_ASCII_CHAR | DIGIT_CHAR
+                normal_char: LOWER_ASCII_CHAR | UPPER_ASCII_CHAR | DIGIT_CHAR | NON_ASCII_CHAR
                 lang_char: GREEK_CHAR | AMS_GREEK_CHAR | AMS_ITALIC_GREEK_CHAR | AMS_HEBREW_CHAR
             operator: BINARY_OP | AMS_BINARY_OP | VARIABLE_SIZE_OP | AMS_VARIABLE_SIZE_OP | BINARY_RELATION_OP | AMS_BINARY_RELATION_OP | AMS_NEG_BINARY_RELATION_OP | SET_RELATION_OP | AMS_SET_RELATION_OP | INEQUALITY_OP | AMS_INEQUALITY_OP | AMS_TRIAG_RELATION_OP | ARROW_OP | AMS_ARROW_OP | AMS_NEG_ARROW_OP | HARPOON_OP | AMS_HARPOON_OP | LOG_LIKE_OP | AMS_LOG_LIKE_OP | LETTER_LIKE_OP | AMS_LETTER_LIKE_OP | AMS_ANGLE_OP
             symbol: LEFT_DELIM_SYM | RIGHT_DELIM_SYM | NON_PAIRED_DELIM_SYM | ESCAPED_SYM | PUNCT_SYM | MATH_TEXT_SYM | AMS_DELIM_SYM | DOT_SYM | AMS_DOT_SYM | MISC_MATH_SYM | MUSIC_SYM | CARD_SYM | SPACING_SYM
-            control: DISPLAY_STYLE_CMD | LINE_BREAK | NO_TAG_CMD | ALIGN_SYM | MATRIX_DOT_CMD | PROTECT_CMD | FILL_CMD | SKIP_CMD | STRUT_CMD
+            control: DISPLAY_STYLE_CMD | LINE_BREAK | NO_TAG_CMD | ALIGN_SYM | MATRIX_DOT_CMD | PROTECT_CMD | RELAX_CMD | FILL_CMD | SKIP_CMD | STRUT_CMD
 
 // ============ Commands ============ //
 
@@ -51,6 +51,8 @@ latex_eqn: eqn+
 // LINK: constants/macros.py#display-style-macros
 LB: "{"
 RB: "}"
+LT: "["
+RT: "]"
 WB: " "
 
 BEGIN: "\begin"
@@ -118,7 +120,7 @@ ACCENT_CMD: "\acute" | "\bar" | "\breve" | "\check" | "\dot" | "\ddot" | "\grave
 // LINK: constants/macros.py#overrightarrow-extensible-accent-macros
 // LINK: constants/macros.py#ams-extensible-accent-macros
 // LINK: constants/macros.py#ams-extensible-arrow-macros
-EXTENSIBLE_ACCENT_CMD: "\overbrace" | "\overline" | "\overleftarrow" | "\overrightarrow" | "\sqrt" | "\underbrace" | "\underline" | "\widehat" | "\widetilde" | "\Overrightarrow" | "\overleftrightarrow" | "\underleftarrow" | "\underleftrightarrow" | "\underrightarrow" | "\xleftarrow" | "\xrightarrow"
+EXTENSIBLE_ACCENT_CMD: "\overbrace" | "\overline" | "\overleftarrow" | "\overrightarrow" | "\underbrace" | "\underline" | "\widehat" | "\widetilde" | "\Overrightarrow" | "\overleftrightarrow" | "\underleftarrow" | "\underleftrightarrow" | "\underrightarrow" | "\xleftarrow" | "\xrightarrow" | "\sqrt" | "\root" | "\of"
 
 // LINK: constants/macros.py#ams-operator-name-macros
 OPERATOR_NAME_CMD: "\operatorname" | "\operatorname*"
@@ -154,8 +156,8 @@ BRACK_CMD: "\brack" | "\choose" | "\brace"
 // LINK: constants/macros.py#rule-macros
 RULE_CMD: "\rule"
 
-// LINK: constants/macros.py#ams-smash-macros
-SMASH_CMD: "\smash"
+// LINK: constants/macros.py#ams-lap-macros
+LAP_CMD: "\rlap" | "\llap" | "\clap" | "\mathllap" | "\mathrlap" | "\mathclap"
 
 // LINK: constants/macros.py#phantom-macros
 PHANTOM_CMD: "\phantom" | "\vphantom" | "\hphantom" | "\smash" | "\vspace" | "\hspace"
@@ -175,10 +177,13 @@ NO_TAG_CMD: "\notag" | "\nonumber"
 SUBSTACK_CMD: "\substack"
 
 // LINK: constants/macros.py#ams-matrix-dot-macros
-MATRIX_DOT_CMD: "\hdotsfor" | "\hline"
+MATRIX_DOT_CMD: "\hdotsfor" | "\hline" | "\vline"
 
 // LINK: constants/macros.py#protect-macros
 PROTECT_CMD: "\protect"
+
+// LINK: constants/macros.py#relax-macros
+RELAX_CMD: "\relax"
 
 // ========= Characters, Operators, Symbols ========= //
 
@@ -188,6 +193,9 @@ PROTECT_CMD: "\protect"
 LOWER_ASCII_CHAR: "a".."z"
 UPPER_ASCII_CHAR: "A".."Z"
 DIGIT_CHAR: "0".."9"
+
+// LINK: constants/symbols.py#non-ascii-symbols
+NON_ASCII_CHAR: "\aa" | "\AA" | "\ae" | "\AE" | "\dh" | "\DH" | "\dj" | "\DJ" | "\ij" | "\IJ" | "\l" | "\L" | "\ng" | "\NG " | "\o" | "\O" | "\oe" | "\OE" | "\ss" | "\SS" | "\th" | "\TH"
 
 // LINK: constants/symbols.py#greek-symbols
 GREEK_CHAR: "\alpha" | "\beta" | "\gamma" | "\delta" | "\epsilon" | "\varepsilon" | "\zeta" | "\eta" | "\theta" | "\vartheta" | "\iota" | "\kappa" | "\lambda" | "\mu" | "\nu" | "\xi" | "\omicron" | "\pi" | "\varpi" | "\rho" | "\varrho" | "\sigma" | "\varsigma" | "\tau" | "\upsilon" | "\phi" | "\varphi" | "\chi" | "\psi" | "\omega" | "\Gamma" | "\Delta" | "\Theta" | "\Lambda" | "\Xi" | "\Pi" | "\Sigma" | "\Upsilon" | "\Phi" | "\Psi" | "\Omega"
