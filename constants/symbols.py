@@ -198,6 +198,12 @@ SKIP_SYMBOLS = r"\bigskip \medskip \smallskip"
 # ANCHOR[id=ams-italic-greek-symbols]
 AMS_ITALIC_GREEK_SYMBOLS = r"\varGamma \varDelta \varTheta \varLambda \varXi \varPi \varSigma \varUpsilon \varPhi \varPsi \varOmega"
 
+# https://tex.stackexchange.com/questions/381417/what-does-mean-in-latex
+# & is special. It is neither a macro or an environment.
+# It is a symbol used inside an environment.
+# ANCHOR[id=align-symbols]
+ALIGN_SYMBOLS = "&"
+
 # Other symbols
 OTHER_SYMBOLS = ""
 
@@ -248,6 +254,7 @@ SYMBOLS_SET_LIST = [
     AMS_SPACING_SYMBOLS,
     SKIP_SYMBOLS,
     AMS_ITALIC_GREEK_SYMBOLS,
+    ALIGN_SYMBOLS,
     OTHER_SYMBOLS,
 ]
 

@@ -129,12 +129,6 @@ FONT_SIZE_MACROS = r"\tiny \scriptsize \footnotesize \small \normalsize \large \
 # ANCHOR[id=no-tag-macros]
 NO_TAG_MACROS = r"\nonumber \notag"
 
-# https://tex.stackexchange.com/questions/381417/what-does-mean-in-latex
-# & is special. It is neither a macro or an environment.
-# It is a command to be used inside an environment.
-# ANCHOR[id=align-macros]
-ALIGN_MACROS = "&"
-
 # https://docs.moodle.org/403/en/Chemistry_notation_using_mhchem
 CHEMISTRY_NOTATION_MACROS = "\ce"
 
@@ -168,7 +162,6 @@ MACROS_SET_LIST = [
     SHORT_AMS_MATH_FONT_MACROS,
     FONT_SIZE_MACROS,
     NO_TAG_MACROS,
-    ALIGN_MACROS,
     CHEMISTRY_NOTATION_MACROS,
     OTHER_MACROS,
 ]

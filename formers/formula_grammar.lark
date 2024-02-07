@@ -2,21 +2,23 @@
 // author: @Hansimov
 
 // Terms:
-//  - expr: cmd + arg
-//  - cmd: command
-//  - sym: symbol
 //  - eqn: equation
 //  - env: environment
+//  - expr: cmd + arg
+//  - cmd: command
 //  - delim: delimiter
+//  - char: character
+//  - sym: symbol
 //  - op: operator
 //  - lb: left brace (\beingroup)
 //  - rb: right brace (\endgroup)
-//  - ls: left scope (LB with optional WB)
-//  - rs: right scope (RB with optional WB)
 
 full_eqn: ([DISPLAY_STYLE] (eqn_with_env | eqn))+
-    eqn_with_env: begin_env_expr eqn end_env_expr
-        begin_env_expr: BEGIN LB env RB
+    eqn_with_env: begin_env_expr multiline_eqn end_env_expr
+        begin_env_expr: BEGIN LB env RB col_align_expr
+            col_align_expr: LB COL_ALIGN_SYM* RB
+        multiline_eqn: eqn_in_env* (LINE_BREAK eqn_in_env)*
+            eqn_in_env: eqn | ALIGN_SYM
         end_env_expr: END LB env RB
             env: AMS_EQUATION_ENV | LOW_LEVEL_AMS_EQUATION_ENV | AMS_MATRIX_ENV
     eqn: eqn_with_scope | eqn_with_cmd | eqn_without_cmd
@@ -53,7 +55,6 @@ DISPLAY_STYLE: "\displaystyle"
 
 LB: "{"
 RB: "}"
-// TODO: add support for whitespace
 WB: " "
 
 BEGIN: "\begin"
@@ -68,13 +69,13 @@ COLOR: "black" | "white" | "red" | "green" | "blue" | "cyan" | "magenta" | "yell
 // -------- environments -------- //
 
 // LINK: constants/environments.py#ams-equation-envs
-AMS_EQUATION_ENV: "equation equation* subequations align align* gather gather* alignat alignat* multiline multiline* flalign flalign* cases array eqnarray eqnarray* subarray"
+AMS_EQUATION_ENV: "equation" | "equation* " | "subequations " | "align" | "align*" | "gather" | "gather*" | "alignat" | "alignat* " | "multiline " | "multiline* " | "flalign" | "flalign*" | "cases" | "array" | "eqnarray" | "eqnarray*" | "subarray"
 
 // LINK: constants/environments.py#low-level-ams-equation-envs
-LOW_LEVEL_AMS_EQUATION_ENV: "gathered aligned alignedat split"
+LOW_LEVEL_AMS_EQUATION_ENV: "gathered" | "aligned" | "alignedat" | "split"
 
 // LINK: constants/environments.py#ams-matrix-envs
-AMS_MATRIX_ENV: "matrix pmatrix pmatrix* bmatrix bmatrix* Bmatrix Bmatrix* vmatrix vmatrix* Vmatrix Vmatrix* smallmatrix"
+AMS_MATRIX_ENV: "matrix" | "pmatrix" | "pmatrix*" | "bmatrix" | "bmatrix*" | "Bmatrix" | "Bmatrix*" | "vmatrix" | "vmatrix*" | "Vmatrix" | "Vmatrix*" | "smallmatrix"
 
 // -------- delimiter cmds and symbols -------- //
 
@@ -135,9 +136,6 @@ BOXED_CMD: "\boxed"
 FRAC_CMD: "\frac" | "\dfrac" | "\tfrac" | "\cfrac" | "\binom" | "\dbinom" | "\tbinom"
 
 // -------- special commands -------- //
-
-// LINK: constants/macros.py#align-macros
-ALIGN_CMD: "&"
 
 // LINK: constants/macros.py#no-tag-macros
 NO_TAG_CMD: "\notag" | "\nonumber"
@@ -231,6 +229,11 @@ ESCAPED_SYM: "\&" | "\%" | "\$" | "\#" | "\_" | "\{" | "\}" | "\~" | "\^" | "\\"
 // LINK: constants/symbols.py#punctuation-symbols
 // TODO: correctly parse double quote (\")
 PUNCT_SYM: "." | "," | ":" | ";" | "!" | "?" | "'" | "`"| "-" | "\\" | "<" | ">" | "+" | "=" | "*" | "@"
+LINE_BREAK: "\\\\"
+
+// LINK: constants/symbols.py#align-symbols
+ALIGN_SYM: "&"
+COL_ALIGN_SYM: "c" | "l" | "r"
 
 // LINK: constants/symbols.py#latex2e-math-text-symbols
 // LINK: constants/symbols.py#ams-math-text-symbols
@@ -258,5 +261,3 @@ SPACING_SYM: "\thinspace" | "\medspace" | "\thickspace" | "\quad" | "\qquad" | "
 
 // LINK: constants/symbols.py#skip-symbols
 SKIP_SYM: "\bigskip" | "\medskip" | "\smallskip"
-
-
