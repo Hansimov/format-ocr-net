@@ -188,7 +188,7 @@ LATEX2E_PLAYING_CARD_SUIT_SYMBOLS = r"\clubsuit \diamondsuit \heartsuit \spadesu
 
 # AMS ch-4.2: Math spacing commands
 # ANCHOR[id=ams-spacing-symbols]
-AMS_SPACING_SYMBOLS = r"\thinspace \medspace \thickspace \quad \qquad \negthinspace \negmedspace \negthickspace \: \, \; \! ~"
+AMS_SPACING_SYMBOLS = r"\space \thinspace \medspace \thickspace \enspace \quad \qquad \negthinspace \negmedspace \negthickspace \hfill \: \, \; \! ~"
 
 # https://latexref.xyz/_005cbigskip-_0026-_005cmedskip-_0026-_005csmallskip.html
 # ANCHOR[id=skip-symbols]

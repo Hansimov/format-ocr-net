@@ -69,8 +69,9 @@ BOLD_MATH_FONT_MACROS = r"\mathbf \pmb \boldsymbol \boldmath \unboldmath"
 AMS_MATRIX_DOT_MACROS = r"\hdotsfor \hline"
 
 # AMS ch-4.7: Boxed formulas
-# ANCHOR[id=ams-boxed-macros]
-AMS_BOXED_MACROS = r"\boxed"
+# https://latexref.xyz/_005cmbox-_0026-_005cmakebox.html
+# ANCHOR[id=ams-box-macros]
+AMS_BOX_MACROS = r"\boxed \mbox \makebox \fbox \framebox"
 
 # AMS ch-4.10: Affixing symbols to other symbols
 # `\stackrel` is used to create stacked relationship, #1 is stacked on top of #2.
@@ -89,9 +90,17 @@ AMS_FRAC_MACROS = r"\frac \dfrac \tfrac \cfrac \binom \dbinom \tbinom"
 # These primitive generalized fraction commands would produce warning messages,
 # if used with the amsmath package.
 # ANCHOR[id=ams-generalized-frac-macros]
-AMS_GENERALIZED_FRAC_MACROS = (
-    r"\over \overwithdelims \atop \atopwithdelims \above \abovewithdelims"
-)
+AMS_GENERALIZED_FRAC_MACROS = r"\over \atop"
+
+# https://www.tutorialspoint.com/tex_commands/brack.htm
+#   - syntax: { <subformula1> \brack <subformula2> }
+# ANCHOR[id=brack-macros]
+BRACK_MACROS = r"\brack \choose \brace"
+
+# https://en.wikibooks.org/wiki/LaTeX/Rules_and_Struts
+#   - syntax: { \rule[raise-height]{width}{height} }
+# ANCHOR[id=rule-macros]
+RULE_MACROS = r"\rule"
 
 # AMS ch-4.13: Smash options
 # ANCHOR[id=ams-smash-macros]
@@ -154,9 +163,19 @@ FONT_SIZE_MACROS = r"\tiny \scriptsize \footnotesize \small \normalsize \large \
 # ANCHOR[id=no-tag-macros]
 NO_TAG_MACROS = r"\nonumber \notag"
 
+# https://www.comp.nus.edu.sg/~kanmy/latex/lefteqn.html
+# Prints eqn in display math style, but pretends that it has zero width
+#   - syntax: { \lefteqn{eqn} }
+# ANCHOR[id=lefteqn-macros]
+LEFTEQN_MACROS = r"\lefteqn"
+
 # https://www.tutorialspoint.com/tex_commands/phantom.htm
 # ANCHOR[id=phantom-macros]
 PHANTOM_MACROS = r"\phantom \vphantom \hphantom"
+
+# https://latexref.xyz/_005cprotect.html
+# ANCHOR[id=protect-macros]
+PROTECT_MACROS = r"\protect"
 
 # https://docs.moodle.org/403/en/Chemistry_notation_using_mhchem
 CHEMISTRY_NOTATION_MACROS = "\ce"
@@ -179,10 +198,11 @@ MACROS_SET_LIST = [
     MATH_MODE_SPACING_MACROS,
     BOLD_MATH_FONT_MACROS,
     AMS_MATRIX_DOT_MACROS,
-    AMS_BOXED_MACROS,
+    AMS_BOX_MACROS,
     AMS_AFFIX_MACROS,
     AMS_FRAC_MACROS,
     AMS_GENERALIZED_FRAC_MACROS,
+    BRACK_MACROS,
     AMS_SMASH_MACROS,
     AMS_DELIMITER_MACROS,
     AMS_OPERATOR_NAME_MACROS,
@@ -194,7 +214,9 @@ MACROS_SET_LIST = [
     SHORT_AMS_MATH_FONT_MACROS,
     FONT_SIZE_MACROS,
     NO_TAG_MACROS,
+    LEFTEQN_MACROS,
     PHANTOM_MACROS,
+    PROTECT_MACROS,
     CHEMISTRY_NOTATION_MACROS,
     OTHER_MACROS,
 ]

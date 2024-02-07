@@ -25,8 +25,9 @@ class FormulaGrammarChecker:
                 print(res.pretty())
                 logger.success(f"Valid: {expr}")
         except Exception as e:
-            print(e)
-            logger.warn(f"Invalid: {expr}")
+            if verbose:
+                print(e)
+                logger.warn(f"Invalid: {expr}")
             raise e
 
 
