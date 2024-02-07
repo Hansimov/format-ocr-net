@@ -13,7 +13,7 @@ SUB_SUP_MACROS = r"_ ^"
 # Table 259: Math-mode Accents
 # ANCHOR[id=math-mode-accent-macros]
 MATH_MODE_ACCENT_MACROS = (
-    r"\acute \bar \breve \check \ddot \dot \grave \hat \mathring \tilde \vec"
+    r"\acute \bar \breve \check \ddot \dot \grave \hat \mathring \tilde \vec \not"
 )
 
 # Table 260: [AMS] Math-mode Accents
@@ -46,6 +46,12 @@ MATH_ALPHABET_MACROS = r"\mathrm \mathit \mathnormal \mathcal \mathscr \mathbb"
 # ANCHOR[id=vertical-resize-macros]
 VERTICAL_RESIZE_MACROS = r"\big \Big \bigg \Bigg"
 
+# Table 691: Spacing Around/Within Log-like Symbols
+# ANCHOR[id=math-mode-spacing-macros]
+MATH_MODE_SPACING_MACROS = (
+    r"\mathord \mathop \mathbin \mathrel \mathopen \mathclose \mathpunct"
+)
+
 # Table 693: Producing bold mathematical symbols
 # `\boldmath` is used to switch to a bold math italic font.`
 # `\unboldmath` does the opposite.
@@ -60,7 +66,7 @@ BOLD_MATH_FONT_MACROS = r"\mathbf \pmb \boldsymbol \boldmath \unboldmath"
 
 # AMS ch-4.1: Matrices
 # ANCHOR[id=ams-matrix-dot-macros]
-AMS_MATRIX_DOT_MACROS = r"\hdotsfor"
+AMS_MATRIX_DOT_MACROS = r"\hdotsfor \hline"
 
 # AMS ch-4.7: Boxed formulas
 # ANCHOR[id=ams-boxed-macros]
@@ -77,6 +83,20 @@ AMS_AFFIX_MACROS = r"\stackrel \overset \underset"
 # ANCHOR[id=ams-frac-macros]
 AMS_FRAC_MACROS = r"\frac \dfrac \tfrac \cfrac \binom \dbinom \tbinom"
 
+# https://www.tutorialspoint.com/tex_commands/atop.htm
+# `\atop` is used to create fractions without horizontal fraction bar
+#   - syntax: { sub-formula1 \atop sub-formula2 }
+# These primitive generalized fraction commands would produce warning messages,
+# if used with the amsmath package.
+# ANCHOR[id=ams-generalized-frac-macros]
+AMS_GENERALIZED_FRAC_MACROS = (
+    r"\over \overwithdelims \atop \atopwithdelims \above \abovewithdelims"
+)
+
+# AMS ch-4.13: Smash options
+# ANCHOR[id=ams-smash-macros]
+AMS_SMASH_MACROS = r"\smash"
+
 # AMS ch-4.14: Delimiters
 # ANCHOR[id=ams-delimiter-macros]
 AMS_DELIMITER_MACROS = (
@@ -85,7 +105,7 @@ AMS_DELIMITER_MACROS = (
 
 # AMS ch-5.1: Operator names
 # ANCHOR[id=ams-operator-name-macros]
-AMS_OPERATOR_NAME_MACROS = r"\operatorname \operatorname* \mathop"
+AMS_OPERATOR_NAME_MACROS = r"\operatorname \operatorname*"
 
 # AMS ch-5.2: mod and relatives
 #   \mod and \pod are variants of \pmod preferred by some authors;
@@ -134,6 +154,10 @@ FONT_SIZE_MACROS = r"\tiny \scriptsize \footnotesize \small \normalsize \large \
 # ANCHOR[id=no-tag-macros]
 NO_TAG_MACROS = r"\nonumber \notag"
 
+# https://www.tutorialspoint.com/tex_commands/phantom.htm
+# ANCHOR[id=phantom-macros]
+PHANTOM_MACROS = r"\phantom \vphantom \hphantom"
+
 # https://docs.moodle.org/403/en/Chemistry_notation_using_mhchem
 CHEMISTRY_NOTATION_MACROS = "\ce"
 
@@ -152,11 +176,14 @@ MACROS_SET_LIST = [
     AMS_EXTENSIBLE_ARROW_MACROS,
     MATH_ALPHABET_MACROS,
     VERTICAL_RESIZE_MACROS,
+    MATH_MODE_SPACING_MACROS,
     BOLD_MATH_FONT_MACROS,
     AMS_MATRIX_DOT_MACROS,
     AMS_BOXED_MACROS,
     AMS_AFFIX_MACROS,
     AMS_FRAC_MACROS,
+    AMS_GENERALIZED_FRAC_MACROS,
+    AMS_SMASH_MACROS,
     AMS_DELIMITER_MACROS,
     AMS_OPERATOR_NAME_MACROS,
     AMS_MOD_MACROS,
@@ -167,6 +194,7 @@ MACROS_SET_LIST = [
     SHORT_AMS_MATH_FONT_MACROS,
     FONT_SIZE_MACROS,
     NO_TAG_MACROS,
+    PHANTOM_MACROS,
     CHEMISTRY_NOTATION_MACROS,
     OTHER_MACROS,
 ]

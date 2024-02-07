@@ -71,7 +71,7 @@ AMS_SUBSET_SUPERSET_RELATION_SYMBOLS = r"\nsubseteq \nsupseteq \nsupseteqq \sqsu
 
 # Table 136: Inequalities
 # ANCHOR[id=inequality-symbols]
-INEQUALITY_SYMBOLS = r"\le \ge \geq \gg \leq \ll \neq"
+INEQUALITY_SYMBOLS = r"\le \ge \geq \gg \leq \ll \ne \neq"
 
 # Table 137: [AMS] AMS Inequalities
 # ANCHOR[id=ams-inequality-symbols]
@@ -142,7 +142,7 @@ AMS_DELIMITER_SYMBOLS = r"\ulcorner \llcorner \urcorner \lrcorner"
 
 # Table 244: Variable-sized Delimiters
 # ANCHOR[id=variable-sized-delimiter-symbols]
-VARIABLE_SIZED_DELIMITER_SYMBOLS = r"\downarrow \Downarrow \langle \rangle \lceil \rceil \lfloor \rfloor \uparrow \Uparrow \updownarrow \Updownarrow \lbrace \rbrace \vert \Vert \slash \backslash ( ) [ ] \{ \} | \| /"
+VARIABLE_SIZED_DELIMITER_SYMBOLS = r"\downarrow \Downarrow \langle \rangle \lceil \rceil \lfloor \rfloor \uparrow \Uparrow \updownarrow \Updownarrow \lbrace \lbrack \rbrace \rbrack \vert \Vert \slash \backslash ( ) [ ] \{ \} | \| /"
 
 # Table 245: Large, Variable-sized Delimiters
 # ANCHOR[id=large-variable-sized-delimiter-symbols]

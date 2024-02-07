@@ -13,18 +13,17 @@
 //  - lb: left brace (\beingroup)
 //  - rb: right brace (\endgroup)
 
-latex_eqn: ([DISPLAY_STYLE] eqn)+
+latex_eqn: eqn+
     eqn: eqn_with_env | eqn_with_scope | eqn_with_cmd | eqn_without_cmd
         eqn_with_env: begin_env_expr multiline_eqn end_env_expr
             begin_env_expr: BEGIN LB env RB col_align_expr
                 col_align_expr: LB COL_ALIGN_SYM* RB
             end_env_expr: END LB env RB
             env: AMS_EQUATION_ENV | LOW_LEVEL_AMS_EQUATION_ENV | AMS_MATRIX_ENV
-            multiline_eqn: eqn_in_env* (LINE_BREAK eqn_in_env)*
-                eqn_in_env: eqn | ALIGN_SYM
+            multiline_eqn: eqn* (LINE_BREAK eqn)*
         eqn_with_scope: LB eqn* RB
         eqn_with_cmd: eqn_with_scoped_cmd | eqn_with_delim_cmd | eqn_with_non_scoped_cmd
-            eqn_with_scoped_cmd: LB scoped_cmd eqn* RB
+            eqn_with_scoped_cmd: scoped_cmd eqn*
                 scoped_cmd: FONT_SIZE_CMD | BOLD_MATH_FONT_CMD | color_expr
                     color_expr: COLOR_CMD LB COLOR RB
             eqn_with_delim_cmd: (left_delim_expr eqn* right_delim_expr) | non_paired_delim_expr
@@ -33,7 +32,7 @@ latex_eqn: ([DISPLAY_STYLE] eqn)+
                     non_paired_delim_expr: NON_PAIRED_DELIM_CMD (LEFT_DELIM_SYM | RIGHT_DELIM_SYM | NON_PAIRED_DELIM_SYM)
             eqn_with_non_scoped_cmd: one_arg_expr | two_arg_expr
                 one_arg_expr: one_arg_cmd eqn
-                    one_arg_cmd: MATH_FONT_STYLE_CMD | SHORT_MATH_FONT_STYLE_CMD | TEXT_FONT_STYLE_CMD | SUB_SUP_CMD | ACCENT_CMD | EXTENSIBLE_ACCENT_CMD | OPERATOR_NAME_CMD | MOD_CMD | AFFIX_CMD | BOXED_CMD
+                    one_arg_cmd: MATH_FONT_STYLE_CMD | SHORT_MATH_FONT_STYLE_CMD | TEXT_FONT_STYLE_CMD | SUB_SUP_CMD | ACCENT_CMD | EXTENSIBLE_ACCENT_CMD | OPERATOR_NAME_CMD | MOD_CMD | AFFIX_CMD | BOXED_CMD | PHANTOM_CMD | GEN_FRAC_CMD | SMASH_CMD | MATH_MODE_SPACING_CMD
                 two_arg_expr: two_arg_cmd eqn eqn
                     two_arg_cmd: FRAC_CMD
         eqn_without_cmd: operator | symbol | char | control
@@ -42,7 +41,7 @@ latex_eqn: ([DISPLAY_STYLE] eqn)+
                 lang_char: GREEK_CHAR | AMS_GREEK_CHAR | AMS_ITALIC_GREEK_CHAR | AMS_HEBREW_CHAR
             operator: BINARY_OP | AMS_BINARY_OP | VARIABLE_SIZE_OP | AMS_VARIABLE_SIZE_OP | BINARY_RELATION_OP | AMS_BINARY_RELATION_OP | AMS_NEG_BINARY_RELATION_OP | SET_RELATION_OP | AMS_SET_RELATION_OP | INEQUALITY_OP | AMS_INEQUALITY_OP | AMS_TRIAG_RELATION_OP | ARROW_OP | AMS_ARROW_OP | AMS_NEG_ARROW_OP | HARPOON_OP | AMS_HARPOON_OP | LOG_LIKE_OP | AMS_LOG_LIKE_OP | LETTER_LIKE_OP | AMS_LETTER_LIKE_OP | AMS_ANGLE_OP
             symbol: LEFT_DELIM_SYM | RIGHT_DELIM_SYM | NON_PAIRED_DELIM_SYM | ESCAPED_SYM | PUNCT_SYM | MATH_TEXT_SYM | AMS_DELIM_SYM | DOT_SYM | AMS_DOT_SYM | MISC_MATH_SYM | MUSIC_SYM | CARD_SYM | SPACING_SYM | SKIP_SYM
-            control: NO_TAG_CMD | LINE_BREAK
+            control: DISPLAY_STYLE_CMD | LINE_BREAK | NO_TAG_CMD | ALIGN_SYM | MATRIX_DOT_CMD
 
 %import common.WS
 %ignore WS
@@ -52,14 +51,14 @@ latex_eqn: ([DISPLAY_STYLE] eqn)+
 // -------- scoped cmds -------- //
 
 // LINK: constants/macros.py#display-style-macros
-DISPLAY_STYLE: "\displaystyle"
-
 LB: "{"
 RB: "}"
 WB: " "
 
 BEGIN: "\begin"
 END: "\end"
+
+DISPLAY_STYLE_CMD: "\displaystyle"
 
 // LINK: constants/macros.py#font-size-macros
 FONT_SIZE_CMD: "\tiny" | "\scriptsize" | "\footnotesize" | "\small" | "\normalsize" | "\large" | "\Large" | "\LARGE" | "\huge" | "\Huge" | "\scriptstyle" | "\scriptscriptstyle"
@@ -93,8 +92,8 @@ NON_PAIRED_DELIM_CMD: "\big" | "\Big" | "\bigg" | "\Bigg" | "\bigl" | "\Bigl" | 
 // LINK: constants/macros.py#ams-variable-sized-delimiter-symbols
 // LINK: constants/macros.py#large-variable-sized-delimiter-symbols
 // LINK: constants/macros.py#null-delimiter-symbols
-LEFT_DELIM_SYM: "(" | "[" | "\{" |  "\lbrace" | "\lvert" | "\lVert" | "\langle" | "\lgroup" | "\lmoustache" | "\lceil" | "\lfloor"
-RIGHT_DELIM_SYM: ")" | "]" | "\}" |  "\rbrace" | "\rvert" | "\rVert" | "\rangle" | "\rgroup" | "\rmoustache" | "\rceil" | "\rfloor"
+LEFT_DELIM_SYM: "(" | "[" | "\{" | "<" | "\lbrack" | "\lbrace" | "\lvert" | "\lVert" | "\langle" | "\lgroup" | "\lmoustache" | "\lceil" | "\lfloor"
+RIGHT_DELIM_SYM: ")" | "]" | "\}" | ">" | "\rbrack" | "\rbrace" | "\rvert" | "\rVert" | "\rangle" | "\rgroup" | "\rmoustache" | "\rceil" | "\rfloor"
 NON_PAIRED_DELIM_SYM:  "|" | "\vert" | "|" | "\Vert"| "\|" | "\downarrow" | "\Downarrow" | "\uparrow" | "\Uparrow" | "\updownarrow" | "\Updownarrow" | "\arrowvert" | "\Arrowvert" | "\backslash" | "\slash" | "/" | "." 
 
 // -------- non scoped cmds -------- //
@@ -115,7 +114,7 @@ SUB_SUP_CMD: "^" | "_"
 
 // LINK: constants/macros.py#math-mode-accent-macros
 // LINK: constants/macros.py#ams-math-mode-accent-macros
-ACCENT_CMD: "\acute" | "\bar" | "\breve" | "\check" | "\dot" | "\ddot" | "\grave" | "\hat" | "\mathring" | "\tilde" | "\vec" | "\dddot" | "\dddot"
+ACCENT_CMD: "\acute" | "\bar" | "\breve" | "\check" | "\dot" | "\ddot" | "\grave" | "\hat" | "\mathring" | "\tilde" | "\vec" | "\dddot" | "\dddot" | "\not"
 
 // LINK: constants/macros.py#extensible-accent-macros
 // LINK: constants/macros.py#overrightarrow-extensible-accent-macros
@@ -124,7 +123,10 @@ ACCENT_CMD: "\acute" | "\bar" | "\breve" | "\check" | "\dot" | "\ddot" | "\grave
 EXTENSIBLE_ACCENT_CMD: "\overbrace" | "\overline" | "\overleftarrow" | "\overrightarrow" | "\sqrt" | "\underbrace" | "\underline" | "\widehat" | "\widetilde" | "\Overrightarrow" | "\overleftrightarrow" | "\underleftarrow" | "\underleftrightarrow" | "\underrightarrow" | "\xleftarrow" | "\xrightarrow"
 
 // LINK: constants/macros.py#ams-operator-name-macros
-OPERATOR_NAME_CMD: "\operatorname" | "\operatorname*" | "\mathop"
+OPERATOR_NAME_CMD: "\operatorname" | "\operatorname*"
+
+// LINK: constants/macros.py#math-mode-spacing-macros
+MATH_MODE_SPACING_CMD: "\mathord" | "\mathop" | "\mathbin" | "\mathrel" | "\mathopen" | "\mathclose" | "\mathpunct"
 
 // LINK: constants/macros.py#ams-mod-macros
 MOD_CMD: "\mod" | "\bmod" | "\pmod" | "\pod"
@@ -139,6 +141,15 @@ BOXED_CMD: "\boxed"
 // require two args
 FRAC_CMD: "\frac" | "\dfrac" | "\tfrac" | "\cfrac" | "\binom" | "\dbinom" | "\tbinom"
 
+// LINK: constants/macros.py#ams-generalized-frac-macros
+GEN_FRAC_CMD: "\over" | "\overwithdelims" | "\atop" | "\atopwithdelims" | "\above" | "\abovewithdelims"
+
+// LINK: constants/macros.py#ams-smash-macros
+SMASH_CMD: "\smash"
+
+// LINK: constants/macros.py#phantom-macros
+PHANTOM_CMD: "\phantom" | "\vphantom" | "\hphantom" | "\smash"
+
 // -------- special commands -------- //
 
 // LINK: constants/macros.py#no-tag-macros
@@ -148,7 +159,7 @@ NO_TAG_CMD: "\notag" | "\nonumber"
 SUBSTACK_CMD: "\substack"
 
 // LINK: constants/macros.py#ams-matrix-dot-macros
-MATRIX_DOT_CMD: "\hdotsfor"
+MATRIX_DOT_CMD: "\hdotsfor" | "\hline"
 
 
 // ========= Characters, Operators, Symbols ========= //
@@ -194,7 +205,7 @@ SET_RELATION_OP: "\subset" | "\subseteq" | "\supset" | "\supseteq" | "\sqsubset"
 AMS_SET_RELATION_OP: "\nsubseteq" | "\nsupseteq" | "\nsupseteqq" | "\sqsubset" | "\sqsupset" | "\Subset" | "\subseteqq" | "\subsetneq" | "\subsetneqq" | "\Supset" | "\supseteqq" | "\supsetneq" | "\supsetneqq" | "\varsubsetneq" | "\varsubsetneqq" | "\varsupsetneq" | "\varsupsetneqq"
 
 // LINK: constants/symbols.py#inequality-symbols
-INEQUALITY_OP: "\le" | "\ge" | "\geq" | "\gg" | "\leq" | "\ll" | "\neq"
+INEQUALITY_OP: "\le" | "\ge" | "\geq" | "\gg" | "\leq" | "\ll" | "\ne" | "\neq"
 // LINK: constants/symbols.py#ams-inequality-symbols
 AMS_INEQUALITY_OP: "\eqslantgtr" | "\eqslantless" | "\geqq" | "\geqslant" | "\ggg" | "\gnapprox" | "\gneq" | "\gneqq" | "\gnsim" | "\gtrapprox" | "\gtrdot" | "\gtreqless" | "\gtreqqless" | "\gtrless" | "\gtrsim" | "\gvertneqq" | "\leqq" | "\leqslant" | "\lessapprox" | "\lessdot" | "\lesseqgtr" | "\lesseqqgtr" | "\lessgtr" | "\lesssim" | "\lll" | "\lnapprox" | "\lneq" | "\lneqq" | "\lnsim" | "\lvertneqq" | "\ngeq" | "\ngeqq" | "\ngeqslant" | "\ngtr" | "\nleq" | "\nleqq" | "\nleqslant" | "\nless"
 
