@@ -44,13 +44,22 @@ MATH_ALPHABET_MACROS = r"\mathrm \mathit \mathnormal \mathcal \mathscr \mathbb"
 
 # Table 689: Sample resized delimiters
 # ANCHOR[id=vertical-resize-macros]
-VERTICAL_RESIZE_MACROS = r"\big \Big \bigg \Bigg"
+VERTICAL_RESIZE_MACROS = r"\big \Big \bigg \Bigg \bigm \Bigm \biggm \Biggm"
 
 # Table 691: Spacing Around/Within Log-like Symbols
 # ANCHOR[id=math-mode-spacing-macros]
 MATH_MODE_SPACING_MACROS = (
     r"\mathord \mathop \mathbin \mathrel \mathopen \mathclose \mathpunct"
 )
+
+# https://en.wikibooks.org/wiki/TeX/hfill
+# ANCHOR[id=fill-macros]
+FILL_MACROS = r"\fill \hfill \hfil \hfilneg \vfill \vfil \vfilneg"
+
+# https://www.tutorialspoint.com/tex_commands/hskip.htm
+# https://latexref.xyz/_005cbigskip-_0026-_005cmedskip-_0026-_005csmallskip.html
+# ANCHOR[id=skip-macros]
+SKIP_MACROS = r"\bigskip \medskip \smallskip \hskip vskip"
 
 # Table 693: Producing bold mathematical symbols
 # `\boldmath` is used to switch to a bold math italic font.`
@@ -103,6 +112,8 @@ BRACK_MACROS = r"\brack \choose \brace"
 RULE_MACROS = r"\rule"
 
 # AMS ch-4.13: Smash options
+# Typeset subformula as if its height and depth were zero.
+#   - syntax: \smash{subformula}
 # ANCHOR[id=ams-smash-macros]
 AMS_SMASH_MACROS = r"\smash"
 
@@ -171,7 +182,13 @@ LEFTEQN_MACROS = r"\lefteqn"
 
 # https://www.tutorialspoint.com/tex_commands/phantom.htm
 # ANCHOR[id=phantom-macros]
-PHANTOM_MACROS = r"\phantom \vphantom \hphantom"
+PHANTOM_MACROS = r"\phantom \vphantom \hphantom \vspace \hspace"
+
+# https://www.tutorialspoint.com/tex_commands/strut.htm
+# `\strut` creates an invisible box with no width, height 8.6pt and depth 3pt.
+#   - syntax: { \strut }
+# ANCHOR[id=strut-macros]
+STRUT_MACROS = r"\strut"
 
 # https://latexref.xyz/_005cprotect.html
 # ANCHOR[id=protect-macros]
@@ -196,6 +213,8 @@ MACROS_SET_LIST = [
     MATH_ALPHABET_MACROS,
     VERTICAL_RESIZE_MACROS,
     MATH_MODE_SPACING_MACROS,
+    FILL_MACROS,
+    SKIP_MACROS,
     BOLD_MATH_FONT_MACROS,
     AMS_MATRIX_DOT_MACROS,
     AMS_BOX_MACROS,
@@ -216,6 +235,7 @@ MACROS_SET_LIST = [
     NO_TAG_MACROS,
     LEFTEQN_MACROS,
     PHANTOM_MACROS,
+    STRUT_MACROS,
     PROTECT_MACROS,
     CHEMISTRY_NOTATION_MACROS,
     OTHER_MACROS,

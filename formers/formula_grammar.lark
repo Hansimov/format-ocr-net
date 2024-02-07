@@ -27,9 +27,10 @@ latex_eqn: eqn+
                 scoped_cmd: FONT_SIZE_CMD | BOLD_MATH_FONT_CMD | color_expr
                     color_expr: COLOR_CMD LB COLOR RB
             eqn_with_delim_cmd: (left_delim_expr eqn* right_delim_expr) | non_paired_delim_expr
-                    left_delim_expr: LEFT_DELIM_CMD (LEFT_DELIM_SYM | NON_PAIRED_DELIM_SYM)
-                    right_delim_expr: RIGHT_DELIM_CMD (RIGHT_DELIM_SYM | NON_PAIRED_DELIM_SYM)
-                    non_paired_delim_expr: NON_PAIRED_DELIM_CMD (LEFT_DELIM_SYM | RIGHT_DELIM_SYM | NON_PAIRED_DELIM_SYM)
+                    delim_sym: LEFT_DELIM_SYM | RIGHT_DELIM_SYM | NON_PAIRED_DELIM_SYM
+                    left_delim_expr: LEFT_DELIM_CMD delim_sym
+                    right_delim_expr: RIGHT_DELIM_CMD delim_sym
+                    non_paired_delim_expr: NON_PAIRED_DELIM_CMD delim_sym
             eqn_with_non_scoped_cmd: one_arg_expr | two_arg_expr
                 one_arg_expr: one_arg_cmd eqn
                     one_arg_cmd: MATH_FONT_STYLE_CMD | SHORT_MATH_FONT_STYLE_CMD | TEXT_FONT_STYLE_CMD | SUB_SUP_CMD | ACCENT_CMD | EXTENSIBLE_ACCENT_CMD | OPERATOR_NAME_CMD | MOD_CMD | AFFIX_CMD | BOX_CMD | LEFTEQN_CMD | PHANTOM_CMD | GEN_FRAC_CMD | BRACK_CMD | SMASH_CMD | MATH_MODE_SPACING_CMD
@@ -40,11 +41,8 @@ latex_eqn: eqn+
                 normal_char: LOWER_ASCII_CHAR | UPPER_ASCII_CHAR | DIGIT_CHAR
                 lang_char: GREEK_CHAR | AMS_GREEK_CHAR | AMS_ITALIC_GREEK_CHAR | AMS_HEBREW_CHAR
             operator: BINARY_OP | AMS_BINARY_OP | VARIABLE_SIZE_OP | AMS_VARIABLE_SIZE_OP | BINARY_RELATION_OP | AMS_BINARY_RELATION_OP | AMS_NEG_BINARY_RELATION_OP | SET_RELATION_OP | AMS_SET_RELATION_OP | INEQUALITY_OP | AMS_INEQUALITY_OP | AMS_TRIAG_RELATION_OP | ARROW_OP | AMS_ARROW_OP | AMS_NEG_ARROW_OP | HARPOON_OP | AMS_HARPOON_OP | LOG_LIKE_OP | AMS_LOG_LIKE_OP | LETTER_LIKE_OP | AMS_LETTER_LIKE_OP | AMS_ANGLE_OP
-            symbol: LEFT_DELIM_SYM | RIGHT_DELIM_SYM | NON_PAIRED_DELIM_SYM | ESCAPED_SYM | PUNCT_SYM | MATH_TEXT_SYM | AMS_DELIM_SYM | DOT_SYM | AMS_DOT_SYM | MISC_MATH_SYM | MUSIC_SYM | CARD_SYM | SPACING_SYM | SKIP_SYM
-            control: DISPLAY_STYLE_CMD | LINE_BREAK | NO_TAG_CMD | ALIGN_SYM | MATRIX_DOT_CMD | PROTECT_CMD
-
-%import common.WS
-%ignore WS
+            symbol: LEFT_DELIM_SYM | RIGHT_DELIM_SYM | NON_PAIRED_DELIM_SYM | ESCAPED_SYM | PUNCT_SYM | MATH_TEXT_SYM | AMS_DELIM_SYM | DOT_SYM | AMS_DOT_SYM | MISC_MATH_SYM | MUSIC_SYM | CARD_SYM | SPACING_SYM
+            control: DISPLAY_STYLE_CMD | LINE_BREAK | NO_TAG_CMD | ALIGN_SYM | MATRIX_DOT_CMD | PROTECT_CMD | FILL_CMD | SKIP_CMD | STRUT_CMD
 
 // ============ Commands ============ //
 
@@ -86,7 +84,7 @@ AMS_MATRIX_ENV: "matrix" | "pmatrix" | "pmatrix*" | "bmatrix" | "bmatrix*" | "Bm
 LEFT_DELIM_CMD: "\left"
 RIGHT_DELIM_CMD: "\right"
 // LINK: constants/macros.py#vertical-resize-macros
-NON_PAIRED_DELIM_CMD: "\big" | "\Big" | "\bigg" | "\Bigg" | "\bigl" | "\Bigl" | "\biggl" | "\Biggl" | "\bigr" | "\Bigr" | "\biggr" | "\Biggr"
+NON_PAIRED_DELIM_CMD: "\big" | "\Big" | "\bigg" | "\Bigg" | "\bigm" | "\Bigm" | "\biggm" | "\Biggm" | "\bigl" | "\Bigl" | "\biggl" | "\Biggl" | "\bigr" | "\Bigr" | "\biggr" | "\Biggr"
 
 // LINK: constants/macros.py#variable-sized-delimiter-symbols
 // LINK: constants/macros.py#ams-variable-sized-delimiter-symbols
@@ -128,6 +126,12 @@ OPERATOR_NAME_CMD: "\operatorname" | "\operatorname*"
 // LINK: constants/macros.py#math-mode-spacing-macros
 MATH_MODE_SPACING_CMD: "\mathord" | "\mathop" | "\mathbin" | "\mathrel" | "\mathopen" | "\mathclose" | "\mathpunct"
 
+// LINK: constants/macros.py#fill-macros
+FILL_CMD: "\fill" | "\hfill" | "\hfil" | "\hfilneg" | "\vfill" | "\vfil" | "\vfilneg"
+
+// LINK: constants/macros.py#skip-macros
+SKIP_CMD: "\bigskip" | "\medskip" | "\smallskip" | "\hskip" | "vskip"
+
 // LINK: constants/macros.py#ams-mod-macros
 MOD_CMD: "\mod" | "\bmod" | "\pmod" | "\pod"
 
@@ -154,7 +158,10 @@ RULE_CMD: "\rule"
 SMASH_CMD: "\smash"
 
 // LINK: constants/macros.py#phantom-macros
-PHANTOM_CMD: "\phantom" | "\vphantom" | "\hphantom" | "\smash"
+PHANTOM_CMD: "\phantom" | "\vphantom" | "\hphantom" | "\smash" | "\vspace" | "\hspace"
+
+// LINK: constants/macros.py#strut-macros
+STRUT_CMD: "\strut"
 
 // LINK: constants/macros.py#lefteqn-macros
 LEFTEQN_CMD: "\lefteqn"
@@ -284,5 +291,6 @@ CARD_SYM: "\clubsuit" | "\diamondsuit" | "\heartsuit" | "\spadesuit"
 // LINK: constants/symbols.py#ams-spacing-symbols
 SPACING_SYM: "\space" | "\thinspace" | "\medspace" | "\thickspace" | "\enspace" | "\quad" | "\qquad" | "\negthinspace" | "\negmedspace" | "\negthickspace" | "\hfill" | "\:" | "\," | "\;" | "\!" | "~" | "\ "
 
-// LINK: constants/symbols.py#skip-symbols
-SKIP_SYM: "\bigskip" | "\medskip" | "\smallskip"
+
+%import common.WS
+%ignore WS

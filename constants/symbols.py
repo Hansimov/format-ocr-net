@@ -190,10 +190,6 @@ LATEX2E_PLAYING_CARD_SUIT_SYMBOLS = r"\clubsuit \diamondsuit \heartsuit \spadesu
 # ANCHOR[id=ams-spacing-symbols]
 AMS_SPACING_SYMBOLS = r"\space \thinspace \medspace \thickspace \enspace \quad \qquad \negthinspace \negmedspace \negthickspace \hfill \: \, \; \! ~"
 
-# https://latexref.xyz/_005cbigskip-_0026-_005cmedskip-_0026-_005csmallskip.html
-# ANCHOR[id=skip-symbols]
-SKIP_SYMBOLS = r"\bigskip \medskip \smallskip"
-
 # AMS ch-9.4: Italic Greek letters
 # ANCHOR[id=ams-italic-greek-symbols]
 AMS_ITALIC_GREEK_SYMBOLS = r"\varGamma \varDelta \varTheta \varLambda \varXi \varPi \varSigma \varUpsilon \varPhi \varPsi \varOmega"
@@ -252,7 +248,6 @@ SYMBOLS_SET_LIST = [
     LATEX2E_MUSICAL_SYMBOLS,
     LATEX2E_PLAYING_CARD_SUIT_SYMBOLS,
     AMS_SPACING_SYMBOLS,
-    SKIP_SYMBOLS,
     AMS_ITALIC_GREEK_SYMBOLS,
     ALIGN_SYMBOLS,
     OTHER_SYMBOLS,

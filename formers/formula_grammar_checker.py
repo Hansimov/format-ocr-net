@@ -12,11 +12,15 @@ class FormulaGrammarChecker:
         with open(self.grammar_filepath, "r") as rf:
             # escape the backslash (\) in .lark file
             grammar = rf.read()
-            grammar = grammar.replace(r'"\""', r"MASKED_BACKSLASH_QUOTES")
-            grammar = grammar.replace("\\", "\\\\")
-            grammar = grammar.replace(r"MASKED_BACKSLASH_QUOTES", r'"\""')
+            grammar = self.recode_grammar(grammar)
 
         self.parser = Lark(grammar, start="latex_eqn", parser="lalr")
+
+    def recode_grammar(self, grammar):
+        grammar = grammar.replace(r'"\""', r"MASKED_BACKSLASH_QUOTES")
+        grammar = grammar.replace("\\", "\\\\")
+        grammar = grammar.replace(r"MASKED_BACKSLASH_QUOTES", r'"\""')
+        return grammar
 
     def check(self, expr, verbose=False):
         try:
