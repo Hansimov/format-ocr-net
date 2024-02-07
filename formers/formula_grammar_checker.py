@@ -29,6 +29,9 @@ class FormulaGrammarChecker:
 
 if __name__ == "__main__":
     exprs = [
+        r"{ }",
+        r"\bar {}",
+        r"\frac {x} {}",
         # r"{ a b c } ",
         # r"G ( 0, 1 ) H ( 2, 3 )",
         # r"\bar{x}",
@@ -39,7 +42,7 @@ if __name__ == "__main__":
         # r"\frac{ab}{cd}",
         # r"\frac{ab}{cd} + \frac{ef}{gh} = \bar{x} + \bar{b}",
         # r"G ( 0 , t ^ { \prime \prime } ; 0 , t ^ { \prime \prime } ) = i \int \int \frac { d \omega ^ { \prime \prime } } { 2 \pi } \frac { d k ^ { \prime \prime } } { 2 \pi } P _ { 0 } ( \omega ^ { \prime \prime } , k ^ { \prime \prime } )",
-        r"{ \frac { \phi ^ { \prime \prime } } { A } } + { \frac { 1 } { A } } \left( - { \frac { 1 } { 2 } } { \frac { A ^ { \prime } } { A } } + 2 { \frac { B ^ { \prime } } { B } } + { \frac { 2 } { r } } \right) \phi ^ { \prime } - { \frac { 2 } { r ^ { 2 } } } \phi - \lambda \phi ( \phi ^ { 2 } - \eta ^ { 2 } ) = 0 \, .",
+        # r"{ \frac { \phi ^ { \prime \prime } } { A } } + { \frac { 1 } { A } } \left( - { \frac { 1 } { 2 } } { \frac { A ^ { \prime } } { A } } + 2 { \frac { B ^ { \prime } } { B } } + { \frac { 2 } { r } } \right) \phi ^ { \prime } - { \frac { 2 } { r ^ { 2 } } } \phi - \lambda \phi ( \phi ^ { 2 } - \eta ^ { 2 } ) = 0 \, .",
         # r"E _ { A D M } = \frac { 1 } { 1 6 \pi G _ { 1 0 } } \oint _ { \infty } d \Sigma ^ { m } \lbrace { } ^ { \circ } D _ { n } g _ { m p } - { } ^ { \circ } D _ { m } g _ { n p } \rbrace { } ^ { \circ } g ^ { n p }",
     ]
     checker = FormulaGrammarChecker()

@@ -20,12 +20,12 @@ full_eqn: ([DISPLAY_STYLE] (eqn_with_env | eqn))+
         end_env_expr: END LB env RB
             env: AMS_EQUATION_ENV | LOW_LEVEL_AMS_EQUATION_ENV | AMS_MATRIX_ENV
     eqn: eqn_with_scope | eqn_with_cmd | eqn_without_cmd
-        eqn_with_scope: LB eqn+ RB
+        eqn_with_scope: LB eqn* RB
         eqn_with_cmd: eqn_with_scoped_cmd | eqn_with_delim_cmd | eqn_with_non_scoped_cmd
-            eqn_with_scoped_cmd: LB scoped_cmd eqn+ RB
+            eqn_with_scoped_cmd: LB scoped_cmd eqn* RB
                 scoped_cmd: FONT_SIZE_CMD | color_expr
                     color_expr: COLOR_CMD LB COLOR RB
-            eqn_with_delim_cmd: (left_delim_expr eqn+ right_delim_expr) | non_paired_delim_expr
+            eqn_with_delim_cmd: (left_delim_expr eqn* right_delim_expr) | non_paired_delim_expr
                     left_delim_expr: LEFT_DELIM_CMD (LEFT_DELIM_SYM | NON_PAIRED_DELIM_SYM)
                     right_delim_expr: RIGHT_DELIM_CMD (RIGHT_DELIM_SYM | NON_PAIRED_DELIM_SYM)
                     non_paired_delim_expr: NON_PAIRED_DELIM_CMD (LEFT_DELIM_SYM | RIGHT_DELIM_SYM | NON_PAIRED_DELIM_SYM)
