@@ -1,4 +1,5 @@
 from pathlib import Path
+from pprint import pprint
 from tqdm import tqdm
 from constants.symbols import LATEX_SYMBOLS
 from constants.macros import LATEX_MACROS, AMS_DELIMITER_MACROS
@@ -15,6 +16,7 @@ class FormulaDatasetAnalyzer:
         self.symbols = []
         self.macros = []
         self.environments = []
+        self.invalid_formulas = []
         self.checker = FormulaGrammarChecker()
 
     def load(self):
@@ -24,7 +26,8 @@ class FormulaDatasetAnalyzer:
         logger.success(f"{len(self.formulas)} formulas in {self.dataset_path.name}")
 
     def check_formula(self, formula):
-        self.checker.check(formula)
+        is_valid, error = self.checker.check(formula)
+        return is_valid, error
 
     def analyze_formula(self, formula):
         elements = formula.split()
@@ -53,12 +56,41 @@ class FormulaDatasetAnalyzer:
             else:
                 raise TypeError(f"Unknown type: {element}")
 
+    def check(self):
+        invalid_count = 0
+        offset = 46540
+        invalid_threshold = 5
+        with tqdm(total=len(self.formulas)) as pbar:
+            for idx, formula in enumerate(self.formulas[offset:]):
+                is_valid, error = self.check_formula(formula)
+                if not is_valid:
+                    invalid_count += 1
+                    self.invalid_formulas.append(
+                        {
+                            "line": idx + offset + 1,
+                            "error_idx": invalid_count,
+                            "error": error,
+                            "formula": formula,
+                        }
+                    )
+                if invalid_count == invalid_threshold:
+                    pprint(self.invalid_formulas)
+                    logger.warn(f"[Stop] Invalid count reached {invalid_threshold}!")
+                    break
+                # logger.warn(f"Line: {idx+offset+1}")
+                invalid_ratio = round(invalid_count / (idx + 1) * 10000, 1)
+                pbar.set_postfix(
+                    {
+                        "invalid": f"{invalid_count:>6} ({invalid_ratio}%%)",
+                    }
+                )
+                pbar.update()
+
     def analyze(self):
-        offset = 38730
+        offset = 0
         with tqdm(total=len(self.formulas)) as pbar:
             for idx, formula in enumerate(self.formulas[offset:]):
                 try:
-                    self.check_formula(formula)
                     self.analyze_formula(formula)
                     symbols_count = len(self.symbols)
                     macros_count = len(self.macros)
@@ -87,4 +119,5 @@ class FormulaDatasetAnalyzer:
 if __name__ == "__main__":
     analyzer = FormulaDatasetAnalyzer()
     analyzer.load()
-    analyzer.analyze()
+    # analyzer.analyze()
+    analyzer.check()
