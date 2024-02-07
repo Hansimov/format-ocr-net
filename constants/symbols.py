@@ -17,7 +17,7 @@ UPPER_ASCII_SYMBOLS = "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z"
 # ANCHOR[id=digit-symbols]
 DIGIT_SYMBOLS = "0 1 2 3 4 5 6 7 8 9"
 # ANCHOR[id=punctuation-symbols]
-PUNCTUATION_SYMBOLS = ". , : ; ! ? ' \" ` - \ < > + = * @"
+PUNCTUATION_SYMBOLS = r". , : ; ! ? ' \' \" ` - \ < > + = * @"
 
 # Table 3: [LaTeX-2e] Commands Defined to Work in Both Math and Text Mode
 # ANCHOR[id=latex2e-math-text-symbols]
@@ -84,7 +84,7 @@ AMS_TRIANGLE_RELATION_SYMBOLS = r"\blacktriangleleft \blacktriangleright \ntrian
 
 # Table 153: Arrows
 # ANCHOR[id=arrow-symbols]
-ARROW_SYMBOLS = r"\Downarrow \downarrow \hookleftarrow \hookrightarrow \leadsto \leftarrow \Leftarrow \leftrightarrow \Leftrightarrow \longleftarrow \Longleftarrow \longleftrightarrow \Longleftrightarrow \longmapsto \longrightarrow \Longrightarrow \mapsto \nearrow \nwarrow \rightarrow \Rightarrow \searrow \swarrow \uparrow \Uparrow \updownarrow \Updownarrow \to \gets"
+ARROW_SYMBOLS = r"\Downarrow \downarrow \hookleftarrow \hookrightarrow \leadsto \leftarrow \Leftarrow \leftrightarrow \Leftrightarrow \longleftarrow \Longleftarrow \longleftrightarrow \Longleftrightarrow \longmapsto \longrightarrow \Longrightarrow \mapsto \nearrow \nwarrow \rightarrow \Rightarrow \searrow \swarrow \uparrow \Uparrow \updownarrow \Updownarrow \to \gets \iff"
 
 # Table 154: Harpoons
 # ANCHOR[id=harpoon-symbols]

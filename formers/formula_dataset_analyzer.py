@@ -58,23 +58,23 @@ class FormulaDatasetAnalyzer:
 
     def check(self):
         invalid_count = 0
-        offset = 46540
+        offset = 100000
         invalid_threshold = 5
         with tqdm(total=len(self.formulas)) as pbar:
             for idx, formula in enumerate(self.formulas[offset:]):
                 is_valid, error = self.check_formula(formula)
                 if not is_valid:
                     invalid_count += 1
-                    self.invalid_formulas.append(
-                        {
-                            "line": idx + offset + 1,
-                            "error_idx": invalid_count,
-                            "error": error,
-                            "formula": formula,
-                        }
-                    )
+                    invalid_formula = {
+                        "line": idx + offset + 1,
+                        "error_idx": invalid_count,
+                        "error": error,
+                        "formula": formula,
+                    }
+                    self.invalid_formulas.append(invalid_formula)
+                    pprint(invalid_formula)
                 if invalid_count == invalid_threshold:
-                    pprint(self.invalid_formulas)
+                    # pprint(self.invalid_formulas)
                     logger.warn(f"[Stop] Invalid count reached {invalid_threshold}!")
                     break
                 # logger.warn(f"Line: {idx+offset+1}")

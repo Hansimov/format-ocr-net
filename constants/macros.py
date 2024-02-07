@@ -59,7 +59,7 @@ FILL_MACROS = r"\fill \hfill \hfil \hfilneg \vfill \vfil \vfilneg"
 # https://www.tutorialspoint.com/tex_commands/hskip.htm
 # https://latexref.xyz/_005cbigskip-_0026-_005cmedskip-_0026-_005csmallskip.html
 # ANCHOR[id=skip-macros]
-SKIP_MACROS = r"\bigskip \medskip \smallskip \hskip vskip"
+SKIP_MACROS = r"\bigskip \medskip \smallskip \enskip \hskip vskip"
 
 # Table 693: Producing bold mathematical symbols
 # `\boldmath` is used to switch to a bold math italic font.`
@@ -175,6 +175,7 @@ FONT_SIZE_MACROS = r"\tiny \scriptsize \footnotesize \small \normalsize \large \
 # remove the tag or number from the equation
 # ANCHOR[id=no-tag-macros]
 NO_TAG_MACROS = r"\nonumber \notag"
+TAG_MACROS = r"\tag"
 
 # https://www.comp.nus.edu.sg/~kanmy/latex/lefteqn.html
 # Prints eqn in display math style, but pretends that it has zero width

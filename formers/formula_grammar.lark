@@ -24,7 +24,7 @@ latex_eqn: eqn+
         eqn_with_scope: LB eqn* RB
         eqn_with_cmd: eqn_with_scoped_cmd | eqn_with_delim_cmd | eqn_with_non_scoped_cmd
             eqn_with_scoped_cmd: scoped_cmd eqn*
-                scoped_cmd: FONT_SIZE_CMD | BOLD_MATH_FONT_CMD | color_expr
+                scoped_cmd: FONT_SIZE_CMD | BOLD_MATH_FONT_CMD | SHORT_MATH_FONT_STYLE_CMD | color_expr
                     color_expr: COLOR_CMD LB COLOR RB
             eqn_with_delim_cmd: (left_delim_expr eqn* right_delim_expr) | non_paired_delim_expr
                     delim_sym: LEFT_DELIM_SYM | RIGHT_DELIM_SYM | NON_PAIRED_DELIM_SYM
@@ -33,7 +33,7 @@ latex_eqn: eqn+
                     non_paired_delim_expr: NON_PAIRED_DELIM_CMD delim_sym
             eqn_with_non_scoped_cmd: one_arg_expr | two_arg_expr
                 one_arg_expr: one_arg_cmd eqn
-                    one_arg_cmd: MATH_FONT_STYLE_CMD | SHORT_MATH_FONT_STYLE_CMD | TEXT_FONT_STYLE_CMD | SUB_SUP_CMD | ACCENT_CMD | EXTENSIBLE_ACCENT_CMD | OPERATOR_NAME_CMD | MOD_CMD | AFFIX_CMD | BOX_CMD | LEFTEQN_CMD | PHANTOM_CMD | GEN_FRAC_CMD | BRACK_CMD | LAP_CMD | MATH_MODE_SPACING_CMD
+                    one_arg_cmd: MATH_FONT_STYLE_CMD | TEXT_FONT_STYLE_CMD | SUB_SUP_CMD | ACCENT_CMD | EXTENSIBLE_ACCENT_CMD | OPERATOR_NAME_CMD | MOD_CMD | AFFIX_CMD | BOX_CMD | LEFTEQN_CMD | TAG_CMD | PHANTOM_CMD | GEN_FRAC_CMD | BRACK_CMD | LAP_CMD | MATH_MODE_SPACING_CMD
                 two_arg_expr: two_arg_cmd eqn eqn
                     two_arg_cmd: FRAC_CMD | RULE_CMD
         eqn_without_cmd: operator | symbol | char | control
@@ -132,7 +132,7 @@ MATH_MODE_SPACING_CMD: "\mathord" | "\mathop" | "\mathbin" | "\mathrel" | "\math
 FILL_CMD: "\fill" | "\hfill" | "\hfil" | "\hfilneg" | "\vfill" | "\vfil" | "\vfilneg"
 
 // LINK: constants/macros.py#skip-macros
-SKIP_CMD: "\bigskip" | "\medskip" | "\smallskip" | "\hskip" | "vskip"
+SKIP_CMD: "\bigskip" | "\medskip" | "\smallskip" | "\enskip" | "\hskip" | "vskip"
 
 // LINK: constants/macros.py#ams-mod-macros
 MOD_CMD: "\mod" | "\bmod" | "\pmod" | "\pod"
@@ -172,6 +172,7 @@ LEFTEQN_CMD: "\lefteqn"
 
 // LINK: constants/macros.py#no-tag-macros
 NO_TAG_CMD: "\notag" | "\nonumber"
+TAG_CMD: "\tag"
 
 // LINK: constants/macros.py#ams-substack-macros
 SUBSTACK_CMD: "\substack"
@@ -239,7 +240,7 @@ AMS_INEQUALITY_OP: "\eqslantgtr" | "\eqslantless" | "\geqq" | "\geqslant" | "\gg
 AMS_TRIAG_RELATION_OP: "\blacktriangleleft" | "\blacktriangleright" | "\ntriangleleft" | "\ntrianglelefteq" | "\ntriangleright" | "\ntrianglerighteq" | "\trianglelefteq" | "\triangleq" | "\trianglerighteq" | "\vartriangleleft" | "\vartriangleright"
 
 // LINK: constants/symbols.py#arrow-symbols
-ARROW_OP: "\Downarrow" | "\downarrow" | "\hookleftarrow" | "\hookrightarrow" | "\leadsto" | "\leftarrow" | "\Leftarrow" | "\leftrightarrow" | "\Leftrightarrow" | "\longleftarrow" | "\Longleftarrow" | "\longleftrightarrow" | "\Longleftrightarrow" | "\longmapsto" | "\longrightarrow" | "\Longrightarrow" | "\mapsto" | "\nearrow" | "\nwarrow" | "\rightarrow" | "\Rightarrow" | "\searrow" | "\swarrow" | "\uparrow" | "\Uparrow" | "\updownarrow" | "\Updownarrow" | "\to" | "\gets"
+ARROW_OP: "\Downarrow" | "\downarrow" | "\hookleftarrow" | "\hookrightarrow" | "\leadsto" | "\leftarrow" | "\Leftarrow" | "\leftrightarrow" | "\Leftrightarrow" | "\longleftarrow" | "\Longleftarrow" | "\longleftrightarrow" | "\Longleftrightarrow" | "\longmapsto" | "\longrightarrow" | "\Longrightarrow" | "\mapsto" | "\nearrow" | "\nwarrow" | "\rightarrow" | "\Rightarrow" | "\searrow" | "\swarrow" | "\uparrow" | "\Uparrow" | "\updownarrow" | "\Updownarrow" | "\to" | "\gets" | "\iff"
 // LINK: constants/symbols.py#ams-arrow-symbols
 AMS_ARROW_OP: "\circlearrowleft" | "\circlearrowright" | "\curvearrowleft" | "\curvearrowright" | "\dashleftarrow" | "\dashrightarrow" | "\downdownarrows" | "\leftarrowtail" | "\leftleftarrows" | "\leftrightarrows" | "\leftrightsquigarrow" | "\Lleftarrow" | "\looparrowleft" | "\looparrowright" | "\Lsh" | "\rightarrowtail" | "\rightleftarrows" | "\rightrightarrows" | "\rightsquigarrow" | "\Rsh" | "\twoheadleftarrow" | "\twoheadrightarrow" | "\upuparrows"
 // LINK: constants/symbols.py#ams-negated-arrow-symbols
@@ -268,7 +269,7 @@ AMS_ANGLE_OP: "\angle" | "\measuredangle" | "\sphericalangle"
 // LINK: constants/symbols.py#escaped-symbols
 ESCAPED_SYM: "\&" | "\%" | "\$" | "\#" | "\_" | "\{" | "\}" | "\~" | "\^" | "\\"
 // LINK: constants/symbols.py#punctuation-symbols
-PUNCT_SYM: "." | "," | ":" | ";" | "!" | "?" | "'" | "`"| "-" | "\\" | "<" | ">" | "+" | "=" | "*" | "@" | "\""
+PUNCT_SYM: "." | "," | ":" | ";" | "!" | "?" | "'" | "`"| "-" | "\\" | "<" | ">" | "+" | "=" | "*" | "@" | "\"" | "\'"
 LINE_BREAK: "\\\\"
 
 // LINK: constants/symbols.py#align-symbols
