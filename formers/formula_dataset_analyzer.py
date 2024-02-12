@@ -58,7 +58,7 @@ class FormulaDatasetAnalyzer:
 
     def check(self):
         invalid_count = 0
-        offset = 100000
+        offset = 112000
         invalid_threshold = 5
         with tqdm(total=len(self.formulas)) as pbar:
             for idx, formula in enumerate(self.formulas[offset:]):

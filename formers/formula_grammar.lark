@@ -24,7 +24,7 @@ latex_eqn: eqn+
         eqn_with_scope: LB eqn* RB
         eqn_with_cmd: eqn_with_scoped_cmd | eqn_with_delim_cmd | eqn_with_non_scoped_cmd
             eqn_with_scoped_cmd: scoped_cmd eqn*
-                scoped_cmd: FONT_SIZE_CMD | BOLD_MATH_FONT_CMD | SHORT_MATH_FONT_STYLE_CMD | color_expr
+                scoped_cmd: FONT_SIZE_CMD | BOLD_MATH_FONT_CMD | SHORT_MATH_FONT_STYLE_CMD | color_expr | LIMITS_CMD
                     color_expr: COLOR_CMD LB COLOR RB
             eqn_with_delim_cmd: (left_delim_expr eqn* right_delim_expr) | non_paired_delim_expr
                     delim_sym: LEFT_DELIM_SYM | RIGHT_DELIM_SYM | NON_PAIRED_DELIM_SYM
@@ -33,9 +33,9 @@ latex_eqn: eqn+
                     non_paired_delim_expr: NON_PAIRED_DELIM_CMD delim_sym
             eqn_with_non_scoped_cmd: one_arg_expr | two_arg_expr
                 one_arg_expr: one_arg_cmd eqn
-                    one_arg_cmd: MATH_FONT_STYLE_CMD | TEXT_FONT_STYLE_CMD | SUB_SUP_CMD | ACCENT_CMD | EXTENSIBLE_ACCENT_CMD | OPERATOR_NAME_CMD | MOD_CMD | AFFIX_CMD | BOX_CMD | LEFTEQN_CMD | TAG_CMD | PHANTOM_CMD | GEN_FRAC_CMD | BRACK_CMD | LAP_CMD | MATH_MODE_SPACING_CMD
+                    one_arg_cmd: MATH_FONT_STYLE_CMD | TEXT_FONT_STYLE_CMD | SUB_SUP_CMD | ACCENT_CMD | EXTENSIBLE_ACCENT_CMD | OPERATOR_NAME_CMD | MOD_CMD | BOX_CMD | LEFTEQN_CMD | TAG_CMD | PHANTOM_CMD | GEN_FRAC_CMD | BRACK_CMD | LAP_CMD | MATH_MODE_SPACING_CMD
                 two_arg_expr: two_arg_cmd eqn eqn
-                    two_arg_cmd: FRAC_CMD | RULE_CMD
+                    two_arg_cmd: FRAC_CMD | RULE_CMD | SIDESET_CMD
         eqn_without_cmd: operator | symbol | char | control
             char: normal_char | lang_char
                 normal_char: LOWER_ASCII_CHAR | UPPER_ASCII_CHAR | DIGIT_CHAR | NON_ASCII_CHAR
@@ -138,7 +138,8 @@ SKIP_CMD: "\bigskip" | "\medskip" | "\smallskip" | "\enskip" | "\hskip" | "vskip
 MOD_CMD: "\mod" | "\bmod" | "\pmod" | "\pod"
 
 // LINK: constants/macros.py#ams-affix-macros
-AFFIX_CMD: "\stackrel" | "\overset" | "underset" | "\sideset" | "\limits" | "\nolimits"
+SIDESET_CMD: "\stackrel" | "\sideset" | "\overset" | "\underset"
+LIMITS_CMD: "\limits" | "\nolimits"
 
 // LINK: constants/macros.py#ams-box-macros
 BOX_CMD: "\boxed" | "\mbox" | "\makebox" | "\fbox" | "\framebox"
