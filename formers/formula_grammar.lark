@@ -33,7 +33,7 @@ latex_eqn: eqn+
                     non_paired_delim_expr: NON_PAIRED_DELIM_CMD delim_sym
             eqn_with_non_scoped_cmd: one_arg_expr | two_arg_expr
                 one_arg_expr: one_arg_cmd eqn
-                    one_arg_cmd: MATH_FONT_STYLE_CMD | TEXT_FONT_STYLE_CMD | SUB_SUP_CMD | ACCENT_CMD | EXTENSIBLE_ACCENT_CMD | OPERATOR_NAME_CMD | MOD_CMD | BOX_CMD | LEFTEQN_CMD | TAG_CMD | PHANTOM_CMD | GEN_FRAC_CMD | BRACK_CMD | LAP_CMD | MATH_MODE_SPACING_CMD
+                    one_arg_cmd: MATH_FONT_STYLE_CMD | TEXT_FONT_STYLE_CMD | SUB_SUP_CMD | ACCENT_CMD | EXTENSIBLE_ACCENT_CMD | OPERATOR_NAME_CMD | MOD_CMD | BOX_CMD | LEFTEQN_CMD | TAG_CMD | SUBSTACK_CMD | PHANTOM_CMD | GEN_FRAC_CMD | BRACK_CMD | LAP_CMD | MATH_MODE_SPACING_CMD
                 two_arg_expr: two_arg_cmd eqn eqn
                     two_arg_cmd: FRAC_CMD | RULE_CMD | SIDESET_CMD
         eqn_without_cmd: operator | symbol | char | control
@@ -164,7 +164,7 @@ LAP_CMD: "\rlap" | "\llap" | "\clap" | "\mathllap" | "\mathrlap" | "\mathclap"
 PHANTOM_CMD: "\phantom" | "\vphantom" | "\hphantom" | "\smash" | "\vspace" | "\hspace"
 
 // LINK: constants/macros.py#strut-macros
-STRUT_CMD: "\strut"
+STRUT_CMD: "\strut" | "\mathstrut"
 
 // LINK: constants/macros.py#lefteqn-macros
 LEFTEQN_CMD: "\lefteqn"

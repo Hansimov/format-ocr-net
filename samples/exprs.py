@@ -39,5 +39,8 @@ exprs = [
     # r"A ^ { 2 } = { ( A ^ { 0 } ) } ^ { 2 } - \overrightarrow A ^ { 2 } = 2 A ^ { + } A ^ { - } - \overrightarrow { A } _ { \perp } ^ { 2 } \, ,",
     # r"\Delta m \equiv \Re \, ( h _ { 1 1 } ^ { \mit \Theta } - h _ { 2 2 } ^ { \mit \Theta } ) = 2 \, \Im \, \Big ( H _ { 2 1 } { \frac { \partial { \Sigma } _ { 1 2 } ^ { I } ( x ) } { \partial x } \, \vrule \, } _ { x = H _ { 0 } } \, \Big ) \, + \, \ldots \, .",
     # r"\Big [ { \sf P } _ { \boldsymbol { x } } ^ { a } \Big ] _ { i } : = \Big [ \widetilde { \boldsymbol { 1 } } - \widetilde U _ { \boldsymbol { x } } ^ { - 1 } \widetilde U _ { \boldsymbol { y } } \Big ] ^ { a b } \Big [ i \partial _ { i } \frac { 2 \pi } { \boldsymbol { \partial } ^ { 2 } } \Big ] _ { \boldsymbol { x y } } i \nabla _ { U _ { \boldsymbol { y } } } ^ { b }",
-    r"A _ { 4 } ( p , p ) \underset { p = ( m , \overrightarrow { 0 } ) } { = } - \frac { 2 } { m ^ { 2 } } \, .",
+    # r"A _ { 4 } ( p , p ) \underset { p = ( m , \overrightarrow { 0 } ) } { = } - \frac { 2 } { m ^ { 2 } } \, .",
+    # r"F ( d _ { \operatorname * { m a x } } , n ) = \sum _ { d = 3 } ^ { d _ { \operatorname * { m a x } } } \sum _ { \substack { N = \{ n _ { 1 } , n _ { 2 } , \ldots , n _ { d } \} \\ n _ { 1 } + n _ { 2 } + \cdots + n _ { d } = n \\ 1 \le n _ { 1 } \le n _ { 2 } \le \cdots \le n _ { d } \le \lfloor n / 2 \rfloor } } \widetilde { F } ( d _ { \operatorname * { m a x } } , N )",
+    r"\Delta \widetilde { C } ^ { ( a ) } , \Delta \widehat  { C } ^ { ( a ) } | \mathstrut _ { - k ^ { 2 } \rightarrow \infty } \sim \frac { m _ { q } ^ { 2 } } { k ^ { 2 } } .",
+    r"\frac { \partial } { \partial \ln 1 / x } \overline Z [ \boldsymbol { U } ] = \alpha _ { s } \frac { 1 } { 2 } \frac { \delta } { \delta \boldsymbol { U } _ { u } } \overline \chi _ { u v } [ \boldsymbol { U } ] \frac { \delta } { \delta \boldsymbol { U } _ { v } } \overline Z [ \boldsymbol { U } ] \ .",
 ]

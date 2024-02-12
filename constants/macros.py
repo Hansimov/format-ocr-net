@@ -191,7 +191,7 @@ PHANTOM_MACROS = r"\phantom \vphantom \hphantom \vspace \hspace"
 # `\strut` creates an invisible box with no width, height 8.6pt and depth 3pt.
 #   - syntax: { \strut }
 # ANCHOR[id=strut-macros]
-STRUT_MACROS = r"\strut"
+STRUT_MACROS = r"\strut \mathstrut"
 
 # https://latexref.xyz/_005cprotect.html
 # ANCHOR[id=protect-macros]
