@@ -42,7 +42,7 @@ latex_eqn: eqn+
                 lang_char: GREEK_CHAR | AMS_GREEK_CHAR | AMS_ITALIC_GREEK_CHAR | AMS_HEBREW_CHAR
             operator: BINARY_OP | AMS_BINARY_OP | VARIABLE_SIZE_OP | AMS_VARIABLE_SIZE_OP | BINARY_RELATION_OP | AMS_BINARY_RELATION_OP | AMS_NEG_BINARY_RELATION_OP | SET_RELATION_OP | AMS_SET_RELATION_OP | INEQUALITY_OP | AMS_INEQUALITY_OP | AMS_TRIAG_RELATION_OP | ARROW_OP | AMS_ARROW_OP | AMS_NEG_ARROW_OP | HARPOON_OP | AMS_HARPOON_OP | LOG_LIKE_OP | AMS_LOG_LIKE_OP | LETTER_LIKE_OP | AMS_LETTER_LIKE_OP | AMS_ANGLE_OP
             symbol: LEFT_DELIM_SYM | RIGHT_DELIM_SYM | NON_PAIRED_DELIM_SYM | ESCAPED_SYM | PUNCT_SYM | MATH_TEXT_SYM | AMS_DELIM_SYM | DOT_SYM | AMS_DOT_SYM | MISC_MATH_SYM | MUSIC_SYM | CARD_SYM | SPACING_SYM
-            control: DISPLAY_STYLE_CMD | LINE_BREAK | NO_TAG_CMD | ALIGN_SYM | MATRIX_DOT_CMD | PROTECT_CMD | RELAX_CMD | FILL_CMD | SKIP_CMD | STRUT_CMD
+            control: DISPLAY_STYLE_CMD | LINE_BREAK | NO_TAG_CMD | ALIGN_SYM | MATRIX_DOT_CMD | PROTECT_CMD | RELAX_CMD | FILL_CMD | SKIP_CMD | STRUT_CMD | ALLOW_BREAK_CMD
 
 // ============ Commands ============ //
 
@@ -178,6 +178,9 @@ TAG_CMD: "\tag"
 // LINK: constants/macros.py#ams-substack-macros
 SUBSTACK_CMD: "\substack"
 
+// LINK: constants/macros.py#allow-break-macros
+ALLOW_BREAK_CMD: "\allowbreak"
+
 // LINK: constants/macros.py#ams-matrix-dot-macros
 MATRIX_DOT_CMD: "\hdotsfor" | "\hline" | "\vline"
 
@@ -299,7 +302,7 @@ MUSIC_SYM: "\flat" | "\natural" | "\sharp"
 CARD_SYM: "\clubsuit" | "\diamondsuit" | "\heartsuit" | "\spadesuit"
 
 // LINK: constants/symbols.py#ams-spacing-symbols
-SPACING_SYM: "\space" | "\thinspace" | "\medspace" | "\thickspace" | "\enspace" | "\quad" | "\qquad" | "\negthinspace" | "\negmedspace" | "\negthickspace" | "\hfill" | "\:" | "\," | "\;" | "\!" | "~" | "\ "
+SPACING_SYM: "\space" | "\thinspace" | "\medspace" | "\thickspace" | "\enspace" | "\quad" | "\qquad" | "\negthinspace" | "\negmedspace" | "\negthickspace" | "\hfill" | "\:" | "\," | "\;" | "\!" | "\ " | "~"
 
 
 %import common.WS

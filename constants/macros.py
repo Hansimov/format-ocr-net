@@ -147,6 +147,10 @@ AMS_TEXT_FONT_MACROS = (
 # ANCHOR[id=ams-substack-macros]
 AMS_SUBSTACK_MACROS = r"\substack"
 
+# https://tex.stackexchange.com/questions/26174/allow-line-break-but-without-inserting-a-dash
+# ANCHOR[id=allow-break-macros]
+ALLOW_BREAK_MACROS = r"\allowbreak"
+
 # AMS ch-7.2: The \sideset command
 # `\sideset` is used for putting symbols at the four 'corners' of a large operator.
 #   - syntax: { \sideset{_#1^#2}{_#3^#4} <large_operator> }
